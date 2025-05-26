@@ -1,66 +1,38 @@
 import React, { useState } from 'react'
-import { Box, Container, Typography, Grid, Paper, Chip, IconButton, Dialog, DialogContent, DialogTitle, DialogActions, Button } from '@mui/material'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Box, Container, Typography, Grid, Paper, Chip, IconButton, Dialog, DialogContent, DialogTitle } from '@mui/material'
+import { motion } from 'framer-motion'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import LaunchIcon from '@mui/icons-material/Launch'
 import CloseIcon from '@mui/icons-material/Close'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import Navbar from '../components/Navbar'
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null)
 
     const projects = [
         {
-            title: 'E-Commerce Platform',
-            description: 'A full-stack e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, product management, shopping cart, and payment integration.',
-            longDescription: `A comprehensive e-commerce solution that provides a seamless shopping experience. 
+            title: 'Kuber Ride Booking App',
+            description: 'A modern ride booking application with real-time tracking, fare estimation, and seamless payment integration. Built with MERN stack and modern web technologies for a beautiful user interface.',
+            longDescription: `A comprehensive ride booking solution that provides a seamless experience for both riders and drivers. 
                 Features include:
-                • User authentication and authorization
-                • Product catalog with search and filtering
-                • Shopping cart and wishlist functionality
-                • Secure payment processing with Stripe
-                • Order management and tracking
-                • Admin dashboard for inventory management
-                • Responsive design for all devices`,
-            technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Stripe'],
-            github: 'https://github.com/yourusername/ecommerce',
-            live: 'https://ecommerce-demo.com',
-            image: '/path-to-project-image.jpg',
-        },
-        {
-            title: 'Task Management App',
-            description: 'A collaborative task management application with real-time updates, team collaboration features, and progress tracking.',
-            longDescription: `A powerful task management tool designed for teams to collaborate effectively. 
-                Features include:
-                • Real-time task updates and notifications
-                • Team collaboration and task assignment
-                • Progress tracking and analytics
-                • Customizable task categories and labels
-                • File attachments and comments
-                • Calendar integration
-                • Mobile-responsive design`,
-            technologies: ['React', 'Firebase', 'Material-UI', 'Redux'],
-            github: 'https://github.com/yourusername/task-manager',
-            live: 'https://task-manager-demo.com',
-            image: '/path-to-project-image.jpg',
-        },
-        {
-            title: 'Portfolio Website',
-            description: 'A modern portfolio website showcasing projects and skills, built with React and Material-UI.',
-            longDescription: `A personal portfolio website that showcases my work and skills in an engaging way. 
-                Features include:
-                • Modern, responsive design
-                • Interactive project showcase
-                • Skills and experience timeline
-                • Contact form with validation
+                • User authentication and profile management
+                • Real-time location tracking and route visualization
+                • Fare estimation based on distance and time
+                • Secure payment processing with Razorpay
+                • Ride history and receipts
+                • Driver ratings and reviews
+                • Responsive design for all devices
                 • Dark mode support
-                • Smooth animations and transitions
-                • SEO optimization`,
-            technologies: ['React', 'Material-UI', 'Framer Motion'],
-            github: 'https://github.com/yourusername/portfolio',
-            live: 'https://portfolio-demo.com',
+                • Real-time updates using Socket.io
+                • Smooth animations with GSAP
+                • Image upload and management with Cloudinary`,
+            technologies: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'Socket.io', 'GSAP', 'Cloudinary', 'Razorpay', 'Tailwind CSS'],
+            github: 'https://github.com/Kunal-Gupta28/kuber',
+            live: 'https://kuber-tau.vercel.app',
             image: '/path-to-project-image.jpg',
-        },
+            category: 'Web App'
+        }
     ]
 
     const containerVariants = {
@@ -86,8 +58,23 @@ const Projects = () => {
         },
     }
 
+    // Add category filter state
+    const [selectedCategory, setSelectedCategory] = useState('Web App')
+
+    // Get unique categories
+    const categories = ['All', 'Web App', 'Mobile App', 'ML/AI']
+
+    // Filter projects based on selected category
+    const filteredProjects = selectedCategory === 'All' 
+        ? projects 
+        : projects.filter(project => project.category === selectedCategory)
+
     return (
         <Box sx={{ minHeight: '100dvh', py: 8, position: 'relative', overflow: 'hidden' }}>
+
+            {/* navbar */}
+            <Navbar />
+
             {/* Animated background elements */}
             <Box
                 sx={{
@@ -153,8 +140,33 @@ const Projects = () => {
                         </Typography>
                     </motion.div>
 
+                    {/* Category Filter */}
+                    <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
+                        {categories.map((category) => (
+                            <Chip
+                                key={category}
+                                label={category}
+                                onClick={() => setSelectedCategory(category)}
+                                sx={{
+                                    backgroundColor: selectedCategory === category 
+                                        ? 'primary.main' 
+                                        : 'rgba(124, 77, 255, 0.1)',
+                                    color: selectedCategory === category 
+                                        ? 'white' 
+                                        : 'primary.main',
+                                    '&:hover': {
+                                        backgroundColor: selectedCategory === category 
+                                            ? 'primary.dark' 
+                                            : 'rgba(124, 77, 255, 0.2)',
+                                    },
+                                    transition: 'all 0.3s ease-in-out',
+                                }}
+                            />
+                        ))}
+                    </Box>
+
                     <Grid container spacing={4}>
-                        {projects.map((project, index) => (
+                        {filteredProjects.map((project, index) => (
                             <Grid item xs={12} md={6} lg={4} key={index}>
                                 <motion.div
                                     variants={itemVariants}
@@ -274,6 +286,57 @@ const Projects = () => {
                                 </motion.div>
                             </Grid>
                         ))}
+                        {(selectedCategory === 'Mobile App' || selectedCategory === 'ML/AI' || selectedCategory === 'All') && (
+                            <Grid item xs={12}>
+                                <motion.div
+                                    variants={itemVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
+                                    <Paper
+                                        elevation={0}
+                                        sx={{
+                                            p: 4,
+                                            textAlign: 'center',
+                                            backgroundColor: 'rgba(20, 20, 20, 0.8)',
+                                            backdropFilter: 'blur(12px)',
+                                            border: '1px solid rgba(124, 77, 255, 0.1)',
+                                            transition: 'all 0.3s ease-in-out',
+                                            '&:hover': {
+                                                backgroundColor: 'rgba(124, 77, 255, 0.05)',
+                                                borderColor: 'primary.main',
+                                                boxShadow: '0 8px 32px rgba(124, 77, 255, 0.2)',
+                                            },
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="h4"
+                                            sx={{
+                                                mb: 2,
+                                                color: 'primary.main',
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            Coming Soon!
+                                        </Typography>
+                                        <Typography
+                                            variant="body1"
+                                            sx={{
+                                                color: 'text.secondary',
+                                                maxWidth: '600px',
+                                                margin: '0 auto',
+                                            }}
+                                        >
+                                            {selectedCategory === 'Mobile App' 
+                                                ? 'Exciting mobile applications are in development! Stay tuned for innovative solutions using React Native and modern mobile development practices.'
+                                                : selectedCategory === 'ML/AI'
+                                                ? 'Fascinating AI and Machine Learning projects are in the works! Exploring the frontiers of artificial intelligence and its practical applications.'
+                                                : 'More exciting projects are coming soon! Including mobile applications and AI/ML solutions.'}
+                                        </Typography>
+                                    </Paper>
+                                </motion.div>
+                            </Grid>
+                        )}
                     </Grid>
                 </motion.div>
 

@@ -2,11 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Box } from '@mui/material';
 import { motion } from 'framer-motion';
 
-/**
- * GradientBackground Component
- * Creates a subtle radial gradient background effect that adds depth to the UI
- * Uses fixed positioning to cover the entire viewport
- */
+// GradientBackground Component
 export const GradientBackground = () => {
     return (
         <Box
@@ -23,11 +19,7 @@ export const GradientBackground = () => {
     );
 };
 
-/**
- * ParticleBackground Component
- * Creates an interactive particle system that responds to mouse movement
- * Particles are attracted to the cursor within a certain radius
- */
+// ParticleBackground Component
 export const ParticleBackground = () => {
     // State for tracking mouse position
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

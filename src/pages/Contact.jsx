@@ -6,6 +6,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import Navbar from '../components/Navbar'
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -42,6 +43,9 @@ const Contact = () => {
 
     return (
         <Box sx={{ py: 8 }}>
+            {/* navbar */}
+            <Navbar />
+
             <Container maxWidth="lg">
                 <motion.div
                     initial="hidden"
@@ -53,7 +57,7 @@ const Contact = () => {
                         component="h1"
                         sx={{
                             textAlign: 'center',
-                            mb: 6,
+                            mb: 4,
                             fontWeight: 'bold',
                             background: 'linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)',
                             backgroundClip: 'text',

@@ -6,8 +6,8 @@ import SchoolIcon from '@mui/icons-material/School';
 import WorkIcon from '@mui/icons-material/Work';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import StarIcon from '@mui/icons-material/Star';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import Navbar from '../components/Navbar'
 
 const Qualifications = () => {
     const [expandedEducation, setExpandedEducation] = useState({})
@@ -15,59 +15,35 @@ const Qualifications = () => {
 
     const education = [
         {
-            degree: 'Bachelor of Technology in Computer Science',
-            institution: 'University Name',
-            duration: '2018 - 2022',
-            description: 'Graduated with honors. Specialized in Software Engineering and Data Structures.',
-            achievements: [
-                'Dean\'s List for Academic Excellence',
-                'First Prize in University Hackathon',
-                'Led Technical Club as President',
-                'Published Research Paper in IEEE',
-            ],
+            degree: 'Bachelor of Technology in Computer Science & Electronics and Communication',
+            institution: 'DTU - Delhi Technological University',
+            duration: '2022 - 2026',
+            description: 'Graduated with honors. Specialized in Electronics, Communication Systems, and Computer Science.',
             gpa: '3.8/4.0',
         },
         {
-            degree: 'High School Diploma',
-            institution: 'School Name',
-            duration: '2016 - 2018',
-            description: 'Completed with distinction in Mathematics and Computer Science.',
-            achievements: [
-                'Top 5% in National Science Olympiad',
-                'School Science Exhibition Winner',
-                'Mathematics Club Leader',
-            ],
+            degree: 'Diploma in Chemical Engineering',
+            institution: 'Guru nanak dev institute of technology',
+            duration: '2019 - 2022',
+            description: 'Completed with distinction in Chemical Process Technology and Industrial Chemistry.',
             gpa: '4.0/4.0',
         },
     ];
 
     const experience = [
         {
-            position: 'Senior Software Engineer',
-            company: 'Tech Company',
-            duration: '2022 - Present',
-            description: 'Leading development of enterprise-level applications. Mentoring junior developers and implementing best practices.',
+            position: 'Fresher | Self-Study in Web Development',
+            company: 'Independent Learning',
+            duration: '2023 - Present',
+            description: 'Fresh graduate actively learning modern web development technologies and building a strong foundation through self-study and practical projects.',
             responsibilities: [
-                'Led a team of 5 developers in building a microservices architecture',
-                'Implemented CI/CD pipelines reducing deployment time by 60%',
-                'Mentored junior developers and conducted code reviews',
-                'Optimized database queries improving performance by 40%',
+                'Building responsive and interactive web applications using React.js',
+                'Learning and implementing modern JavaScript (ES6+) features',
+                'Practicing with Material-UI for creating beautiful user interfaces',
+                'Working on personal projects to apply learned concepts',
             ],
-            technologies: ['React', 'Node.js', 'MongoDB', 'Docker', 'AWS'],
-        },
-        {
-            position: 'Software Engineer',
-            company: 'Previous Company',
-            duration: '2020 - 2022',
-            description: 'Developed and maintained web applications. Collaborated with cross-functional teams to deliver high-quality solutions.',
-            responsibilities: [
-                'Developed and maintained 3 major web applications',
-                'Implemented automated testing increasing coverage to 85%',
-                'Collaborated with UX team to improve user experience',
-                'Reduced bug reports by 30% through better code quality',
-            ],
-            technologies: ['JavaScript', 'React', 'Express', 'PostgreSQL'],
-        },
+            technologies: ['React.js', 'JavaScript', 'HTML5', 'CSS3', 'Material-UI', 'Git'],
+        }
     ];
 
     const handleEducationExpand = (index) => {
@@ -85,7 +61,11 @@ const Qualifications = () => {
     }
 
     return (
-        <Box sx={{ minHeight: '100vh', py: 8 }}>
+        <Box sx={{ minHeight: '100dvh', py: 8 }}>
+
+            {/* navbar */}
+            <Navbar/>
+            
             <Container maxWidth="lg">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -169,26 +149,6 @@ const Qualifications = () => {
                                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                                     {edu.description}
                                                 </Typography>
-                                                <Collapse in={expandedEducation[index]}>
-                                                    <Box sx={{ mt: 2, pl: 2 }}>
-                                                        {edu.achievements.map((achievement, idx) => (
-                                                            <Box
-                                                                key={idx}
-                                                                sx={{
-                                                                    display: 'flex',
-                                                                    alignItems: 'center',
-                                                                    gap: 1,
-                                                                    mb: 1,
-                                                                }}
-                                                            >
-                                                                <StarIcon sx={{ color: 'primary.main', fontSize: 16 }} />
-                                                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                                                    {achievement}
-                                                                </Typography>
-                                                            </Box>
-                                                        ))}
-                                                    </Box>
-                                                </Collapse>
                                             </TimelineContent>
                                         </TimelineItem>
                                     ))}

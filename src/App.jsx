@@ -10,10 +10,8 @@ import Projects from './pages/Projects'
 import Qualifications from './pages/Qualifications'
 import About from './pages/About'
 import Skills from './pages/Skills'
-import Blog from './pages/Blog'
-import Contact from './components/Contact'
-import Resume from './pages/Resume'
-import Testimonials from './pages/Testimonials'
+import Contact from './pages/Contact'
+import NotFound from "./pages/NotFound"
 
 export default function App() {
   return (
@@ -46,9 +44,8 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/skills" element={<Skills />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/resume" element={<Resume />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/testimonials" element={<Testimonials />} />
+              {/* Catch all route for 404 */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Box>
         </Box>

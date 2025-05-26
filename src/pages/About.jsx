@@ -5,6 +5,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import BrushIcon from '@mui/icons-material/Brush';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import { useTheme } from '../context/ThemeContext';
+import Navbar from '../components/Navbar'
 
 const About = () => {
     const { mode } = useTheme();
@@ -24,23 +25,27 @@ const About = () => {
     const interests = [
         {
             icon: <CodeIcon sx={{ fontSize: 40 }} />,
-            title: "Coding",
-            description: "Passionate about writing clean, efficient code and solving complex problems."
+            title: "Web Development",
+            description: "Passionate about creating modern, responsive web applications using React and Material-UI. Currently focusing on mastering full-stack development."
         },
         {
             icon: <BrushIcon sx={{ fontSize: 40 }} />,
-            title: "Design",
-            description: "Creating beautiful and intuitive user interfaces that enhance user experience."
+            title: "UI/UX Design",
+            description: "Love crafting beautiful and intuitive user interfaces. Always exploring new design trends and best practices to create better user experiences."
         },
         {
             icon: <PsychologyIcon sx={{ fontSize: 40 }} />,
             title: "Problem Solving",
-            description: "Enjoy tackling challenging problems and finding innovative solutions."
+            description: "Enjoy tackling complex problems and finding efficient solutions. Constantly learning new technologies and approaches to improve my skills."
         }
     ];
 
     return (
         <Box sx={{ minHeight: '100vh', py: 8 }}>
+
+            {/* navbar */}
+            <Navbar/>
+
             <Container maxWidth="lg">
                 <motion.div
                     initial="hidden"
@@ -124,7 +129,7 @@ const About = () => {
                                             transition={{ duration: 0.5, delay: 0.4 }}
                                         >
                                             <Avatar
-                                                src="/path-to-your-image.jpg" // Replace with your image path
+                                                src="/images/non-bg.png"
                                                 alt="Profile"
                                                 sx={{
                                                     width: '100%',
@@ -149,21 +154,19 @@ const About = () => {
                                     My Journey
                                 </Typography>
                                 <Typography variant="body1" sx={{ color: 'text.secondary', mb: 2 }}>
-                                    I'm a passionate full-stack developer with a keen eye for design and a
-                                    love for creating seamless user experiences. My journey in web
-                                    development has equipped me with a diverse skill set, allowing me to
-                                    tackle complex problems and deliver elegant solutions.
+                                    Hello! I'm <b className='text-white'>Kunal Gupta</b>, a passionate <b className='text-white'>Computer Science & Electronics student</b> at DTU, 
+                                    currently in my final year. My journey in technology began with a diploma in Chemical Engineering, 
+                                    which gave me a strong foundation in problem-solving and analytical thinking.
                                 </Typography>
                                 <Typography variant="body1" sx={{ color: 'text.secondary', mb: 2 }}>
-                                    With a strong foundation in both frontend and backend technologies,
-                                    I strive to build applications that are not only functional but also
-                                    visually appealing and user-friendly. My approach combines technical
-                                    expertise with creative problem-solving to deliver exceptional results.
+                                    I'm currently focused on <b className='text-white'>web development</b>, particularly in building modern, 
+                                    responsive applications using React and Material-UI. My project, the Kuber Ride Booking App, 
+                                    showcases my ability to create user-friendly interfaces and implement complex features.
                                 </Typography>
                                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                    When I'm not coding, you can find me exploring new technologies,
-                                    contributing to open-source projects, or sharing my knowledge through
-                                    technical writing.
+                                    As a <b className='text-white'>fresher in the tech industry</b>, I'm eager to learn and grow. I'm constantly 
+                                    exploring new technologies and best practices, and I'm excited about the opportunity to 
+                                    contribute to meaningful projects and make a positive impact in the field of web development.
                                 </Typography>
                             </Paper>
                         </motion.div>

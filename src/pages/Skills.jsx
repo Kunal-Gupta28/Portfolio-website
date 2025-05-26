@@ -7,6 +7,7 @@ import BrushIcon from '@mui/icons-material/Brush';
 import DevicesIcon from '@mui/icons-material/Devices';
 import SecurityIcon from '@mui/icons-material/Security';
 import SpeedIcon from '@mui/icons-material/Speed';
+import Navbar from '../components/Navbar';
 
 const Skills = () => {
     const fadeInUp = {
@@ -39,7 +40,7 @@ const Skills = () => {
                 { name: "Node.js", level: 85 },
                 { name: "Express", level: 80 },
                 { name: "MongoDB", level: 75 },
-                { name: "SQL", level: 70 },
+                { name: "Socket.io", level: 70 },
             ]
         },
         {
@@ -85,7 +86,10 @@ const Skills = () => {
     ];
 
     return (
-        <Box sx={{ minHeight: '100vh', py: 8 }}>
+        <Box sx={{ minHeight: '100dvh', py: 8 }}>
+
+            {/* navbar */}
+            <Navbar/>
             <Container maxWidth="lg">
                 <motion.div
                     initial="hidden"
