@@ -208,7 +208,7 @@ const Landing = () => {
                                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                                         <Button
                                             component={Link}
-                                            to="/about"
+                                            to="/projects"
                                             variant="contained"
                                             size="large"
                                             endIcon={<ArrowForwardIcon />}

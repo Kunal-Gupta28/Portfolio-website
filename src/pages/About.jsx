@@ -22,21 +22,33 @@ const About = () => {
         }
     };
 
+    // Add bounce animation variant
+    const bounceVariants = {
+        bounce: {
+            y: [0, -15, 0],
+            transition: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+            }
+        }
+    };
+
     const interests = [
         {
             icon: <CodeIcon sx={{ fontSize: 40 }} />,
-            title: "Web Development",
-            description: "Passionate about creating modern, responsive web applications using React and Material-UI. Currently focusing on mastering full-stack development."
+            title: "Full-Stack Development",
+            description: "Passionate about building end-to-end web applications using the MERN stack. Experienced in both frontend and backend development, with a focus on creating scalable and maintainable solutions."
         },
         {
             icon: <BrushIcon sx={{ fontSize: 40 }} />,
-            title: "UI/UX Design",
-            description: "Love crafting beautiful and intuitive user interfaces. Always exploring new design trends and best practices to create better user experiences."
+            title: "Mobile & AI Development",
+            description: "Exploring mobile app development and artificial intelligence. Interested in creating cross-platform mobile applications and implementing AI solutions to solve real-world problems."
         },
         {
             icon: <PsychologyIcon sx={{ fontSize: 40 }} />,
-            title: "Problem Solving",
-            description: "Enjoy tackling complex problems and finding efficient solutions. Constantly learning new technologies and approaches to improve my skills."
+            title: "Cybersecurity & Problem Solving",
+            description: "Fascinated by cybersecurity challenges and ethical hacking. Enjoy tackling complex technical problems across domains, from securing applications to implementing robust system architectures."
         }
     ];
 
@@ -128,25 +140,32 @@ const About = () => {
                                             animate={{ scale: 1 }}
                                             transition={{ duration: 0.5, delay: 0.4 }}
                                         >
-                                            <Avatar
-                                                src="/images/non-bg.png"
-                                                alt="Profile"
-                                                sx={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    border: '4px solid',
-                                                    borderColor: 'primary.main',
-                                                    boxShadow: mode === 'dark'
-                                                        ? '0 0 30px rgba(124, 77, 255, 0.5)'
-                                                        : '0 0 30px rgba(69, 39, 160, 0.5)',
-                                                    transition: 'all 0.3s ease-in-out',
-                                                    '&:hover': {
-                                                        boxShadow: mode === 'dark'
-                                                            ? '0 0 40px rgba(124, 77, 255, 0.7)'
-                                                            : '0 0 40px rgba(69, 39, 160, 0.7)',
-                                                    },
-                                                }}
-                                            />
+                                            <Box sx={{ position: 'relative' }}>
+                                                <motion.div
+                                                    animate="bounce"
+                                                    variants={bounceVariants}
+                                                >
+                                                    <Avatar
+                                                        src="/images/non-bg.png"
+                                                        alt="Profile"
+                                                        sx={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            border: '4px solid',
+                                                            borderColor: 'primary.main',
+                                                            boxShadow: mode === 'dark'
+                                                                ? '0 0 30px rgba(124, 77, 255, 0.5)'
+                                                                : '0 0 30px rgba(69, 39, 160, 0.5)',
+                                                            transition: 'all 0.3s ease-in-out',
+                                                            '&:hover': {
+                                                                boxShadow: mode === 'dark'
+                                                                    ? '0 0 40px rgba(124, 77, 255, 0.7)'
+                                                                    : '0 0 40px rgba(69, 39, 160, 0.7)',
+                                                            },
+                                                        }}
+                                                    />
+                                                </motion.div>
+                                            </Box>
                                         </motion.div>
                                     </Box>
                                 </Box>
@@ -154,19 +173,22 @@ const About = () => {
                                     My Journey
                                 </Typography>
                                 <Typography variant="body1" sx={{ color: 'text.secondary', mb: 2 }}>
-                                    Hello! I'm <b className='text-white'>Kunal Gupta</b>, a passionate <b className='text-white'>Computer Science & Electronics student</b> at DTU, 
-                                    currently in my final year. My journey in technology began with a diploma in Chemical Engineering, 
-                                    which gave me a strong foundation in problem-solving and analytical thinking.
+                                    Hello! I'm <b className='text-white'>Kunal Gupta</b>, a passionate <b className='text-white'>Computer Science & Electronics and Communication Engineering (ECE) student</b> at <b className='text-white'>DTU</b>, 
+                                    currently in my final year. My journey in technology began at the end of my second year, 
+                                    when I discovered my passion for programming and started exploring various coding concepts and technologies.
                                 </Typography>
                                 <Typography variant="body1" sx={{ color: 'text.secondary', mb: 2 }}>
-                                    I'm currently focused on <b className='text-white'>web development</b>, particularly in building modern, 
-                                    responsive applications using React and Material-UI. My project, the Kuber Ride Booking App, 
-                                    showcases my ability to create user-friendly interfaces and implement complex features.
+                                    While I'm a <b className='text-white'>Full-Stack MERN Developer</b>, my interests span across multiple domains. I'm passionate about 
+                                    <b className='text-white'> mobile app development, artificial intelligence, and machine learning. My creative side enjoys photo and video editing,
+                                    while my electronics background keeps me engaged with hardware projects</b>. I love exploring different programming paradigms, 
+                                    algorithms, and software development concepts. My project, the Kuber Ride Booking App, demonstrates my 
+                                    full-stack capabilities, featuring real-time updates with Socket.io, secure authentication, and 
+                                    seamless payment integration.
                                 </Typography>
                                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                                    As a <b className='text-white'>fresher in the tech industry</b>, I'm eager to learn and grow. I'm constantly 
-                                    exploring new technologies and best practices, and I'm excited about the opportunity to 
-                                    contribute to meaningful projects and make a positive impact in the field of web development.
+                                    As a <b className='text-white'>fresher in the tech industry</b>, I'm eager to learn and grow. I'm <b className='text-white'>constantly 
+                                    exploring new technologies and best practices</b> in both frontend and backend development, and I'm excited about 
+                                    the opportunity to contribute to meaningful full-stack projects and make a positive impact in the field of web development.
                                 </Typography>
                             </Paper>
                         </motion.div>

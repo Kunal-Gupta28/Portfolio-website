@@ -52,22 +52,22 @@ const Contact = () => {
                     animate="visible"
                     variants={fadeInUp}
                 >
-                    <Typography
-                        variant="h3"
-                        component="h1"
-                        sx={{
-                            textAlign: 'center',
+                        <Typography
+                            variant="h3"
+                            component="h1"
+                            sx={{
+                                textAlign: 'center',
                             mb: 4,
-                            fontWeight: 'bold',
-                            background: 'linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)',
-                            backgroundClip: 'text',
-                            textFillColor: 'transparent',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                        }}
-                    >
-                        Contact Me
-                    </Typography>
+                                fontWeight: 'bold',
+                                background: 'linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)',
+                                backgroundClip: 'text',
+                                textFillColor: 'transparent',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                            }}
+                        >
+                            Contact Me
+                        </Typography>
                 </motion.div>
 
                 <Grid container spacing={4}>
