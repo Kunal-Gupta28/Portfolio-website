@@ -12,7 +12,7 @@ export const GradientBackground = () => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'radial-gradient(circle at 50% 50%, rgba(124, 77, 255, 0.1) 0%, rgba(0, 229, 255, 0.05) 50%, transparent 100%)',
+                background: 'radial-gradient(circle at 50% 50%, rgba(124, 7, 255, 0.15) 0%, rgba(0, 229, 255, 0.07) 50%, transparent 100%)',
                 zIndex: 0,
             }}
         />
@@ -30,14 +30,14 @@ export const ParticleBackground = () => {
     // Generate initial particles with optimized properties
     // Using useMemo to prevent unnecessary regeneration
     const particles = useMemo(() => 
-        Array.from({ length: 1000 }, () => ({
-            x: Math.random() * 100,      // Random x position (0-100%)
-            y: Math.random() * 100,      // Random y position (0-100%)
-            baseX: Math.random() * 100,  // Base x position for return animation
-            baseY: Math.random() * 100,  // Base y position for return animation
-            size: Math.random() * 3.5 + 0.5,  // Random size (0.5-3px)
-            speed: Math.random() * 0.5 + 0.2, // Random movement speed
-            opacity: Math.random() * 0.5 + 0.3, // Random opacity (0.3-0.8)
+        Array.from({ length: 500 }, () => ({
+            x: Math.random() * 100,     
+            y: Math.random() * 100,    
+            baseX: Math.random() * 100,
+            baseY: Math.random() * 100,
+            size: Math.random() * 2.5 + 0.5,
+            speed: Math.random() * 1 + 0.2,
+            opacity: Math.random() * 0.7 + 0.3,
         })), 
     []);
 
@@ -151,11 +151,7 @@ export const ParticleBackground = () => {
     );
 };
 
-/**
- * BackgroundEffects Component
- * Combines both gradient and particle effects
- * Provides a rich, interactive background for the entire application
- */
+
 export const BackgroundEffects = () => {
     return (
         <>

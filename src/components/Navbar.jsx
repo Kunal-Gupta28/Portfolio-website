@@ -133,7 +133,7 @@ const Navbar = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: 'space-between', minHeight: '64px' }}>
+          <Toolbar sx={{ justifyContent: 'space-between', minHeight: '64px', }}>
             {isMobile ? (
               <>
                 <IconButton

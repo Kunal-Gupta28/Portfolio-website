@@ -86,7 +86,7 @@ const Skills = () => {
     ];
 
     return (
-        <Box sx={{ minHeight: '100dvh', py: 8 }}>
+        <Box sx={{ minHeight: '100dvh', maxWidth: '100dvw', py: 8 }}>
 
             {/* navbar */}
             <Navbar/>

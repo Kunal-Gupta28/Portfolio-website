@@ -53,7 +53,7 @@ const About = () => {
     ];
 
     return (
-        <Box sx={{ minHeight: '100vh', py: 8 }}>
+        <Box sx={{ minHeight: '100dvh'}}>
 
             {/* navbar */}
             <Navbar/>
@@ -69,7 +69,7 @@ const About = () => {
                         component="h1"
                         sx={{
                             textAlign: 'center',
-                            mb: 6,
+                            my: 6,
                             fontWeight: 'bold',
                             background: 'linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)',
                             backgroundClip: 'text',
@@ -146,7 +146,7 @@ const About = () => {
                                                     variants={bounceVariants}
                                                 >
                                                     <Avatar
-                                                        src="/images/non-bg.png"
+                                                        src="/images/non-bg2.png"
                                                         alt="Profile"
                                                         sx={{
                                                             width: '100%',

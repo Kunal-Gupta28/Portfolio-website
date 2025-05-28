@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography, Button, Container, Avatar } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -9,21 +8,17 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useTheme } from '../context/ThemeContext';
 import Navbar from '../components/Navbar';
 
-// Animation variants for container elements
-// Controls the staggered fade-in and slide-up animation of child elements
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.2, // Delay between each child animation
-            delayChildren: 0.3,   // Initial delay before starting animations
+            staggerChildren: 0.2,
+            delayChildren: 0.3,
         },
     },
 };
 
-// Animation variants for individual items
-// Controls the fade-in and slide-up animation for each element
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -31,37 +26,31 @@ const itemVariants = {
         y: 0,
         transition: {
             duration: 0.8,
-            ease: [0.6, -0.05, 0.01, 0.99], // Custom easing for smooth motion
+            ease: [0.6, -0.05, 0.01, 0.99],
         },
     },
 };
 
-// Animation variants for buttons
-// Controls hover and tap animations for interactive elements
 const buttonVariants = {
     hover: {
         scale: 1.05,
         boxShadow: '0 8px 32px rgba(124, 77, 255, 0.3)',
-        transition: {
-            duration: 0.3,
-            ease: 'easeInOut',
-        },
+        transition: { duration: 0.3, ease: 'easeInOut' },
     },
     tap: {
         scale: 0.95,
     },
 };
 
-// Animation variants for profile picture
 const profileVariants = {
     bounce: {
         y: [0, -15, 0],
         transition: {
             duration: 2,
             repeat: Infinity,
-            ease: "easeInOut",
-        }
-    }
+            ease: 'easeInOut',
+        },
+    },
 };
 
 const Landing = () => {
@@ -69,24 +58,20 @@ const Landing = () => {
 
     return (
         <>
-            <Navbar />
-            <Box sx={{ 
-                position: 'relative', 
-                overflow: 'hidden',
-                height: '100dvh',
-                minHeight: '600px',
-                display: 'flex',
-                alignItems: 'center'
-            }}>
-                <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+            <Box
+                sx={{
+                    position: 'relative',
+                    overflow: 'hidden',
+                    height: '100dvh',
+                    minHeight: '600px',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
+            >
+                <Navbar />
 
-                    {/* Animated container with staggered children */}
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={containerVariants}
-                    >
-                        {/* Centered content box with flex layout */}
+                <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+                    <motion.div initial="hidden" animate="visible" variants={containerVariants}>
                         <Box
                             sx={{
                                 display: 'flex',
@@ -94,10 +79,9 @@ const Landing = () => {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                py: 8,
                             }}
                         >
-                            {/* Profile Picture Section with animated glow effect */}
+                            {/* Profile Picture */}
                             <motion.div
                                 variants={itemVariants}
                                 style={{
@@ -108,12 +92,11 @@ const Landing = () => {
                                 <Box
                                     sx={{
                                         position: 'relative',
-                                        width: { xs: 200, md: 300 }, // Responsive sizing
+                                        width: { xs: 200, md: 300 },
                                         height: { xs: 200, md: 300 },
                                         margin: '0 auto',
                                     }}
                                 >
-                                    {/* Animated outer glow ring */}
                                     <motion.div
                                         animate={{
                                             scale: [1, 1.1, 1],
@@ -132,33 +115,32 @@ const Landing = () => {
                                             bottom: -10,
                                             borderRadius: '50%',
                                             background: `radial-gradient(circle, ${
-                                                mode === 'dark' ? 'rgba(124, 77, 255, 0.3)' : 'rgba(69, 39, 160, 0.3)'
+                                                mode === 'dark'
+                                                    ? 'rgba(124, 77, 255, 0.3)'
+                                                    : 'rgba(69, 39, 160, 0.3)'
                                             } 0%, transparent 70%)`,
                                             zIndex: 0,
                                         }}
                                     />
-                                    
-                                    {/* Profile picture with bounce animation */}
-                                    <motion.div
-                                        animate="bounce"
-                                        variants={profileVariants}
-                                    >
+                                    <motion.div animate="bounce" variants={profileVariants}>
                                         <Avatar
-                                            src="/images/non-bg.png"
+                                            src="/images/non-bg2.png"
                                             alt="Kunal Gupta"
                                             sx={{
                                                 width: '100%',
                                                 height: '100%',
                                                 border: '4px solid',
                                                 borderColor: 'primary.main',
-                                                boxShadow: mode === 'dark'
-                                                    ? '0 0 30px rgba(124, 77, 255, 0.5)'
-                                                    : '0 0 30px rgba(69, 39, 160, 0.5)',
+                                                boxShadow:
+                                                    mode === 'dark'
+                                                        ? '0 0 30px rgba(124, 77, 255, 0.5)'
+                                                        : '0 0 30px rgba(69, 39, 160, 0.5)',
                                                 transition: 'all 0.3s ease-in-out',
                                                 '&:hover': {
-                                                    boxShadow: mode === 'dark'
-                                                        ? '0 0 40px rgba(124, 77, 255, 0.7)'
-                                                        : '0 0 40px rgba(69, 39, 160, 0.7)',
+                                                    boxShadow:
+                                                        mode === 'dark'
+                                                            ? '0 0 40px rgba(124, 77, 255, 0.7)'
+                                                            : '0 0 40px rgba(69, 39, 160, 0.7)',
                                                 },
                                             }}
                                         />
@@ -166,7 +148,7 @@ const Landing = () => {
                                 </Box>
                             </motion.div>
 
-                            {/* Name heading with gradient text effect */}
+                            {/* Name */}
                             <motion.div variants={itemVariants}>
                                 <Typography
                                     variant="h1"
@@ -186,7 +168,7 @@ const Landing = () => {
                                 </Typography>
                             </motion.div>
 
-                            {/* Subtitle with text shadow effect */}
+                            {/* Subtitle */}
                             <motion.div variants={itemVariants}>
                                 <Typography
                                     variant="h4"
@@ -197,14 +179,13 @@ const Landing = () => {
                                         textShadow: '0 0 20px rgba(124, 77, 255, 0.2)',
                                     }}
                                 >
-                                    Crafting Digital Experiences Through Code
+                                        'Crafting Digital Experiences Through Code'
                                 </Typography>
                             </motion.div>
 
-                            {/* Main action buttons */}
+                            {/* Action Buttons */}
                             <motion.div variants={itemVariants}>
                                 <Box sx={{ display: 'flex', gap: 2, mb: 6, flexWrap: 'wrap', justifyContent: 'center' }}>
-                                    {/* Explore Work button with gradient background */}
                                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                                         <Button
                                             component={Link}
@@ -220,7 +201,6 @@ const Landing = () => {
                                             Explore My Work
                                         </Button>
                                     </motion.div>
-                                    {/* Contact button with hover effect */}
                                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                                         <Button
                                             component={Link}
@@ -242,10 +222,9 @@ const Landing = () => {
                                 </Box>
                             </motion.div>
 
-                            {/* Social media links with hover animations */}
+                            {/* Social Links */}
                             <motion.div variants={itemVariants}>
                                 <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-                                    {/* GitHub link */}
                                     <motion.div whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
                                         <Button
                                             component="a"
@@ -266,7 +245,6 @@ const Landing = () => {
                                         </Button>
                                     </motion.div>
 
-                                    {/* LinkedIn link */}
                                     <motion.div whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
                                         <Button
                                             component="a"
@@ -287,7 +265,6 @@ const Landing = () => {
                                         </Button>
                                     </motion.div>
 
-                                    {/* Email link */}
                                     <motion.div whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
                                         <Button
                                             component="a"
