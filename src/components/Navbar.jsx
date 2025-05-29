@@ -75,6 +75,8 @@ const Navbar = () => {
         background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)',
       }}
     >
+
+      {/* menu options */}
       <List>
         {navItems.map(({ label, to, icon }) => (
           <ListItem
@@ -269,6 +271,8 @@ const Navbar = () => {
             </Fab>
           </Tooltip>
         </motion.div>
+
+        {/* contacts */}
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
