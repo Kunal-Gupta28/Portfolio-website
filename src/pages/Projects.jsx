@@ -14,7 +14,7 @@ const Projects = () => {
 
     const projects = [
         {
-            title: 'Kuber Ride Booking App',
+            title: 'Kubik Ride Booking App',
             description: 'A modern ride booking application with real-time tracking, fare estimation, and seamless payment integration. Built with MERN stack and modern web technologies for a beautiful user interface.',
             longDescription: `A comprehensive ride booking solution that provides a seamless experience for both riders and drivers. 
                 Features include:
@@ -30,7 +30,7 @@ const Projects = () => {
                 • Smooth animations with GSAP
                 • Image upload and management with Cloudinary`,
             technologies: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'Socket.io', 'GSAP', 'Cloudinary', 'Razorpay', 'Tailwind CSS'],
-            github: 'https://github.com/Kunal-Gupta28/kuber',
+            github: 'https://github.com/Kunal-Gupta28/kubik',
             live: 'https://kuber-tau.vercel.app',
             videoDemo: 'https://www.youtube.com/watch?v=your-video-id',
             image: '/path-to-project-image.jpg',

@@ -181,7 +181,7 @@ const About = () => {
                                     While I'm a <b className='text-white'>Full-Stack MERN Developer</b>, my interests span across multiple domains. I'm passionate about 
                                     <b className='text-white'> mobile app development, artificial intelligence, and machine learning. My creative side enjoys photo and video editing,
                                     while my electronics background keeps me engaged with hardware projects</b>. I love exploring different programming paradigms, 
-                                    algorithms, and software development concepts. My project, the Kuber Ride Booking App, demonstrates my 
+                                    algorithms, and software development concepts. My project, the Kubik Ride Booking App, demonstrates my 
                                     full-stack capabilities, featuring real-time updates with Socket.io, secure authentication, and 
                                     seamless payment integration.
                                 </Typography>
