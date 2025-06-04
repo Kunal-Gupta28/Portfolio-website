@@ -7,7 +7,6 @@ import CloseIcon from '@mui/icons-material/Close'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary'
 import Navbar from '../components/Navbar'
-import { Javascript } from '@mui/icons-material'
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null)
@@ -33,9 +32,50 @@ const Projects = () => {
             github: 'https://github.com/Kunal-Gupta28/kubik',
             live: 'https://kuber-tau.vercel.app',
             videoDemo: 'https://www.youtube.com/watch?v=your-video-id',
-            image: '/path-to-project-image.jpg',
+            image: '/images/kubik.png',
             category: 'Web App',
             hasApiDependency: true
+        },
+        {
+            title: 'WanderLust - Travel Sharing App',
+            description: 'A full-stack travel destination sharing platform where users can post, explore, and review scenic locations around the world.',
+            longDescription: `WanderLust is a dynamic web application that allows users to share and discover travel destinations with rich visuals and community feedback.
+                Key features include:
+                • User authentication and session management using Express-session
+                • Flash messaging for real-time user notifications
+                • Destination posting with image uploads via Cloudinary
+                • MongoDB-based data management (hosted on MongoDB Atlas)
+                • Clean, server-rendered UI using EJS templating
+                • Responsive design for desktop and mobile
+                • CRUD operations for destinations and reviews`,
+            technologies: ['Node.js', 'Express.js', 'MongoDB Atlas', 'Cloudinary', 'EJS', 'Express-session', 'Connect-flash'],
+            github: 'https://github.com/Kunal-Gupta28/WanderLust',
+            live: 'https://offends.onrender.com',
+            videoDemo: '',
+            image: '/path-to-wanderlust-image.jpg',
+            category: 'Web App',
+            hasApiDependency: false
+        },
+        {
+            title: 'Works Studio',
+            description: 'A modern portfolio website showcasing creative works and projects with an elegant design and smooth animations. Built with React and Material-UI for a professional and interactive user experience.',
+            longDescription: `Works Studio is a sophisticated portfolio website that demonstrates modern web development practices and design principles.
+                Key features include:
+                • Responsive and modern UI design using Material-UI
+                • Smooth animations and transitions with Framer Motion
+                • Interactive project showcase with detailed descriptions
+                • Dark mode with gradient accents
+                • Optimized performance and loading times
+                • Clean and maintainable code structure
+                • SEO-friendly implementation
+                • Cross-browser compatibility`,
+            technologies: ['Html', 'CSS3', 'JavaScript', 'GSAP (ScrollTrigger)', 'Locomotive Scroll'],
+            github: 'https://github.com/Kunal-Gupta28/Works-sutdio',
+            live: 'https://works-sutdio.vercel.app',
+            videoDemo: '',
+            image: '/path-to-works-studio-image.jpg',
+            category: 'Web App',
+            hasApiDependency: false
         },
         {
             title: 'Image Enhancer',
@@ -78,26 +118,6 @@ const Projects = () => {
             hasApiDependency: false
 
         },
-        {
-            title: 'WanderLust - Travel Sharing App',
-            description: 'A full-stack travel destination sharing platform where users can post, explore, and review scenic locations around the world.',
-            longDescription: `WanderLust is a dynamic web application that allows users to share and discover travel destinations with rich visuals and community feedback.
-                Key features include:
-                • User authentication and session management using Express-session
-                • Flash messaging for real-time user notifications
-                • Destination posting with image uploads via Cloudinary
-                • MongoDB-based data management (hosted on MongoDB Atlas)
-                • Clean, server-rendered UI using EJS templating
-                • Responsive design for desktop and mobile
-                • CRUD operations for destinations and reviews`,
-            technologies: ['Node.js', 'Express.js', 'MongoDB Atlas', 'Cloudinary', 'EJS', 'Express-session', 'Connect-flash'],
-            github: 'https://github.com/Kunal-Gupta28/WanderLust',
-            live: 'https://offends.onrender.com',
-            videoDemo: '',
-            image: '/path-to-wanderlust-image.jpg',
-            category: 'Web App',
-            hasApiDependency: false
-        }
     ]
 
     const containerVariants = {
@@ -120,7 +140,7 @@ const Projects = () => {
                 duration: 0.8,
                 ease: [0.6, -0.05, 0.01, 0.99],
             },
-        },
+        }
     }
 
     // Add category filter state
