@@ -1,4 +1,4 @@
-// Navbar.jsx - Top navigation bar for the portfolio app
+// src/components/Navbar.jsx
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import {
@@ -22,95 +22,61 @@ import {
 } from '@mui/material'
 import { useTheme as useMuiTheme } from '@mui/material/styles'
 import { motion } from 'framer-motion'
-import HomeIcon from '@mui/icons-material/Home'
-import WorkIcon from '@mui/icons-material/Work'
-import SchoolIcon from '@mui/icons-material/School'
 import MenuIcon from '@mui/icons-material/Menu'
-import GitHubIcon from '@mui/icons-material/GitHub'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
-import EmailIcon from '@mui/icons-material/Email'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import PersonIcon from '@mui/icons-material/Person'
-import CodeIcon from '@mui/icons-material/Code'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
-import ContactMailIcon from '@mui/icons-material/ContactMail'
 import { useTheme } from '../context/ThemeContext'
+import { NAV_ITEMS, QUICK_LINKS } from '../data/navbarData'
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+
   const { mode, toggleTheme } = useTheme()
   const location = useLocation()
   const muiTheme = useMuiTheme()
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'))
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
+  const handleMenuOpen = (e) => setAnchorEl(e.currentTarget)
+  const handleMenuClose = () => setAnchorEl(null)
+  const handleDrawerToggle = () => setMobileOpen((prev) => !prev)
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
-
-  const navItems = [
-    { label: 'Home', to: '/', icon: <HomeIcon /> },
-    { label: 'About', to: '/about', icon: <PersonIcon /> },
-    { label: 'Skills', to: '/skills', icon: <CodeIcon /> },
-    { label: 'Projects', to: '/projects', icon: <WorkIcon /> },
-    { label: 'Qualifications', to: '/qualifications', icon: <SchoolIcon /> },
-    { label: 'Contact Me', to: '/contact', icon: <ContactMailIcon /> },
-  ]
-
+  /* -------------------- Drawer -------------------- */
   const drawer = (
-    <Box
-      sx={{
-        width: 250,
-        bgcolor: 'background.paper',
-        height: '100%',
-        background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)',
-      }}
-    >
-
-      {/* menu options */}
+    <Box sx={{ width: 250, height: '100%', background: '#0A0A0A' }}>
       <List>
-        {navItems.map(({ label, to, icon }) => (
+        {NAV_ITEMS.map(({ label, to, icon: Icon }) => (
           <ListItem
+            key={label}
             button
             component={Link}
             to={to}
-            key={label}
-            onClick={handleDrawerToggle}
             selected={location.pathname === to}
+            onClick={handleDrawerToggle}
             sx={{
               color: 'primary.main',
-              '&.Mui-selected': {
-                backgroundColor: 'rgba(144, 202, 249, 0.08)',
-              },
-              '&:hover': {
+              '&.Mui-selected, &:hover': {
                 backgroundColor: 'rgba(144, 202, 249, 0.08)',
               },
             }}
           >
-            <ListItemIcon sx={{ color: 'primary.main' }}>{icon}</ListItemIcon>
+            <ListItemIcon sx={{ color: 'primary.main' }}>
+              <Icon />
+            </ListItemIcon>
             <ListItemText primary={label} />
           </ListItem>
         ))}
       </List>
-      <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
+
+      <Divider />
+
       <List>
-        <ListItem>
+        <ListItem button onClick={toggleTheme}>
           <ListItemIcon sx={{ color: 'primary.main' }}>
             {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </ListItemIcon>
-          <ListItemText 
+          <ListItemText
             primary={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}
-            onClick={toggleTheme}
-            sx={{ cursor: 'pointer' }}
           />
         </ListItem>
       </List>
@@ -119,74 +85,51 @@ const Navbar = () => {
 
   return (
     <>
-      {/* AppBar is fixed at the top */}
+      {/* -------------------- AppBar -------------------- */}
       <AppBar
         position="fixed"
-        color="transparent"
         elevation={0}
         sx={{
           backdropFilter: 'blur(10px)',
-          backgroundColor: 'rgba(16, 20, 24, 0.8)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          transition: 'all 0.3s ease-in-out',
-          '&:hover': {
-            backgroundColor: 'rgba(16, 20, 24, 0.9)',
-          },
+          backgroundColor: 'rgba(16, 20, 24, 0.85)',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
         }}
       >
         <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: 'space-between', minHeight: '64px', }}>
+          <Toolbar sx={{ justifyContent: 'space-between' }}>
             {isMobile ? (
               <>
-                <IconButton
-                  color="primary"
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={handleDrawerToggle}
-                  sx={{ mr: 2 }}
-                >
+                <IconButton color="primary" onClick={handleDrawerToggle}>
                   <MenuIcon />
                 </IconButton>
-                <Box sx={{ flexGrow: 1 }} />
-                <Tooltip title={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}>
-                  <IconButton onClick={toggleTheme} color="primary">
-                    {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                  </IconButton>
-                </Tooltip>
+
+                <IconButton color="primary" onClick={toggleTheme}>
+                  {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
               </>
             ) : (
               <>
-                <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center', flexGrow: 1 }}>
-                  {navItems.map(({ label, to, icon }) => (
-                    <motion.div 
-                      key={label} 
-                      whileHover={{ scale: 1.05 }} 
-                      whileTap={{ scale: 0.95 }}
-                    >
+                <Box sx={{ display: 'flex', gap: 2, flexGrow: 1, justifyContent: 'center' }}>
+                  {NAV_ITEMS.map(({ label, to, icon: Icon }) => (
+                    <motion.div key={label} whileHover={{ scale: 1.05 }}>
                       <Button
                         component={Link}
                         to={to}
-                        startIcon={icon}
+                        startIcon={<Icon />}
                         sx={{
                           color: 'primary.main',
-                          position: 'relative',
-                          '&:hover': { 
-                            backgroundColor: 'rgba(144, 202, 249, 0.08)',
-                          },
                           '&::after': {
                             content: '""',
                             position: 'absolute',
                             bottom: 0,
                             left: '50%',
-                            width: location.pathname === to ? '100%' : '0%',
-                            height: '2px',
+                            width: location.pathname === to ? '100%' : 0,
+                            height: 2,
                             backgroundColor: 'primary.main',
-                            transition: 'all 0.3s ease-in-out',
                             transform: 'translateX(-50%)',
+                            transition: 'width 0.3s',
                           },
-                          '&:hover::after': {
-                            width: '100%',
-                          },
+                          '&:hover::after': { width: '100%' },
                         }}
                       >
                         {label}
@@ -194,20 +137,11 @@ const Navbar = () => {
                     </motion.div>
                   ))}
                 </Box>
-                <Tooltip title={`Switch to ${mode === 'dark' ? 'light' : 'dark'} mode`}>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <IconButton
-                      onClick={toggleTheme}
-                      sx={{
-                        color: 'primary.main',
-                        '&:hover': { 
-                          backgroundColor: 'rgba(144, 202, 249, 0.08)',
-                        },
-                      }}
-                    >
-                      {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                    </IconButton>
-                  </motion.div>
+
+                <Tooltip title="Toggle theme">
+                  <IconButton color="primary" onClick={toggleTheme}>
+                    {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                  </IconButton>
                 </Tooltip>
               </>
             )}
@@ -215,132 +149,41 @@ const Navbar = () => {
         </Container>
       </AppBar>
 
-      {/* Mobile drawer */}
+      {/* -------------------- Drawer -------------------- */}
       <Drawer
         variant="temporary"
-        anchor="left"
         open={mobileOpen}
         onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile
-        }}
         sx={{
           display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { 
-            boxSizing: 'border-box',
-            width: 250,
-            background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)',
-            borderRight: '1px solid rgba(255, 255, 255, 0.1)',
-          },
+          '& .MuiDrawer-paper': { width: 250 },
         }}
       >
         {drawer}
       </Drawer>
 
-      {/* Spacer for fixed AppBar */}
-      <Box sx={{ height: '64px' }} />
+      {/* Spacer */}
+      <Box sx={{ height: 64 }} />
 
-      {/* Floating Action Button */}
-      <Box
-        sx={{
-          position: 'fixed',
-          bottom: 24,
-          right: 24,
-          zIndex: 1000,
-        }}
-      >
-        <motion.div 
-          style={{ display: 'inline-block' }} 
-          whileHover={{ scale: 1.1 }} 
-          whileTap={{ scale: 0.9 }}
-        >
-          <Tooltip title="Quick Links">
-            <Fab
-              color="primary"
-              aria-label="menu"
-              onClick={handleMenu}
-              sx={{
-                background: 'linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)',
-                boxShadow: '0 3px 5px 2px rgba(144, 202, 249, .3)',
-                '&:hover': {
-                  background: 'linear-gradient(45deg, #64B5F6 30%, #90CAF9 90%)',
-                },
-              }}
+      {/* -------------------- Floating Quick Links -------------------- */}
+      <Box sx={{ position: 'fixed', bottom: 24, right: 24 }}>
+        <Fab color="primary" onClick={handleMenuOpen}>
+          <MenuIcon />
+        </Fab>
+
+        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+          {QUICK_LINKS.map(({ label, href, icon: Icon }) => (
+            <MenuItem
+              key={label}
+              component="a"
+              href={href}
+              target="_blank"
+              onClick={handleMenuClose}
             >
-              <MenuIcon />
-            </Fab>
-          </Tooltip>
-        </motion.div>
-
-        {/* contacts */}
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          PaperProps={{
-            sx: {
-              backgroundColor: 'rgba(16, 20, 24, 0.8)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              mt: 1,
-            },
-          }}
-        >
-          <MenuItem
-            component="a"
-            href="https://github.com/Kunal-Gupta28"
-            target="_blank"
-            onClick={handleClose}
-            sx={{ 
-              color: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'rgba(144, 202, 249, 0.08)',
-              },
-            }}
-          >
-            <GitHubIcon sx={{ mr: 1 }} /> GitHub
-          </MenuItem>
-          <MenuItem
-            component="a"
-            href="https://www.linkedin.com/in/kunal-gupta-b7bb7a216/"
-            target="_blank"
-            onClick={handleClose}
-            sx={{ 
-              color: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'rgba(144, 202, 249, 0.08)',
-              },
-            }}
-          >
-            <LinkedInIcon sx={{ mr: 1 }} /> LinkedIn
-          </MenuItem>
-          <MenuItem
-            component="a"
-            href="mailto:kunal.gupta.91165@gmail.com"
-            onClick={handleClose}
-            sx={{ 
-              color: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'rgba(144, 202, 249, 0.08)',
-              },
-            }}
-          >
-            <EmailIcon sx={{ mr: 1 }} /> Email
-          </MenuItem>
-          <MenuItem
-            component="a"
-            href="https://wa.me/yourphonenumber"
-            target="_blank"
-            onClick={handleClose}
-            sx={{ 
-              color: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'rgba(144, 202, 249, 0.08)',
-              },
-            }}
-          >
-            <WhatsAppIcon sx={{ mr: 1 }} /> WhatsApp
-          </MenuItem>
+              <Icon />
+              <Box sx={{ ml: 1 }}>{label}</Box>
+            </MenuItem>
+          ))}
         </Menu>
       </Box>
     </>

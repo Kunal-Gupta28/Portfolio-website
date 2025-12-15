@@ -1,42 +1,52 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Box, CssBaseline } from '@mui/material'
-import { ThemeProvider } from './context/ThemeContext'
-import BackgroundEffects from './components/BackgroundEffects'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Box, CssBaseline } from "@mui/material";
+import { ThemeProvider } from "./context/ThemeContext";
 
-// Import all page and component modules
-import Landing from './pages/Landing'
-import Projects from './pages/Projects'
-import Qualifications from './pages/Qualifications'
-import About from './pages/About'
-import Skills from './pages/Skills'
-import Contact from './pages/Contact'
-import NotFound from "./pages/NotFound"
+//importing components
+import Navbar from "./components/Navbar";
+import GradientBackground from "./components/GradientBackground";
+import ParticleBackground from "./components/ParticleBackground";
+
+// Importing pages
+import Landing from "./pages/Landing";
+import Projects from "./pages/Projects";
+import Qualifications from "./pages/Qualifications";
+import About from "./pages/About";
+import Skills from "./pages/Skills";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
-    // Theme provider for managing dark/light mode
+
     <ThemeProvider>
-      {/* Reset default browser styles */}
       <CssBaseline />
-      {/* Router setup for navigation */}
       <Router>
+        <Navbar />
         {/* Main container with background gradient */}
-        <Box 
-          sx={{ 
-            minHeight: '100dvh',
-            width: '100%',
-            bgcolor: 'background.default',
-            background: 'linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)',
-            position: 'relative',
-            overflow: 'hidden',
+        <Box
+          sx={{
+            minHeight: "100dvh",
+            width: "100%",
+            bgcolor: "background.default",
+            background: "linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)",
+            position: "relative",
+            overflow: "hidden",
           }}
         >
           {/* Interactive background effects */}
-          <BackgroundEffects />
-          
+          {/* <BackgroundEffects /> */}
+          < GradientBackground/>
+          < ParticleBackground/>
           {/* Main content area with padding for fixed navbar */}
-          <Box sx={{ position: 'relative', zIndex: 1, width: '100%', overflow: 'hidden' }}>
+          <Box
+            sx={{
+              position: "relative",
+              zIndex: 1,
+              width: "100%",
+              overflow: "hidden",
+            }}
+          >
             {/* Route definitions for different pages */}
             <Routes>
               <Route path="/" element={<Landing />} />
@@ -52,5 +62,5 @@ export default function App() {
         </Box>
       </Router>
     </ThemeProvider>
-  )
+  );
 }
