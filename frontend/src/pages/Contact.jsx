@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -8,9 +8,11 @@ import {
   Button,
   Grid,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
+import axiosInstance from '../config/axios'
+
 import { fadeInUp } from "../data/animations";
 import { contactInfo, socialLinks } from "../data/contactData";
 
@@ -22,18 +24,42 @@ const Contact = () => {
     message: "",
   });
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setLoading(true);
+    setSuccess("");
+    setError("");
+
+    try {
+      const response = await axiosInstance.post("/contact", formData);
+console.log(response)
+      // if(response.status == 200)
+
+      setSuccess("Message sent successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (err) {
+      setError("Failed to send message. Please try again.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Box sx={{ py: 8 }}>
-      <Navbar />
-
       <Container maxWidth="lg">
         {/* Heading */}
         <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
@@ -71,16 +97,11 @@ const Contact = () => {
                   border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
-                <Typography
-                  variant="h5"
-                  sx={{ mb: 3, color: "primary.main" }}
-                >
+                <Typography variant="h5" sx={{ mb: 3, color: "primary.main" }}>
                   Get in Touch
                 </Typography>
 
-                <Typography
-                  sx={{ mb: 4, color: "text.secondary" }}
-                >
+                <Typography sx={{ mb: 4, color: "text.secondary" }}>
                   Feel free to reach out for opportunities, collaborations,
                   or just a friendly hello.
                 </Typography>
@@ -137,10 +158,7 @@ const Contact = () => {
                   border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
-                <Typography
-                  variant="h5"
-                  sx={{ mb: 3, color: "primary.main" }}
-                >
+                <Typography variant="h5" sx={{ mb: 3, color: "primary.main" }}>
                   Send Message
                 </Typography>
 
@@ -172,19 +190,36 @@ const Contact = () => {
                       />
                     </Grid>
 
+                    {success && (
+                      <Grid item xs={12}>
+                        <Typography color="success.main">{success}</Typography>
+                      </Grid>
+                    )}
+
+                    {error && (
+                      <Grid item xs={12}>
+                        <Typography color="error.main">{error}</Typography>
+                      </Grid>
+                    )}
+
                     <Grid item xs={12}>
                       <Button
                         type="submit"
                         fullWidth
                         size="large"
                         variant="contained"
+                        disabled={loading}
                         sx={{
                           mt: 2,
                           background:
                             "linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)",
                         }}
                       >
-                        Send Message
+                        {loading ? (
+                          <CircularProgress size={24} sx={{ color: "#fff" }} />
+                        ) : (
+                          "Send Message"
+                        )}
                       </Button>
                     </Grid>
                   </Grid>

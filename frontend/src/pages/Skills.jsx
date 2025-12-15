@@ -7,7 +7,6 @@ import {
   LinearProgress,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
 import { fadeInUp } from "../data/animations";
 import {
   skillCategories,
@@ -17,7 +16,6 @@ import {
 const Skills = () => {
   return (
     <Box sx={{ minHeight: "100dvh", maxWidth: "100dvw", py: 8 }}>
-      <Navbar />
 
       <Container maxWidth="lg">
         {/* Heading */}

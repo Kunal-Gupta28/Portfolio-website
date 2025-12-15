@@ -9,7 +9,6 @@ import {
 import { motion } from "framer-motion";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkIcon from "@mui/icons-material/Work";
-import Navbar from "../components/Navbar";
 import { fadeInUp } from "../data/animations";
 import {
   education,
@@ -19,7 +18,6 @@ import {
 const Qualifications = () => {
   return (
     <Box sx={{ minHeight: "100dvh", py: 8 }}>
-      <Navbar />
 
       <Container maxWidth="lg">
         {/* Heading */}

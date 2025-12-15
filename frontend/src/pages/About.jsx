@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Container,
@@ -8,7 +7,6 @@ import {
   Avatar,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import Navbar from "../components/Navbar";
 import { useTheme } from "../context/ThemeContext";
 import { fadeInUp, bounce } from "../data/animations";
 import { iconMap, aboutContent, interests } from "../data/aboutData";
@@ -18,7 +16,6 @@ const About = () => {
 
   return (
     <Box sx={{ minHeight: "100dvh" }}>
-      <Navbar />
 
       <Container maxWidth="lg">
         {/* Heading */}

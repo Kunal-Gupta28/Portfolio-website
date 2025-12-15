@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -18,7 +18,6 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import CloseIcon from "@mui/icons-material/Close";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
-import Navbar from "../components/Navbar";
 import { fadeInUp } from "../data/animations";
 import { projects, categories } from "../data/projectsData";
 
@@ -35,7 +34,6 @@ const Projects = () => {
 
   return (
     <Box sx={{ minHeight: "100dvh", py: 8 }}>
-      <Navbar />
 
       <Container maxWidth="lg">
         {/* Heading */}

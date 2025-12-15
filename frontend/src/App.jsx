@@ -5,7 +5,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 //importing components
 import Navbar from "./components/Navbar";
 import GradientBackground from "./components/GradientBackground";
-import ParticleBackground from "./components/ParticleBackground";
 
 // Importing pages
 import Landing from "./pages/Landing";
@@ -18,10 +17,14 @@ import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
-
     <ThemeProvider>
       <CssBaseline />
-      <Router>
+      <Router
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Navbar />
         {/* Main container with background gradient */}
         <Box
@@ -36,8 +39,7 @@ export default function App() {
         >
           {/* Interactive background effects */}
           {/* <BackgroundEffects /> */}
-          < GradientBackground/>
-          < ParticleBackground/>
+          <GradientBackground />
           {/* Main content area with padding for fixed navbar */}
           <Box
             sx={{
