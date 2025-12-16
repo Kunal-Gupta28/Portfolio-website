@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import axiosInstance from '../config/axios'
+import axiosInstance from "../config/axios";
 
 import { fadeInUp } from "../data/animations";
 import { contactInfo, socialLinks } from "../data/contactData";
@@ -24,32 +24,70 @@ const Contact = () => {
     message: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData({ ...formData, [name]: value });
+
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Subject is required";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     setLoading(true);
     setSuccess("");
     setError("");
 
     try {
       const response = await axiosInstance.post("/contact", formData);
-console.log(response)
-      // if(response.status == 200)
 
-      setSuccess("Message sent successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      if (response.status === 201) {
+        setSuccess("Message sent successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+        setErrors({});
+      }
     } catch (err) {
       setError("Failed to send message. Please try again.");
       console.error(err);
@@ -61,7 +99,6 @@ console.log(response)
   return (
     <Box sx={{ py: 8 }}>
       <Container maxWidth="lg">
-        {/* Heading */}
         <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
           <Typography
             variant="h3"
@@ -69,8 +106,7 @@ console.log(response)
               textAlign: "center",
               mb: 4,
               fontWeight: "bold",
-              background:
-                "linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)",
+              background: "linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -109,12 +145,7 @@ console.log(response)
                 {contactInfo.map(({ label, value, icon: Icon }) => (
                   <Box
                     key={label}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 2,
-                      mb: 2,
-                    }}
+                    sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}
                   >
                     <Icon sx={{ color: "primary.main" }} />
                     <Typography sx={{ color: "text.secondary" }}>
@@ -173,6 +204,8 @@ console.log(response)
                           value={formData[field]}
                           onChange={handleChange}
                           required
+                          error={Boolean(errors[field])}
+                          helperText={errors[field]}
                         />
                       </Grid>
                     ))}
@@ -187,6 +220,8 @@ console.log(response)
                         value={formData.message}
                         onChange={handleChange}
                         required
+                        error={Boolean(errors.message)}
+                        helperText={errors.message}
                       />
                     </Grid>
 

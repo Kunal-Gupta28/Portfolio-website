@@ -1,26 +1,41 @@
 const Contact = require("../models/contact.model");
+const { validationResult } = require("express-validator");
 
 const createContact = async (req, res) => {
-  const { name, email, subject, message } = req.body;
+  const errors = validationResult(req);
 
-  console.log(name);
-
-  if (!name || !email || !subject || !message) {
-    res.status(400);
-    throw new Error("All fields are required");
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array().map(err => ({
+        field: err.path,
+        message: err.msg,
+      })),
+    });
   }
 
-  await Contact.create({
-    name,
-    email,
-    subject,
-    message,
-  });
+  try {
+    const { name, email, subject, message } = req.body;
 
-  res.status(201).json({
-    success: true,
-    message: "Message sent successfully",
-  });
+    await Contact.create({
+      name,
+      email,
+      subject,
+      message,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Message sent successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
 };
 
 module.exports = {

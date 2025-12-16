@@ -1,19 +1,23 @@
 const express = require("express");
 const cors = require("cors");
-const contactRoute = require("./routes/contact.route");
-const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+const contactRoute = require("./routes/contact.route.js");
 
 const app = express();
 
-app.use(express.json());
-
 app.use(cors());
 
+app.use(express.json());
+console.log("CORS: allowing all origins (debug)");
 
+app.use("/api", contactRoute);
 
-app.use("/api/contact", contactRoute);
+// 404 handler – must be AFTER all routes
+app.use((req, res) => {
 
-app.use(notFound);
-app.use(errorHandler);
+  res.status(404).json({
+    success: false,
+    message: `${req.path} not found`,
+  });
+});
 
 module.exports = app;

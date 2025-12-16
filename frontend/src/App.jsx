@@ -29,7 +29,8 @@ export default function App() {
         {/* Main container with background gradient */}
         <Box
           sx={{
-            minHeight: "100dvh",
+            minHeight: "10dvh",
+            overflow:"hidden",
             width: "100%",
             bgcolor: "background.default",
             background: "linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%)",
