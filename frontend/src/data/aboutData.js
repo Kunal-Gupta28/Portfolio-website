@@ -10,11 +10,10 @@ export const iconMap = {
 
 export const aboutContent = {
   heading: "About Me",
-  journeyTitle: "My Journey",
   paragraphs: [
-    "Hello! I'm Kunal Gupta, a passionate Computer Science & Electronics and Communication Engineering (ECE) student at DTU, currently in my final year.",
-    "While I'm a Full-Stack MERN Developer, my interests span across mobile app development, artificial intelligence, and machine learning. My project, the Kubik Ride Booking App, demonstrates my full-stack capabilities with real-time updates and secure authentication.",
-    "As a fresher in the tech industry, I'm eager to learn, grow, and contribute to meaningful full-stack projects.",
+    "I’m Kunal Gupta, a final-year DTU student and Full-Stack Software Engineer focused on building scalable, real-time web applications.",
+    "My work spans frontend engineering with React, backend APIs with Node.js and Express, real-time systems using Socket.io, and data modeling with MongoDB.",
+    "Beyond core web development, I’m actively exploring Docker, Kubernetes, mobile app development, machine learning, and cybersecurity to broaden my systems understanding."
   ],
 };
 
