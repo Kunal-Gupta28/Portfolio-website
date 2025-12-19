@@ -10,7 +10,8 @@ import Values from "../components/About/Values";
 import CTAButton from "../components/CTAButton";
 
 export default function About() {
-  const [value, setValue] = useState("Frontend");
+  const [value, setValue] = useState("Image");
+  // const [value, setValue] = useState("Frontend");
   return (
     <SmoothScroll>
       <main className="bg-black text-white pb-[50vh]">
