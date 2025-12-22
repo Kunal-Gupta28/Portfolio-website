@@ -7,7 +7,6 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-console.log("CORS: allowing all origins (debug)");
 
 app.use("/api", contactRoute);
 

@@ -38,9 +38,8 @@ useEffect(() => {
 
   return (
     <div ref={ref} className="relative mx-auto w-full aspect-[1/1] overflow-hidden">
-      <Spline
-        scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
-        className="absolute inset-0 scale-[1.3]"
+       <Spline scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
+        className="absolute inset-0 scale-[1.2]"
       />
     </div>
   );

@@ -16,26 +16,67 @@ export const skillCategories = [
   {
     icon: "frontend",
     title: "Frontend",
-    skills: ["React", "JavaScript", "HTML", "CSS", "Tailwind", "Material UI"],
+    skills: [
+      { name: "HTML", image: "/skills/html.svg" },
+      { name: "CSS", image: "/skills/css.png" },
+      { name: "JavaScript", image: "/skills/javascript.svg" },
+      { name: "Bootstrap", image: "/skills/bootstrap.svg" },
+      { name: "Tailwind", image: "/skills/tailwind.svg" },
+      { name: "React", image: "/skills/react.svg" },
+      { name: "Material UI", image: "/skills/material-ui.svg" },
+      { name: "Framer Motion", image: "/skills/framer-motion.svg" },
+      { name: "GSAP", image: "/skills/gsap.svg" },
+      { name: "Locomotive Scroll", image: "/skills/locomotive.avif" },
+      { name: "Redux Toolkit", image: "/skills/redux.svg" },
+      { name: "Zustand", image: "/skills/zustand.png" },
+      { name: "Next.js", image: "/skills/Next.png" },
+      { name: "shadcn/ui", image: "/skills/shadcn.png" },
+    ],
   },
+
   {
     icon: "backend",
     title: "Backend",
-    skills: ["Node.js", "Express", "MongoDB", "Socket.io", "REST APIs"],
+    skills: [
+      { name: "Node.js", image: "/skills/node.svg" },
+      { name: "Express", image: "/skills/express.webp" },
+      { name: "MongoDB", image: "/skills/mongodb.svg" },
+      { name: "MySQL", image: "/skills/mysql.svg" },
+      { name: "Redis (Caching)", image: "/skills/redis.svg" },
+      { name: "Socket.io", image: "/skills/socketio.png" },
+      { name: "REST APIs", image: "/skills/api.svg" },
+    ],
   },
+
   {
     icon: "devops",
     title: "DevOps & Systems",
-    skills: ["Docker", "Git", "Linux", "CI/CD"],
+    skills: [
+      { name: "Docker", image: "/skills/docker.svg" },
+      { name: "Git", image: "/skills/git.svg" },
+      { name: "Linux", image: "/skills/linux.svg" },
+      { name: "CI/CD", image: "/skills/cicd.svg" },
+    ],
   },
+
   {
     icon: "mobile",
-    title: "Mobile & Future Focus",
-    skills: ["React Native", "App Deployment"],
+    title: " Future Focus",
+    skills: [
+      { name: "App Deployment", image: "/skills/deployment.png" },
+      { name: "ML", image: "/skills/ml.png" },
+    ],
   },
+
   {
-    icon: "security",
-    title: "Security & Exploration",
-    skills: ["Security Best Practices", "Ethical Hacking Basics"],
+    icon: "backend",
+    title: "Computer Science Fundamentals",
+    skills: [
+      { name: "OOPS", image: "/skills/oops.svg" },
+      { name: "Operating Systems", image: "/skills/os.svg" },
+      { name: "DBMS", image: "/skills/dbms.svg" },
+      { name: "Computer Networks", image: "/skills/networking.svg" },
+      { name: "Compiler Design", image: "/skills/compiler.svg" },
+    ],
   },
 ];

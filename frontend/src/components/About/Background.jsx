@@ -1,23 +1,30 @@
-import { AnimatePresence } from "framer-motion";
-
+import { AnimatePresence, motion } from "framer-motion";
+import { skillCategories } from "../../data/skillsData";
+import CommonBackground from "./Background/CommonBackground";
 import Image from "./Background/Image";
-import Frontend from "./Background/Frontend";
-import Backend from "./Background/Backend";
-import DevOps from "./Background/DevOps";
-import Mobile from "./Background/Mobile";
-import Security from "./Background/Security";
 
-const Background = ({ value }) => {
+export default function Background({ value }) {
+  const category = skillCategories.find((c) => c.title === value);
+  const skills = category?.skills || [];
+
   return (
     <AnimatePresence mode="wait">
-      {value === "Image" && <Image key="image" />}
-      {value === "Frontend" && <Frontend key="frontend" />}
-      {value === "Backend" && <Backend key="backend" />}
-      {value === "DevOps & Systems" && <DevOps key="devops" />}
-      {value === "Mobile & Future Focus" && <Mobile key="mobile" />}
-      {value === "Security & Exploration" && <Security key="security" />}
+      <motion.div
+        key={value}
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        {value === "Image" ? (
+          <Image />
+        ) : (
+          <CommonBackground
+            skills={skills}
+          />
+        )}
+      </motion.div>
     </AnimatePresence>
   );
-};
-
-export default Background;
+}

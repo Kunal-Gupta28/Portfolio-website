@@ -5,7 +5,7 @@ export default function HeroBackground() {
     <Fade in timeout={1200}>
       <div className="pointer-events-none absolute inset-0">
         <img
-          src="/images/hero.png"
+          src="/images/hero.webp"
           alt="Kunal Gupta – Software Engineer"
           loading="eager"
           className="h-full w-full object-cover"

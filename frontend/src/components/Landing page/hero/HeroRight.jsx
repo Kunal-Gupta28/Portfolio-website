@@ -4,9 +4,11 @@ import {
   verticalReveal,
   verticalRevealWithBounce,
 } from "./hero.variants";
+import { projects } from '../../../data/projectsData'
 import { useNavigate } from "react-router-dom";
 
 export default function HeroRight() {
+  const projectCount = projects.length;
   const navigate = useNavigate();
   return (
     <motion.div
@@ -88,14 +90,14 @@ export default function HeroRight() {
         {/* STATS */}
         <div className="flex gap-10">
           <motion.div variants={verticalReveal}>
-            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">5+</p>
+            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">{projectCount}</p>
             <p className="opacity-60 text-[clamp(0.7rem,1vw,1rem)]">
               Deployed Projects
             </p>
           </motion.div>
 
           <motion.div variants={verticalReveal}>
-            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">2+</p>
+            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">3</p>
             <p className="opacity-60 text-[clamp(0.7rem,1vw,1rem)]">
               Years Building with MERN
             </p>

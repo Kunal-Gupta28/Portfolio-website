@@ -46,7 +46,7 @@ export default function IntroContent() {
   }, []);
 
   return (
-    <div className="relative pt-28">
+    <div className="relative pt-28 pb-4">
       <div ref={pinRef}>
         <span className="inline-block text-sm tracking-[0.35em] text-white/50">
           INTRO

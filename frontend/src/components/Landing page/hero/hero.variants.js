@@ -11,7 +11,7 @@ export const heroContainer = {
   },
 };
 
-// Masked vertical reveal (100% below → natural position)
+// Masked vertical reveal
 export const verticalReveal = {
   hidden: {
     y: "100%",
@@ -23,27 +23,6 @@ export const verticalReveal = {
     transition: {
       duration: 1,
       ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-// Reveal + infinite micro-bounce 
-export const verticalRevealWithBounce = {
-  hidden: {
-    y: "100%",
-    opacity: 0,
-  },
-  show: {
-    y: ["0%", "-12%", "0%"],
-    opacity: 1,
-    transition: {
-      opacity: { duration: 0.4 },
-      y: {
-        duration: 1.2,
-        ease: "easeInOut",
-        repeat: Infinity,
-        repeatDelay: 1.2,
-      },
     },
   },
 };
@@ -64,6 +43,26 @@ export const verticalStackContainer = {
       ease: "linear",
       repeat: Infinity,
       repeatType: "loop",
+    },
+  },
+};
+
+// Reveal + infinite micro-bounce 
+export const verticalRevealWithBounce = {
+  hidden: {
+    y: "100%",
+    opacity: 0,
+  },
+  show: {
+    y: ["0%", "-40%", "0%"],
+    opacity: 1,
+    transition: {
+      opacity: { duration: 0.4 },
+      y: {
+        duration: 2.4,
+        ease: "easeInOut",
+        repeat: Infinity,
+      },
     },
   },
 };

@@ -1,271 +1,170 @@
-import { useState } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  IconButton,
-  CircularProgress,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import axiosInstance from "../config/axios";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, lazy, Suspense, useEffect } from "react";
 
-import { fadeInUp } from "../data/animations";
-import { contactInfo, socialLinks } from "../data/contactData";
+import ContactInfo from "../components/contact/ContactInfo";
+import ContactForm from "../components/contact/ContactForm";
+import GlassCard from "../components/GlassCard";
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+const Spline = lazy(() => import("@splinetool/react-spline"));
+const ACCENT = "#fa5a29";
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
+export default function Contact() {
+  const [showForm, setShowForm] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData({ ...formData, [name]: value });
-
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
+  useEffect(() => {
+    if (showForm) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  };
+  }, [showForm]);
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
-    ) {
-      newErrors.email = "Enter a valid email address";
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = "Subject is required";
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!validateForm()) return;
-
-    setLoading(true);
-    setSuccess("");
-    setError("");
-
-    try {
-      const response = await axiosInstance.post("/contact", formData);
-
-      if (response.status === 201) {
-        setSuccess("Message sent successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
-        setErrors({});
-      }
-    } catch (err) {
-      setError("Failed to send message. Please try again.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  const ctaStyle = {
+    borderRadius: "999px",
+    border: "1px solid rgba(250,90,41,.6)",
+    padding: "14px 40px",
+    background: "transparent",
+    color: ACCENT,
+    fontWeight: 500,
+    cursor: "pointer",
+    display: "block",
+    marginInline: "auto",
   };
 
   return (
-    <Box sx={{ py: 8 }}>
-      <Container maxWidth="lg">
-        <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-          <Typography
-            variant="h3"
-            sx={{
-              textAlign: "center",
-              mb: 4,
-              fontWeight: "bold",
-              background: "linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Contact Me
-          </Typography>
-        </motion.div>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        height: "100dvh",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        background: `
+          radial-gradient(circle at 20% 20%, rgba(255,106,0,0.08), transparent 40%),
+          radial-gradient(circle at 80% 80%, rgba(255,255,255,0.04), transparent 40%),
+          #000
+        `,
+      }}
+    >
+      <Container maxWidth="xl" sx={{ height: "100%" }}>
+        <Grid container sx={{ height: "100%" }}>
 
-        <Grid container spacing={4}>
-          {/* Contact Info */}
-          <Grid item xs={12} md={6}>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
-              transition={{ delay: 0.2 }}
+          {/* LEFT — SPLINE */}
+          <Grid item xs={12} md={6} sx={{ height: "100%" }}>
+            <Box
+              sx={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+              }}
             >
-              <Paper
+              {/* Orange ambient glow */}
+              <Box
                 sx={{
-                  p: 4,
-                  height: "100%",
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "radial-gradient(circle at center, rgba(250,90,41,.12), transparent 60%)",
                 }}
-              >
-                <Typography variant="h5" sx={{ mb: 3, color: "primary.main" }}>
-                  Get in Touch
-                </Typography>
+              />
 
-                <Typography sx={{ mb: 4, color: "text.secondary" }}>
-                  Feel free to reach out for opportunities, collaborations,
-                  or just a friendly hello.
-                </Typography>
-
-                {contactInfo.map(({ label, value, icon: Icon }) => (
-                  <Box
-                    key={label}
-                    sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}
-                  >
-                    <Icon sx={{ color: "primary.main" }} />
-                    <Typography sx={{ color: "text.secondary" }}>
-                      {value}
-                    </Typography>
-                  </Box>
-                ))}
-
-                <Box sx={{ display: "flex", gap: 2, mt: 3 }}>
-                  {socialLinks.map(({ label, href, icon: Icon }) => (
-                    <IconButton
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      sx={{
-                        color: "primary.main",
-                        "&:hover": { color: "primary.light" },
-                      }}
-                    >
-                      <Icon />
-                    </IconButton>
-                  ))}
-                </Box>
-              </Paper>
-            </motion.div>
+              <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
+                <Suspense fallback={null}>
+                  <Spline
+                    scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      transform: "scale(1.4)",
+                    }}
+                  />
+                </Suspense>
+              </Box>
+            </Box>
           </Grid>
 
-          {/* Contact Form */}
-          <Grid item xs={12} md={6}>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
-              transition={{ delay: 0.4 }}
+          {/* RIGHT — CONTENT */}
+          <Grid item xs={12} md={6} sx={{ height: "100%" }}>
+            <Box
+              sx={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                px: { xs: 2, md: 6 },
+              }}
             >
-              <Paper
-                sx={{
-                  p: 4,
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
-                <Typography variant="h5" sx={{ mb: 3, color: "primary.main" }}>
-                  Send Message
-                </Typography>
+              <AnimatePresence mode="wait">
 
-                <form onSubmit={handleSubmit}>
-                  <Grid container spacing={2}>
-                    {["name", "email", "subject"].map((field) => (
-                      <Grid item xs={12} key={field}>
-                        <TextField
-                          fullWidth
-                          label={field.charAt(0).toUpperCase() + field.slice(1)}
-                          name={field}
-                          value={formData[field]}
-                          onChange={handleChange}
-                          required
-                          error={Boolean(errors[field])}
-                          helperText={errors[field]}
-                        />
-                      </Grid>
-                    ))}
+                {/* GET IN TOUCH */}
+                {!showForm && (
+                  <motion.div
+                    key="get-in-touch"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    style={{ maxWidth: 480, width: "100%" }}
+                  >
+                    <GlassCard>
+                      <ContactInfo />
 
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        label="Message"
-                        name="message"
-                        multiline
-                        rows={4}
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        error={Boolean(errors.message)}
-                        helperText={errors.message}
-                      />
-                    </Grid>
+                      <motion.button
+                        onClick={() => setShowForm(true)}
+                        whileHover={{ scale: 1.06 }}
+                        whileTap={{ scale: 0.96 }}
+                        style={{ ...ctaStyle, marginTop: 24 }}
+                      >
+                        Send Message <span style={{ marginLeft: 24 }}>↗</span>
+                      </motion.button>
+                    </GlassCard>
+                  </motion.div>
+                )}
 
-                    {success && (
-                      <Grid item xs={12}>
-                        <Typography color="success.main">{success}</Typography>
-                      </Grid>
-                    )}
-
-                    {error && (
-                      <Grid item xs={12}>
-                        <Typography color="error.main">{error}</Typography>
-                      </Grid>
-                    )}
-
-                    <Grid item xs={12}>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        size="large"
-                        variant="contained"
-                        disabled={loading}
+                {/* SEND MESSAGE */}
+                {showForm && (
+                  <motion.div
+                    key="send-message"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    style={{ maxWidth: 520, width: "100%", marginTop:90 }}
+                  >
+                    <GlassCard hover={false}>
+                      <Typography
+                        variant="h5"
                         sx={{
-                          mt: 2,
-                          background:
-                            "linear-gradient(45deg, #90CAF9 30%, #64B5F6 90%)",
+                          textAlign: "center",
+                          fontWeight: 700,
+                          color: "#fff",
+                          mb: 3,
                         }}
                       >
-                        {loading ? (
-                          <CircularProgress size={24} sx={{ color: "#fff" }} />
-                        ) : (
-                          "Send Message"
-                        )}
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </form>
-              </Paper>
-            </motion.div>
+                        Send Message
+                      </Typography>
+
+                      <ContactForm />
+
+                      <motion.button
+                        onClick={() => setShowForm(false)}
+                        whileHover={{ scale: 1.06 }}
+                        whileTap={{ scale: 0.96 }}
+                        style={{ ...ctaStyle, marginTop: 24 }}
+                      >
+                        Back to Get in Touch <span style={{ marginLeft: 24 }}>↗</span>
+                      </motion.button>
+                    </GlassCard>
+                  </motion.div>
+                )}
+
+              </AnimatePresence>
+            </Box>
           </Grid>
+
         </Grid>
       </Container>
     </Box>
   );
-};
-
-export default Contact;
+}

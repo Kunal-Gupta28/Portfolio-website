@@ -56,10 +56,6 @@ const Navbar = () => {
       initial={{ opacity: 0, y: -24, width: "30%" }}
       animate={{ width: expanded ? "90%" : "30%", opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.11, 0.5, 0.18, 0.5] }}
-      onMouseEnter={() => {
-        setExpanded(true);
-        setShowExpanded(true);
-      }}
       onMouseLeave={() => {
         setExpanded(false);
         setShowExpanded(false); // hide immediately
@@ -98,13 +94,21 @@ const Navbar = () => {
           </Typography>
 
           {/* Center navigation */}
-          <NavCenter
-            navItems={navItems}
-            expanded={expanded}
-            showExpanded={showExpanded}
-            isActive={isActive}
-            navigate={navigate}
-          />
+          {/* Center navigation */}
+          <Box
+            onMouseEnter={() => {
+              setExpanded(true);
+              setShowExpanded(true);
+            }}
+          >
+            <NavCenter
+              navItems={navItems}
+              expanded={expanded}
+              showExpanded={showExpanded}
+              isActive={isActive}
+              navigate={navigate}
+            />
+          </Box>
 
           {/* CTA */}
           <Typography
