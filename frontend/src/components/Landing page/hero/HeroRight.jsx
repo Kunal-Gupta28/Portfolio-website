@@ -58,7 +58,7 @@ export default function HeroRight() {
           >
             <span 
              onClick={ ()=> navigate("/contact")} 
-             className="underline underline-offset-4">
+             className="underline underline-offset-4 cursor-pointer">
               Available for Opportunities
             </span>
 
@@ -76,9 +76,7 @@ export default function HeroRight() {
           variants={verticalReveal}
           className="leading-relaxed opacity-60 text-[clamp(0.75rem,0.9vw,2rem)]"
         >
-          Final-year DTU student and Full-Stack Software Engineer with hands-on
-          experience building production-ready applications using React,
-          Node.js, MongoDB, and Socket.io.
+          I trust my ability to learn, adapt, and build what matters.
         </motion.p>
 
         {/* DIVIDER */}
@@ -90,14 +88,14 @@ export default function HeroRight() {
         {/* STATS */}
         <div className="flex gap-10">
           <motion.div variants={verticalReveal}>
-            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">{projectCount}</p>
+            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">{projectCount -1}+</p>
             <p className="opacity-60 text-[clamp(0.7rem,1vw,1rem)]">
-              Deployed Projects
+              Deployed Projects Including real-time apps & APIs
             </p>
           </motion.div>
 
           <motion.div variants={verticalReveal}>
-            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">3</p>
+            <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">3+</p>
             <p className="opacity-60 text-[clamp(0.7rem,1vw,1rem)]">
               Years Building with MERN
             </p>

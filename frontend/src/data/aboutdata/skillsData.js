@@ -4,16 +4,22 @@ import DevicesIcon from "@mui/icons-material/Devices";
 import SecurityIcon from "@mui/icons-material/Security";
 import SpeedIcon from "@mui/icons-material/Speed";
 
+export const skillsMeta = {
+  heading: "Skills & Technologies",
+  helperText: "( Hover for 2s to reveal technologies )",
+};
+
 export const skillIconMap = {
   frontend: CodeIcon,
   backend: StorageIcon,
-  mobile: DevicesIcon,
-  security: SecurityIcon,
   devops: SpeedIcon,
+  mobile: DevicesIcon,
+  fundamentals: SecurityIcon,
 };
 
 export const skillCategories = [
   {
+    valueKey: "frontend",
     icon: "frontend",
     title: "Frontend",
     skills: [
@@ -35,6 +41,7 @@ export const skillCategories = [
   },
 
   {
+    valueKey: "backend",
     icon: "backend",
     title: "Backend",
     skills: [
@@ -42,13 +49,14 @@ export const skillCategories = [
       { name: "Express", image: "/skills/express.webp" },
       { name: "MongoDB", image: "/skills/mongodb.svg" },
       { name: "MySQL", image: "/skills/mysql.svg" },
-      { name: "Redis (Caching)", image: "/skills/redis.svg" },
+      { name: "Redis", image: "/skills/redis.svg" },
       { name: "Socket.io", image: "/skills/socketio.png" },
       { name: "REST APIs", image: "/skills/api.svg" },
     ],
   },
 
   {
+    valueKey: "devops",
     icon: "devops",
     title: "DevOps & Systems",
     skills: [
@@ -60,17 +68,19 @@ export const skillCategories = [
   },
 
   {
+    valueKey: "mobile",
     icon: "mobile",
-    title: " Future Focus",
+    title: "Future Focus",
     skills: [
       { name: "App Deployment", image: "/skills/deployment.png" },
-      { name: "ML", image: "/skills/ml.png" },
+      { name: "Machine Learning", image: "/skills/ml.png" },
     ],
   },
 
   {
-    icon: "backend",
-    title: "Computer Science Fundamentals",
+    valueKey: "fundamentals",
+    icon: "fundamentals",
+    title: "CS Fundamentals",
     skills: [
       { name: "OOPS", image: "/skills/oops.svg" },
       { name: "Operating Systems", image: "/skills/os.svg" },

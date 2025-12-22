@@ -7,10 +7,13 @@ import ComingSoonCard from "../components/projects/ComingSoonCard";
 import ProjectDialog from "../components/projects/ProjectDialog";
 import Footer from "../components/Footer";
 import { projects } from "../data/projectsData";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  useDocumentTitle("Projects | Kunal Gupta");
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "All") return projects;

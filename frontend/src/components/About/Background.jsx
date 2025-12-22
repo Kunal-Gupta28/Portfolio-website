@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { skillCategories } from "../../data/skillsData";
+import { skillCategories } from "../../data/aboutdata/skillsData";
 import CommonBackground from "./Background/CommonBackground";
 import Image from "./Background/Image";
 
 export default function Background({ value }) {
-  const category = skillCategories.find((c) => c.title === value);
+  const category = skillCategories.find((c) => c.valueKey === value);
   const skills = category?.skills || [];
 
   return (

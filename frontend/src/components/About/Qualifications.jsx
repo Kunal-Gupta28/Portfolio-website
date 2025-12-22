@@ -1,4 +1,4 @@
-import { education } from "../../data/qualificationsData";
+import { education } from "../../data/aboutdata/qualificationsData";
 
 export default function Qualifications() {
   return (

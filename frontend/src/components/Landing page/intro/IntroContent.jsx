@@ -58,15 +58,11 @@ export default function IntroContent() {
           with clarity and purpose.
         </h2>
 
-        <p className="text-[clamp(1.25rem,1.4vw,3rem)] leading-[1]">
-          <AnimatedWords text="I’m a final-year DTU student and Full-Stack Software Engineer focused on building scalable, real-time web applications using modern JavaScript frameworks and backend systems." />
-        </p>
-
-        <p className="my-3 text-[clamp(1.25rem,1.4vw,3rem)] leading-[1]">
+        <p className="my-3 text-[clamp(1.25rem,1.3vw,3rem)] leading-[1]">
           <AnimatedWords text="My work spans frontend engineering with React, backend APIs with Node.js and Express, real-time systems with Socket.io, and data modeling with MongoDB." />
         </p>
 
-        <p className="text-[clamp(1.25rem,1.4vw,3rem)] leading-[1]">
+        <p className="text-[clamp(1.25rem,1.3vw,3rem)] leading-[1]">
           <AnimatedWords text="Currently focused on growing as a software engineer by building production-ready projects and contributing to meaningful systems." />
         </p>
 

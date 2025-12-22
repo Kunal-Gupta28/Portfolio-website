@@ -2,6 +2,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, lazy, Suspense, useEffect } from "react";
 
+import useDocumentTitle from "../hooks/useDocumentTitle";
 import ContactInfo from "../components/contact/ContactInfo";
 import ContactForm from "../components/contact/ContactForm";
 import GlassCard from "../components/GlassCard";
@@ -12,6 +13,7 @@ const ACCENT = "#fa5a29";
 export default function Contact() {
   const [showForm, setShowForm] = useState(false);
 
+  useDocumentTitle("Contact | Kunal Gupta");
   useEffect(() => {
     if (showForm) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -47,7 +49,6 @@ export default function Contact() {
     >
       <Container maxWidth="xl" sx={{ height: "100%" }}>
         <Grid container sx={{ height: "100%" }}>
-
           {/* LEFT — SPLINE */}
           <Grid item xs={12} md={6} sx={{ height: "100%" }}>
             <Box
@@ -96,7 +97,6 @@ export default function Contact() {
               }}
             >
               <AnimatePresence mode="wait">
-
                 {/* GET IN TOUCH */}
                 {!showForm && (
                   <motion.div
@@ -130,7 +130,7 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    style={{ maxWidth: 520, width: "100%", marginTop:90 }}
+                    style={{ maxWidth: 520, width: "100%", marginTop: 90 }}
                   >
                     <GlassCard hover={false}>
                       <Typography
@@ -153,16 +153,15 @@ export default function Contact() {
                         whileTap={{ scale: 0.96 }}
                         style={{ ...ctaStyle, marginTop: 24 }}
                       >
-                        Back to Get in Touch <span style={{ marginLeft: 24 }}>↗</span>
+                        Back to Get in Touch{" "}
+                        <span style={{ marginLeft: 24 }}>↗</span>
                       </motion.button>
                     </GlassCard>
                   </motion.div>
                 )}
-
               </AnimatePresence>
             </Box>
           </Grid>
-
         </Grid>
       </Container>
     </Box>
