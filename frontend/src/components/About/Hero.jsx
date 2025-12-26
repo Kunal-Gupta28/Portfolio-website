@@ -2,9 +2,14 @@ import { heroData } from "../../data/aboutdata/aboutData";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full">
-      <div className="flex justify-end items-center h-full px-6 md:px-20 text-right">
-        <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+    <section className="relative h-svh w-full">
+      <div className="flex justify-end items-end lg:items-center h-full px-3 py-28 md:px-10 lg:px-20 text-right">
+        <h1
+          className="font-bold leading-tight"
+          style={{
+            fontSize: "clamp(2rem, 6vw, 14rem)",
+          }}
+        >
           {heroData.lines.map((line, i) => (
             <span
               key={i}

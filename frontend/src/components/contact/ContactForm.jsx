@@ -6,9 +6,12 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
+
+// importing component
 import useContactForm from "../../hooks/useContactForm";
 
 export default function ContactForm() {
+  // context api
   const {
     formData,
     errors,
@@ -22,7 +25,7 @@ export default function ContactForm() {
   return (
     <Paper
       sx={{
-        p: 4,
+        p: {xs:2,md:4},
         borderRadius: "20px",
         background:
           "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
@@ -30,12 +33,16 @@ export default function ContactForm() {
         border: "1px solid rgba(255,255,255,0.12)",
       }}
     >
-      <Typography variant="h5" sx={{ mb: 3, fontWeight: 600, color: "#fff" }}>
+      {/* heading  */}
+      <Typography variant="h5" sx={{ mb: {xs:2,md:3},fontSize: {xs:20,md:28}, fontWeight: 600, color: "#fa5a29" }}>
         Send Message
       </Typography>
 
+      {/* form */}
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
+        <Grid container spacing={{xs:0.7,md:2}}>
+
+          {/* name , email , subject field */}
           {["name", "email", "subject"].map((field) => (
             <Grid item xs={12} key={field}>
               <TextField
@@ -52,6 +59,7 @@ export default function ContactForm() {
             </Grid>
           ))}
 
+          {/* message text area */}
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -68,18 +76,21 @@ export default function ContactForm() {
             />
           </Grid>
 
+          {/* notification : for success */}
           {success && (
             <Grid item xs={12}>
               <Typography sx={{ color: "#4caf50" }}>{success}</Typography>
             </Grid>
           )}
 
+          {/* notificaiton : for error */}
           {error && (
             <Grid item xs={12}>
               <Typography sx={{ color: "#f44336" }}>{error}</Typography>
             </Grid>
           )}
 
+          {/* send message button + loader  */}
           <Grid item xs={12}>
             <Button
               type="submit"
@@ -108,6 +119,7 @@ export default function ContactForm() {
   );
 }
 
+// input styleing
 const inputStyles = {
   input: { color: "#fff" },
   textarea: { color: "#fff" },

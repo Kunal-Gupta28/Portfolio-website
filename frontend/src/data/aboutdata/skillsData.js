@@ -4,11 +4,6 @@ import DevicesIcon from "@mui/icons-material/Devices";
 import SecurityIcon from "@mui/icons-material/Security";
 import SpeedIcon from "@mui/icons-material/Speed";
 
-export const skillsMeta = {
-  heading: "Skills & Technologies",
-  helperText: "( Hover for 2s to reveal technologies )",
-};
-
 export const skillIconMap = {
   frontend: CodeIcon,
   backend: StorageIcon,

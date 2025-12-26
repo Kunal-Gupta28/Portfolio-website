@@ -23,27 +23,6 @@ export const experienceData = {
         "Git",
       ],
     },
-    {
-      position: "Self-Study & Independent Learning",
-      company: "Personal Development",
-      duration: "2023 – Present",
-      description:
-        "Continuously building production-ready projects and expanding system-level knowledge.",
-      responsibilities: [
-        "Building full-stack MERN applications",
-        "Designing scalable backend APIs",
-        "Exploring mobile and cross-platform development",
-        "Learning AI/ML fundamentals",
-        "Practicing cybersecurity basics",
-      ],
-      technologies: [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Tailwind CSS",
-        "Docker",
-        "Git",
-      ],
-    },
+
   ],
 };

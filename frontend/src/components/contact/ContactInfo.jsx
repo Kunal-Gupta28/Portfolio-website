@@ -5,7 +5,7 @@ export default function ContactInfo() {
   return (
     <Paper
       sx={{
-        p: 4,
+        p: {xs:2,md:4},
         height: "100%",
         borderRadius: "20px",
         background:
@@ -14,28 +14,33 @@ export default function ContactInfo() {
         border: "1px solid rgba(255,255,255,0.12)",
       }}
     >
-      <Typography variant="h5" sx={{ mb: 2, fontWeight: 600, color: "#fff" }}>
+
+      {/* heading */}
+      <Typography variant="h5" sx={{ mb: {xs:1,md:2}, fontWeight: 600, color: "#fff" }}>
         Get in Touch
       </Typography>
 
-      <Typography sx={{ mb: 4, color: "rgba(255,255,255,0.65)" }}>
+      {/* paragraph */}
+      <Typography sx={{ mb:4, color: "rgba(255,255,255,0.65)",fontSize:{ xs:14 , md:19} }}>
         Feel free to reach out for opportunities, collaborations, or just a
         friendly hello.
       </Typography>
 
+      {/* location , email */}
       {contactInfo.map(({ label, value, icon: Icon }) => (
         <Box
           key={label}
-          sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}
+          sx={{ display: "flex", alignItems: "center", gap: {xs:1,md:2}, mb: 2 }}
         >
           <Icon sx={{ color: "#fa5a29" }} />
-          <Typography sx={{ color: "rgba(255,255,255,0.7)" }}>
+          <Typography sx={{ color: "rgba(255,255,255,0.7)",fontSize:{ xs:14 , md:19} }}>
             {value}
           </Typography>
         </Box>
       ))}
 
-      <Box sx={{ display: "flex", gap: 2, mt: 3 }}>
+      {/* social media links */}
+      <Box sx={{ display: "flex",  gap: 2, mt: 3 }}>
         {socialLinks.map(({ label, href, icon: Icon }) => (
           <IconButton
             key={label}

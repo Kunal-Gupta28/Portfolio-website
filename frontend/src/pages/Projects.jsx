@@ -1,20 +1,31 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import { Box, Container } from "@mui/material";
 
+// importing components
 import CategoryFilter from "../components/projects/CategoryFilter";
 import ProjectGrid from "../components/projects/ProjectGrid";
-import ComingSoonCard from "../components/projects/ComingSoonCard";
-import ProjectDialog from "../components/projects/ProjectDialog";
 import Footer from "../components/Footer";
 import { projects } from "../data/projectsData";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
+// lazy loading
+const ComingSoonCard = lazy(() =>
+  import("../components/projects/ComingSoonCard")
+);
+
+const ProjectDialog = lazy(() =>
+  import("../components/projects/ProjectDialog")
+);
+
 export default function Projects() {
+  // state variables
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  // page title
   useDocumentTitle("Projects | Kunal Gupta");
 
+  // memorize the filter value
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "All") return projects;
     return projects.filter(
@@ -24,8 +35,14 @@ export default function Projects() {
   }, [selectedCategory]);
 
   return (
-    <Box sx={{ minHeight: "100dvh", pt: 16, backgroundColor: "#000" }}>
-      <Container maxWidth="lg">
+    <Box
+      sx={{
+        minHeight: "100dvh",
+        pt: { xs: 12, md: 16 },
+        backgroundColor: "#000",
+      }}
+    >
+      <Container maxWidth="xl">
         <CategoryFilter
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
@@ -36,29 +53,28 @@ export default function Projects() {
           onViewProject={setSelectedProject}
         />
 
+        {/* shows when their is no proejct  */}
         {filteredProjects.length === 0 && (
-          <Box
-            sx={{
-              mt: 6,
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr",
-                md: "repeat(2, 1fr)",
-                lg: "repeat(3, 1fr)",
-              },
-              gap: 4,
-            }}
-          >
-            <ComingSoonCard title={`${selectedCategory} Projects`} />
-          </Box>
+          <Suspense fallback={<div style={{ color: "#fff" }}>Loading...</div>}>
+            <Box sx={{ mt: 6 }}>
+              <ComingSoonCard title={`${selectedCategory} Projects`} />
+            </Box>
+          </Suspense>
         )}
 
-        <ProjectDialog
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        {/* info about project */}
+        <Suspense fallback={null}>
+          {selectedProject && (
+            <ProjectDialog
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+            />
+          )}
+        </Suspense>
       </Container>
-      <section className="mt-[10%]">
+
+      {/* footer */}
+      <section className="mt-[20vh] lg:mt-[10vh]">
         <Footer />
       </section>
     </Box>

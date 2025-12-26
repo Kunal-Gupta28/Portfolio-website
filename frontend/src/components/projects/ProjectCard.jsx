@@ -1,6 +1,5 @@
 import { Box, Typography, Paper, Chip, IconButton, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
-
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
 import InfoIcon from "@mui/icons-material/Info";
@@ -17,9 +16,10 @@ export default function ProjectCard({ project, onView }) {
       whileHover={{ y: -6, boxShadow: "0 30px 70px rgba(0,0,0,.75)" }}
       transition={{ duration: 0.3 }}
       sx={{
-        p: 3,
+        py: {xs:2,md:3},
+        px: {xs:1,md:3},
         height: "100%",
-        minHeight: 380,
+        minHeight: {xs:300, md:380},
         borderRadius: 3,
         display: "flex",
         flexDirection: "column",
@@ -100,7 +100,7 @@ export default function ProjectCard({ project, onView }) {
         }}
       />
 
-      {/* Actions */}
+      {/* Actions: github , project links with project info and video link*/}
       <Box
         sx={{
           mt: "auto",
@@ -109,6 +109,8 @@ export default function ProjectCard({ project, onView }) {
           gap: 1.4,
         }}
       >
+
+        {/* github icon : project repo */}
         {project.github && (
           <Tooltip title="GitHub">
             <MotionIcon
@@ -123,6 +125,7 @@ export default function ProjectCard({ project, onView }) {
           </Tooltip>
         )}
 
+        {/* project link */}
         {project.live && (
           <Tooltip title="Live Demo">
             <MotionIcon
@@ -137,6 +140,7 @@ export default function ProjectCard({ project, onView }) {
           </Tooltip>
         )}
 
+        {/* project info */}
         <Tooltip title="Details">
           <MotionIcon
             whileHover={{ scale: 1.15 }}
@@ -147,6 +151,7 @@ export default function ProjectCard({ project, onView }) {
           </MotionIcon>
         </Tooltip>
 
+        {/* video Demo link */}
         {project.videoDemo && (
           <Tooltip title="Video Demo">
             <MotionIcon

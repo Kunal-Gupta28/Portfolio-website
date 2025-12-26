@@ -5,9 +5,12 @@ import {
   WorkOutline,
   DescriptionOutlined,
   LinkedIn,
-  GitHub
+  GitHub,
+  ChatBubbleOutline,
 } from "@mui/icons-material";
 
+
+// icons
 const ICON_MAP = {
   home: HomeOutlined,
   about: InfoOutlined,
@@ -15,8 +18,8 @@ const ICON_MAP = {
   resume: DescriptionOutlined,
   linkedin: LinkedIn,
   github: GitHub,
+  contact: ChatBubbleOutline
 };
-
 
 const NavItemIcon = ({ type, active, onClick }) => {
   const Icon = ICON_MAP[type];
@@ -38,6 +41,5 @@ const NavItemIcon = ({ type, active, onClick }) => {
     </Box>
   );
 };
-
 
 export default NavItemIcon;

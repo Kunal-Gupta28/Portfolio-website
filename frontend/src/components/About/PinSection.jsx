@@ -13,7 +13,10 @@ export default function PinSection({
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // ✅ Desktop only (1024px and above)
+    mm.add("(min-width: 1024px)", () => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start,
@@ -22,14 +25,10 @@ export default function PinSection({
         pinSpacing,
         anticipatePin: 1,
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert(); // cleanup
   }, [start, end, pinSpacing]);
 
-  return (
-    <section ref={sectionRef}>
-      {children}
-    </section>
-  );
+  return <section ref={sectionRef}>{children}</section>;
 }

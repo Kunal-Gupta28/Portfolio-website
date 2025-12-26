@@ -8,7 +8,7 @@ export default function CategoryFilter({
   return (
     <Box
       sx={{
-        mb: 8,
+        mb: {xs:4, md:6, lg:8},
         display: "flex",
         justifyContent: "center",
         gap: 2,
@@ -21,7 +21,7 @@ export default function CategoryFilter({
           label={cat}
           onClick={() => setSelectedCategory(cat)}
           sx={{
-            px: 2,
+            px: {xs:0.1, md:2},
             py: 1,
             fontWeight: 500,
             borderRadius: "999px",

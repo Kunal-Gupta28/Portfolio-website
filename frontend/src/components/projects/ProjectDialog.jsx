@@ -40,7 +40,7 @@ export default function ProjectDialog({ project, onClose }) {
 
           <DialogContent>
             {project.hasApiDependency && (
-              <Alert severity="info" sx={{ mb: 2 }}>
+              <Alert severity="info" sx={{ mb: {md:2} }}>
                 This project uses external APIs. Demo may stop working if
                 free tier expires.
               </Alert>

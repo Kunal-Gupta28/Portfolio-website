@@ -23,12 +23,16 @@ export default function ComingSoonCard({ title }) {
       }}
     >
       <Box>
+
+        {/* title  */}
         <Typography
           variant="h5"
           sx={{ fontWeight: 700, color: "#fff", mb: 1 }}
         >
           {title}
         </Typography>
+
+        {/* text */}
         <Typography sx={{ color: "rgba(255,255,255,.6)" }}>
           Projects coming soon 🚀
         </Typography>

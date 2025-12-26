@@ -2,33 +2,70 @@ import { education } from "../../data/aboutdata/qualificationsData";
 
 export default function Qualifications() {
   return (
-    <section className="h-screen px-6 md:px-20 pb-24 max-w-4xl ml-auto relative">
-      <h2 className="text-3xl font-bold mb-8 text-[#fa5a29]">
+    <section
+      className="
+        min-h-screen
+        px-[clamp(1.25rem,5vw,5rem)]
+        pb-[clamp(2rem,10vw,6rem)]
+        w-[90%] md:w-[70vw] lg:w-[50vw] xl:max-w-5xl
+        ml-auto
+        relative
+      "
+    >
+      {/* Heading */}
+      <h2
+        className="
+          font-bold
+          mb-[clamp(1rem,2vw,2.5rem)]
+          text-[#fa5a29]
+          text-[clamp(2rem,3vw,4.5rem)]
+        "
+      >
         Qualifications
       </h2>
 
-      <div className="space-y-8 text-white/70">
+      {/* Cards */}
+      <div className="space-y-[clamp(1.5rem,3vw,2rem)] text-white/70">
         {education.map((edu, index) => (
           <div
             key={index}
-            className="rounded-2xl border border-white/10 p-6
-                       bg-gradient-to-br from-white/5 to-transparent"
+            className="
+              rounded-2xl
+              border border-white/10
+              p-[clamp(1.25rem,3vw,1.75rem)]
+              bg-gradient-to-br from-white/5 to-transparent
+            "
           >
-            <h3 className="text-xl font-semibold text-white">
+            {/* Degree */}
+            <h3
+              className="
+                font-semibold
+                text-white
+                text-[clamp(1rem,1.5vw,1.7rem)]
+              "
+            >
               {edu.degree}
             </h3>
 
-            <p className="text-sm mt-1 text-white/50">
+            {/* Institution & Duration */}
+            <p
+              className="
+                mt-1
+                text-white/50
+                text-[clamp(0.75rem,1.1vw,1.3rem)]
+              "
+            >
               {edu.institution} • {edu.duration}
             </p>
 
-            {edu.gpa && (
-              <p className="text-sm mt-2 text-[#fa5a29]">
-                GPA: {edu.gpa}
-              </p>
-            )}
-
-            <p className="mt-4 leading-relaxed">
+            {/* Description */}
+            <p
+              className="
+                mt-4
+                leading-relaxed
+                text-[clamp(0.9rem,1.2vw,1.4rem)]
+              "
+            >
               {edu.description}
             </p>
           </div>

@@ -20,11 +20,6 @@ export const storyData = {
   ],
 };
 
-export const skillsMeta = {
-  heading: "Skills & Technologies",
-  helperText: "( Hover for 2s to reveal technologies )",
-};
-
 export const valuesData = {
   heading: "How I Work & What I’m Exploring",
   coreFocus: [

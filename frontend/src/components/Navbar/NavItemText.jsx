@@ -2,6 +2,8 @@ import { Typography } from "@mui/material";
 
 const NavItemText = ({ label, active, onClick }) => {
   return (
+
+    // routes name
     <Typography
       variant="body2"
       role="button"

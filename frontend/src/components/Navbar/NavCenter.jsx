@@ -1,5 +1,7 @@
 import { Box, Stack } from "@mui/material";
 import { motion } from "framer-motion";
+
+// importing components
 import NavItemIcon from "./NavItemIcon";
 import NavItemText from "./NavItemText";
 
@@ -10,6 +12,8 @@ const NavCenter = ({
   isActive,
   navigate,
 }) => {
+
+  // if external link present then open in new tab otherwise nagivate
   const handleClick = (item) => {
     if (item.external) {
       window.open(item.url, "_blank");
@@ -20,7 +24,7 @@ const NavCenter = ({
 
   return (
     <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
-      {/* Collapsed */}
+      {/* Collapsed state: only shows greeting + navicon ( NavItemIcom ) + lets talk button ( contact route ) */}
       {!expanded && (
         <Stack direction="row" spacing={2} alignItems="center">
           {navItems.map((item) => (
@@ -34,7 +38,7 @@ const NavCenter = ({
         </Stack>
       )}
 
-      {/* Expanded */}
+      {/* Expanded state: shows greeting + icon with route name ( navItemText component )  + lets talk button ( contact route )*/}
       {showExpanded && (
         <motion.div
           initial={{ opacity: 0, y: "100%" }}

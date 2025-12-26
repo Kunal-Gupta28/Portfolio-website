@@ -2,24 +2,27 @@ import { useState } from "react";
 import axiosInstance from "../config/axios";
 
 export default function useContactForm() {
+
+  // state variables 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
+  // two way binding 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (errors[name]) setErrors({ ...errors, [name]: "" });
   };
 
+  // form validation
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
@@ -37,6 +40,7 @@ export default function useContactForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // handle submit 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -45,6 +49,7 @@ export default function useContactForm() {
     setSuccess("");
     setError("");
 
+    // error handling 
     try {
       const res = await axiosInstance.post("/contact", formData);
       if (res.status === 201) {
