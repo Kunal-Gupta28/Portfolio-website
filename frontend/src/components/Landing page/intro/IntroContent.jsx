@@ -62,7 +62,7 @@ export default function IntroContent() {
           <AnimatedWords text="My work spans frontend engineering with React, backend APIs with Node.js and Express, real-time systems with Socket.io, and data modeling with MongoDB." />
         </p>
 
-        <p className="text-[clamp(1.25rem,1.3vw,3rem)] leading-[1]">
+        <p className="text-[clamp(1.25rem,1.3vw,3rem)] mb-[clamp(2rem,2vw,4rem)] leading-[1]">
           <AnimatedWords text="Currently focused on growing as a software engineer by building production-ready projects and contributing to meaningful systems." />
         </p>
 
