@@ -56,7 +56,7 @@ export default function HeroLeft() {
       <div className="overflow-hidden">
         <motion.p
           variants={verticalRevealWithBounce}
-          className="mt-6 text-md font-bold text-[#fa5a29] opacity-60"
+          className="mt-6 text-xs lg:text-md font-bold text-[#fa5a29] opacity-60"
         >
           ( Scroll to explore )
         </motion.p>

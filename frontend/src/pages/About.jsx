@@ -9,9 +9,7 @@ import CTAButton from "../components/CTAButton";
 import Footer from "../components/Footer";
 
 const Skills = lazy(() => import("../components/About/Skills"));
-const Qualifications = lazy(() =>
-  import("../components/About/Qualifications")
-);
+const Qualifications = lazy(() => import("../components/About/Qualifications"));
 const Experience = lazy(() => import("../components/About/Experience"));
 const Values = lazy(() => import("../components/About/Values"));
 const Interests = lazy(() => import("../components/About/Interests"));
@@ -84,7 +82,7 @@ export default function About() {
       </Suspense>
 
       {/* CTA */}
-      <section className="relative w-full bg-black py-[12%] px-[8%] md:px-[25%]">
+      <section className="relative h-[70vh] lg:h-[60vh] w-full bg-black py-[45%] lg:py-[10%]  px-[8%] md:px-[25%]">
         <CTAButton
           position="right"
           heading="Let’s build meaningful systems"

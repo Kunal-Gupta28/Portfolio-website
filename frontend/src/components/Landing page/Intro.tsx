@@ -16,11 +16,12 @@ export default function Intro() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-black text-white"
+      className="relative min-h-screen overflow-hidden bg-black pb-[20vh] text-white"
     >
       <div className="mx-auto w-[90%]">
         <div className="grid min-h-screen gap-16 lg:grid-cols-2 lg:gap-24">
 
+          {/* spline scene */}
           {isDesktop && (
             <Suspense fallback={<Loader />}>
               <SplineScene />

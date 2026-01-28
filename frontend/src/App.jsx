@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // importing components
 import Navbar from "./components/Navbar/Navbar";
-import BallFollower from "./components/BallFollower";
+import GlassCursor from "./components/GlassCursor";
 import SmoothScroll from "./components/SmoothScroll";
 import Loader from "./components/Loader";
 
@@ -37,7 +37,7 @@ const App = () => {
         }}
       >
         {/* Always visible */}
-        <BallFollower />
+        <GlassCursor />
         <Navbar />
 
         {/* Lazy-loaded routes */}

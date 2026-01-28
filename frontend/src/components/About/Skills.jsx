@@ -12,18 +12,30 @@ export default function Skills({ setValue }) {
   return (
     <section className="h-svh px-6 md:px-20 pb-24 relative">
       <div className="text-right">
-        <h2 className="
-          text-[clamp(1.5rem,3vw,10rem)] font-bold text-[#fa5a29]">
+
+        {/* heading */}
+        <h2
+          className="
+            font-bold
+            text-[#fa5a29]
+            mb-[clamp(1rem,2vw,3rem)]
+            text-[clamp(2rem,3vw,6rem)]
+            leading-none"
+        >
           Skills & Technologies
         </h2>
 
+        {/* show on mobile */}
         <p className="text-xs text-gray-400 block lg:hidden">
           ( click to reveal technologies )
         </p>
+
+        {/* show on desktop */}
         <p className="text-[clamp(1rem,1vw,1.5rem)] text-gray-400 d-none hidden lg:block">
           ( Hover for 2s to reveal technologies )
         </p>
 
+        {/* skill cards */}
         <div className="mt-[clamp(0.7rem,1vw,1.5rem)] grid gap-3 lg:gap-8">
           {skillCategories.map((category) => {
             const Icon = skillIconMap[category.icon];
@@ -40,11 +52,14 @@ export default function Skills({ setValue }) {
                   hover:border-white/20 
                 "
               >
+
+                {/* Title Row */}
                 <div className="flex items-center justify-end gap-4">
-                  <h3 className="text-[clamp(0.8rem,1.1vw,2rem)] font-semibold">
+                  <h3 className="text-[clamp(1rem,1.1vw,2rem)] font-semibold">
                     {category.title}
                   </h3>
 
+                  {/* icon */}
                   <div className="h-11 w-11 flex items-center justify-center rounded-xl bg-[#fa5a29]/10">
                     <Icon className="text-[#fa5a29]" />
                   </div>

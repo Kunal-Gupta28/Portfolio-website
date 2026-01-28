@@ -1,13 +1,12 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 
 // importing components
 import ContactInfo from "./ContactInfo";
 import GlassCard from "../GlassCard";
+import ContactForm from  "./ContactForm";
 
-// lazy loading
-const ContactForm = lazy(() => import("./ContactForm"));
 const ACCENT = "#fa5a29";
 
 // styling
@@ -103,7 +102,7 @@ export default function ContactActions({ showForm, onShowForm, onHideForm }) {
                   whileTap={{ scale: 0.95 }}
                   style={{ ...ctaStyle, marginTop: 24 }}
                 >
-                  Send Message Directly <span style={{ marginLeft: 12 }}>↗</span>
+                  Send Message Directly <span className="text-[clamp(1.2rem,3vw,1.2rem)] ms-2 font-bold">↗</span>
                 </motion.button>
               </GlassCard>
             </motion.div>
@@ -132,7 +131,7 @@ export default function ContactActions({ showForm, onShowForm, onHideForm }) {
                   whileTap={{ scale: 0.95 }}
                   style={{ ...ctaStyle, marginTop: 24 }}
                 >
-                  Back to Get in Touch ↗
+                  Back to Get in Touch <span style={{ marginLeft: 12 }}>↗</span>
                 </motion.button>
               </GlassCard>
             </motion.div>

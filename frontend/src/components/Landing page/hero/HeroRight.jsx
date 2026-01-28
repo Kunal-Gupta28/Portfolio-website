@@ -17,7 +17,7 @@ export default function HeroRight() {
       animate="show"
       className="relative h-full overflow-hidden"
     >
-      <div className="ml-auto h-full pt-[20%] flex w-[50%] flex-col gap-8 opacity-80">
+      <div className="ml-auto h-full flex w-[40%] md:w-[25%] lg:w-[50%] flex-col gap-8 opacity-80">
 
         {/* SERVICES */}
         <div className="space-y-1 text-[clamp(0.75rem,0.8vw,2rem)]">
@@ -64,7 +64,7 @@ export default function HeroRight() {
 
             <motion.span
               variants={verticalRevealWithBounce}
-              className="text-[#ff723f] text-[clamp(1rem,1vw,2rem)]"
+              className="text-[#ff723f] text-[clamp(1rem,1vw,2rem)] me-5"
             >
               ↗
             </motion.span>
@@ -86,7 +86,7 @@ export default function HeroRight() {
         />
 
         {/* STATS */}
-        <div className="flex gap-10">
+        <div className="flex gap-4 lg:gap-10">
           <motion.div variants={verticalReveal}>
             <p className="font-bold text-[clamp(1.5rem,2.5vw,4rem)]">{projectCount -1}+</p>
             <p className="opacity-60 text-[clamp(0.7rem,1vw,1rem)]">

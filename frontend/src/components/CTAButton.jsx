@@ -11,10 +11,9 @@ export default function CTA({
     <section
       className={`
         relative
-        max-w-[50vw
         flex
         flex-col
-        gap-[clamp(1rem,2vw,4rem)]
+        gap-[clamp(2rem,2vw,4rem)]
         ${
           position === "right"
             ? "self-end items-center ml-auto text-center"
@@ -30,7 +29,7 @@ export default function CTA({
           className="
             font-bold
             text-white
-            text-[clamp(1.25rem,2.5vw,4rem)]
+            text-[clamp(2rem,2.5vw,4rem)]
           "
         >
           {heading}
@@ -47,16 +46,16 @@ export default function CTA({
           border
           border-[#fa5a29]/60
           text-[#fa5a29]
-          flex
+          flex mx-auto lg:mx-0
           items-center
           gap-[clamp(1rem,2vw,1.25rem)]
-          px-[clamp(1rem,2.5vw,5rem)]
+          px-[clamp(1.7rem,2.5vw,5rem)]
           py-[clamp(0.5rem,1.2vw,1.5rem)]
-          text-[clamp(0.7rem,1.2vw,2rem)]
+          text-[clamp(1rem,1.2vw,2rem)]
         "
       >
         See What I’ve Built
-        <span className="text-[clamp(1rem,3vw,1.25rem)]">↗</span>
+        <span className="text-[clamp(1.5rem,3vw,1.25rem)] font-bold">↗</span>
       </motion.button>
     </section>
   );

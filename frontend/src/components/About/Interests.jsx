@@ -14,17 +14,18 @@ export default function Interests() {
       {/* Heading */}
       <h2
         className="
-          font-bold
-          mb-[clamp(1rem,1.5vw,1.5rem)]
+          font-bold text-right
           text-[#fa5a29]
-          text-[clamp(1.75rem,3vw,3rem)]
+          mb-[clamp(1rem,2.5vw,3rem)]
+          text-[clamp(2rem,3vw,6rem)]
+          leading-none
         "
       >
         {interestsData.heading}
       </h2>
 
       {/* Interest Cards */}
-      <div className="space-y-[clamp(1rem,4vw,2rem)]">
+      <div className="mt-[clamp(0.7rem,1vw,1.5rem)] grid gap-3 lg:gap-8">
         {interestsData.items.map((item, i) => {
           const Icon = item.icon;
 
@@ -32,10 +33,10 @@ export default function Interests() {
             <div
               key={i}
               className="
-                rounded-2xl
-                border border-white/10
-                bg-gradient-to-br from-white/5 to-transparent
-                p-[clamp(1rem,3vw,1.75rem)]
+                 w-[80vw] md:w-[35vw] xl:w-[30vw] rounded-2xl border border-white/10 cursor-pointer
+                  bg-gradient-to-br from-white/5 to-transparent 
+                  p-[clamp(0.8rem,1vw,2rem)] transition-all duration-300 ml-auto
+                  hover:border-white/20 
               "
             >
               {/* Title Row */}
@@ -47,26 +48,18 @@ export default function Interests() {
                   mb-[clamp(0.5rem,2vw,0.75rem)]
                 "
               >
-                <div
-                  className="
-                    rounded-xl
-                    bg-[#fa5a29]/10
-                    p-[clamp(0.4rem,1.5vw,0.6rem)]
-                  "
-                >
-                  <Icon
-                    className="
-                      text-[#fa5a29]
-                      text-[clamp(1rem,2.5vw,1.25rem)]
-                    "
-                  />
+
+                {/* icon */}
+                <div className="h-11 w-11 flex items-center justify-center rounded-xl bg-[#fa5a29]/10">
+                  <Icon className="text-[#fa5a29]" />
                 </div>
 
+                {/* item title */}
                 <h3
                   className="
                     font-semibold
                     text-white
-                    text-[clamp(1.125rem,2.5vw,1.375rem)]
+                    text-[clamp(1.1rem,1.1vw,2rem)]
                   "
                 >
                   {item.title}
@@ -77,8 +70,7 @@ export default function Interests() {
               <p
                 className="
                   text-white/70
-                  leading-relaxed
-                  text-[clamp(0.9rem,2.2vw,1rem)]
+                  text-[clamp(0.9rem,2vw,1rem)]
                 "
               >
                 {item.description}

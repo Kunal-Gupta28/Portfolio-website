@@ -17,9 +17,9 @@ export default function Experience() {
       <h2
         className="
           font-bold
-          mb-[clamp(1rem,6vw,1.5rem)]
           text-[#fa5a29]
-          text-[clamp(1.5rem,2vw,4rem)] 
+          mb-[clamp(1rem,2vw,3rem)]
+          text-[clamp(2rem,3vw,6rem)]
         "
       >
         {experienceData.heading}
@@ -42,7 +42,7 @@ export default function Experience() {
               className="
                 font-semibold
                 text-white
-                text-[clamp(1.125rem,2.5vw,1.5rem)]
+                text-[clamp(1.2rem,2.5vw,1.5rem)]
               "
             >
               {exp.position}

@@ -16,8 +16,8 @@ export default function Values() {
         className="
           font-bold
           mb-[clamp(1rem,4vw,2rem)]
-          text-[#fa5a29]
-          text-[clamp(1.5rem,4vw,2.5rem)]
+          text-[#fa5a29] leading-[2rem]
+          text-[clamp(2rem,4vw,2.5rem)]
         "
       >
         {valuesData.heading}

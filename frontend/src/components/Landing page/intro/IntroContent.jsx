@@ -12,7 +12,7 @@ export default function IntroContent() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 🔒 Pin section
+      // Pin section
       ScrollTrigger.create({
         trigger: pinRef.current,
         start: "top 12%",
@@ -52,17 +52,17 @@ export default function IntroContent() {
           INTRO
         </span>
 
-        <h2 className="mb-10 font-extrabold leading-[1] tracking-tight text-[#fa5a29] text-[clamp(2.25rem,4vw,10rem)]">
+        <h2 className="mb-10 font-extrabold leading-none tracking-tight text-[#fa5a29] text-[clamp(2.25rem,4vw,10rem)]">
           Building real-world systems,
           <br />
           with clarity and purpose.
         </h2>
 
-        <p className="my-3 text-[clamp(1.25rem,1.3vw,3rem)] leading-[1]">
+        <p className="my-3 text-[clamp(1.25rem,1.3vw,3rem)] leading-[0.6]">
           <AnimatedWords text="My work spans frontend engineering with React, backend APIs with Node.js and Express, real-time systems with Socket.io, and data modeling with MongoDB." />
         </p>
 
-        <p className="text-[clamp(1.25rem,1.3vw,3rem)] mb-[clamp(2rem,2vw,4rem)] leading-[1]">
+        <p className="text-[clamp(1.25rem,1.3vw,3rem)] mb-[clamp(2rem,2vw,4rem)] leading-[0.6]">
           <AnimatedWords text="Currently focused on growing as a software engineer by building production-ready projects and contributing to meaningful systems." />
         </p>
 

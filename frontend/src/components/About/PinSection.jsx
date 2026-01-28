@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -12,22 +12,40 @@ export default function PinSection({
 }) {
   const sectionRef = useRef(null);
 
-  useEffect(() => {
-    const mm = gsap.matchMedia();
+  useLayoutEffect(() => {
+    if (!sectionRef.current) return;
 
-    // ✅ Desktop only (1024px and above)
-    mm.add("(min-width: 1024px)", () => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start,
-        end,
-        pin: true,
-        pinSpacing,
-        anticipatePin: 1,
+    // Scope GSAP to this component
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 1024px)", () => {
+        const trigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start,
+          end,
+          pin: true,
+          pinSpacing,
+          anticipatePin: 1,
+        });
+
+        // cleanup for this media query
+        return () => {
+          trigger.kill();
+        };
       });
-    });
 
-    return () => mm.revert(); // cleanup
+      // cleanup for matchMedia
+      return () => {
+        mm.revert();
+      };
+    }, sectionRef);
+
+    // 🔥 Critical cleanup for React + StrictMode
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
   }, [start, end, pinSpacing]);
 
   return <section ref={sectionRef}>{children}</section>;

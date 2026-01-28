@@ -15,8 +15,8 @@ export default function Story() {
         className="
           font-bold
           text-[#fa5a29]
-          mb-[clamp(1.5rem,2vw,3rem)]
-          text-[clamp(2.5rem,3vw,6rem)]
+          mb-[clamp(1rem,2vw,3rem)]
+          text-[clamp(2rem,3vw,6rem)]
           leading-none
         "
       >

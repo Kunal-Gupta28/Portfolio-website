@@ -48,7 +48,7 @@ export default function CommonBackground({ skills = [] }) {
           <motion.div
             key={skill.name}
             className="
-              absolute w-[180px] h-[120px]
+              absolute w-45 h-30
               rounded-2xl border border-white/10
               bg-white/5 backdrop-blur-md
               flex flex-col items-center justify-center

@@ -16,9 +16,9 @@ export default function Qualifications() {
       <h2
         className="
           font-bold
-          mb-[clamp(1rem,2vw,2.5rem)]
           text-[#fa5a29]
-          text-[clamp(2rem,3vw,4.5rem)]
+          mb-[clamp(1rem,2vw,3rem)]
+          text-[clamp(2rem,3vw,6rem)]
         "
       >
         Qualifications
@@ -41,7 +41,7 @@ export default function Qualifications() {
               className="
                 font-semibold
                 text-white
-                text-[clamp(1rem,1.5vw,1.7rem)]
+                text-[clamp(1.15rem,1.5vw,1.7rem)]
               "
             >
               {edu.degree}

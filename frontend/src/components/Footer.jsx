@@ -16,7 +16,7 @@ const item = {
 const Footer = () => {
 
   return (
-    <footer className="relative h-[85svh] lg:h-[120svh] w-full overflow-hidden bg-white">
+    <footer className="relative h-[90svh] lg:h-[120svh] w-full pt-[20vh] md:pt-0 overflow-hidden bg-white">
       {/* Background image */}
       <img
         src="/images/Footer.avif"
@@ -116,7 +116,7 @@ const Footer = () => {
       {/* Marquee */}
       <div className="absolute bottom-0 w-full overflow-hidden">
         <motion.div
-          className="flex whitespace-nowrap text-[clamp(2.2rem,6vw,9rem)] gap-4 lg:gap-8"
+          className="flex whitespace-nowrap text-[clamp(2.5rem,6vw,9rem)] gap-4 lg:gap-8"
           animate={{ x: ["0%", "-79%"] }}
           transition={{
             repeat: Infinity,
