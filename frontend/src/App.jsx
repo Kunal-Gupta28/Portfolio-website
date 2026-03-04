@@ -1,11 +1,10 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// importing components
+// Components
 import Navbar from "./components/Navbar/Navbar";
-import GlassCursor from "./components/GlassCursor";
-import SmoothScroll from "./components/SmoothScroll";
 import Loader from "./components/Loader";
+import useIsDesktop from "./hooks/useIsDesktop";
 
 /* Lazy-loaded pages */
 const Landing = lazy(() => import("./pages/Landing"));
@@ -14,44 +13,50 @@ const Projects = lazy(() => import("./pages/Projects"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+/* Lazy-loaded desktop-only effects */
+const GlassCursor = lazy(() => import("./components/GlassCursor"));
+const SmoothScroll = lazy(() => import("./components/SmoothScroll"));
+
 const App = () => {
-  const [initialLoading, setInitialLoading] = useState(true);
+  const isDesktop = useIsDesktop();
 
-  // timer for loader
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setInitialLoading(false);
-    }, 1200);
+  const AppContent = (
+    <>
+      {isDesktop && (
+        <Suspense fallback={null}>
+          <GlassCursor />
+        </Suspense>
+      )}
 
-    return () => clearTimeout(timer);
-  }, []);
+      <Navbar />
 
-  if (initialLoading) return <Loader />;
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </>
+  );
 
   return (
-    <SmoothScroll>
-      <Router
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
-        {/* Always visible */}
-        <GlassCursor />
-        <Navbar />
-
-        {/* Lazy-loaded routes */}
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+    <Router
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
+      {isDesktop ? (
+        <Suspense fallback={null}>
+          <SmoothScroll>{AppContent}</SmoothScroll>
         </Suspense>
-      </Router>
-    </SmoothScroll>
+      ) : (
+        AppContent
+      )}
+    </Router>
   );
 };
 

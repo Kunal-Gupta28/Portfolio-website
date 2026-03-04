@@ -1,17 +1,20 @@
 import { skillCategories, skillIconMap } from "../../data/aboutdata/skillsData";
 
 export default function Skills({ setValue }) {
+  // handle mouse enter
   const handleEnter = (key) => {
     setValue((prev) => (prev === key ? prev : key));
+    setTimeout(()=>{setValue((prev) => (prev === "Image" ? prev : "Image"))},8000);
   };
 
+  // handle mouse leave
   const handleLeave = () => {
     setValue((prev) => (prev === "Image" ? prev : "Image"));
   };
 
   return (
     <section className="h-svh px-6 md:px-20 pb-24 relative">
-      <div className="text-right">
+      <div className={`text-right`}>
 
         {/* heading */}
         <h2

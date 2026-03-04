@@ -1,7 +1,11 @@
 import { Box, Typography, Container } from "@mui/material";
 import { motion } from "framer-motion";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 export default function NotFound() {
+  // page title
+    useDocumentTitle("Page Not Found");
+
   return (
     <Box sx={{ minHeight: "100dvh", backgroundColor: "#000" }}>
       <Container maxWidth="md">

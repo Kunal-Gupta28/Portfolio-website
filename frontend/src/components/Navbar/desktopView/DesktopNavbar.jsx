@@ -1,23 +1,22 @@
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 // importing component
+import Greeting from "./Greeting";
 import NavCenter from "./NavCenter";
 
 const MotionBox = motion.create(Box);
 
-export default function DesktopNavbar({
-  navItems,
-  isActive,
-  navigate,
-  greeting,
-  location,
-}) {
-
+export default function DesktopNavbar({isActive}) {
   // state variable
   const [expanded, setExpanded] = useState(false);
   const [showExpanded, setShowExpanded] = useState(false);
+
+  // react router dom
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <MotionBox
@@ -59,7 +58,7 @@ export default function DesktopNavbar({
 
           {/* greeting  */}
           <Typography variant="body2" sx={{ opacity: 0.75 }}>
-            {greeting}
+            <Greeting/>
           </Typography>
 
           <Box
@@ -71,11 +70,8 @@ export default function DesktopNavbar({
 
             {/* icons and links */}
             <NavCenter
-              navItems={navItems}
-              expanded={expanded}
               showExpanded={showExpanded}
               isActive={isActive}
-              navigate={navigate}
             />
           </Box>
 
