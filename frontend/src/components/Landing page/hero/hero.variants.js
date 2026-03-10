@@ -28,7 +28,7 @@ export const verticalReveal = {
 };
 
 // vertical stack container
-const STACK_ITEM_COUNT = 24;
+const STACK_ITEM_COUNT = 6;
 const ITEM_HEIGHT = 1.2;
 
 export const verticalStackContainer = {

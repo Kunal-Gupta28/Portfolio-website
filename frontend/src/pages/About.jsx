@@ -6,7 +6,6 @@ import Hero from "../components/About/Hero";
 import Story from "../components/About/Story";
 import PinSection from "../components/About/PinSection";
 import CTAButton from "../components/CTAButton";
-import Footer from "../components/Footer";
 
 const Skills = lazy(() => import("../components/About/Skills"));
 const Qualifications = lazy(() => import("../components/About/Qualifications"));
@@ -88,9 +87,6 @@ export default function About() {
           heading="Let’s build meaningful systems"
         />
       </section>
-
-      {/* FOOTER */}
-      <Footer />
     </main>
   );
 }

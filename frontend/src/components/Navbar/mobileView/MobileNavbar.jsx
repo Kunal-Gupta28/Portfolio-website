@@ -1,8 +1,10 @@
-import { Box, Stack, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import ChatBubbleOutline from "@mui/icons-material/ChatBubbleOutline";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import ChatBubbleOutline from "@mui/icons-material/ChatBubbleOutline";
 import { navItems } from "../../../data/navData";
 
 const MotionBox = motion.create(Box);

@@ -4,7 +4,6 @@ import { Box, Container } from "@mui/material";
 // importing components
 import CategoryFilter from "../components/projects/CategoryFilter";
 import ProjectGrid from "../components/projects/ProjectGrid";
-import Footer from "../components/Footer";
 import { projects } from "../data/projectsData";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
@@ -72,11 +71,6 @@ export default function Projects() {
           )}
         </Suspense>
       </Container>
-
-      {/* footer */}
-      <section className="mt-[20vh] lg:mt-[10vh]">
-        <Footer />
-      </section>
     </Box>
   );
 }

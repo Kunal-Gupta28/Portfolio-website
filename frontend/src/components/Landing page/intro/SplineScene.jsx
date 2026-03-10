@@ -9,7 +9,7 @@ export default function SplineScene() {
   const containerRef = useRef(null);
   const [shouldRender, setShouldRender] = useState(false);
 
-  /* 1️⃣ Intersection Observer */
+  /* Intersection Observer */
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -20,7 +20,7 @@ export default function SplineScene() {
       },
       {
         root: null,
-        rootMargin: "200px", // preload before visible
+        rootMargin: "200px",
         threshold: 0.1,
       }
     );
@@ -32,7 +32,7 @@ export default function SplineScene() {
     return () => observer.disconnect();
   }, []);
 
-  /* 2️⃣ GSAP animation (only after render) */
+  /* GSAP animation (only after render) */
   useEffect(() => {
     if (!shouldRender) return;
 
@@ -64,7 +64,6 @@ export default function SplineScene() {
       ref={containerRef}
       className="relative mx-auto w-full aspect-square overflow-hidden"
     >
-      {/* 3️⃣ Conditional render */}
       {shouldRender && (
         <Spline
           scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"

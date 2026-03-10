@@ -2,6 +2,14 @@ import { motion } from "framer-motion";
 import { verticalReveal, verticalStackContainer } from "./hero.variants";
 
 export default function HeroAnimatedSubheading() {
+  const stackWords = [
+    "scalable",
+    "real-time",
+    "web applications",
+    "clean architecture",
+    "secure APIs",
+    "modern UI",
+  ];
   return (
     <div className="mt-6 text-[clamp(2.4rem,4vw,6rem)] leading-[0.95] tracking-[-0.04em] opacity-80">
       {/* MAIN SUBHEADING */}
@@ -30,30 +38,11 @@ export default function HeroAnimatedSubheading() {
           variants={verticalStackContainer}
           animate="animate"
         >
-          <span className="h-[1.2em] leading-[1.2em]">scalable</span>
-          <span className="h-[1.2em] leading-[1.2em]">real-time</span>
-          <span className="h-[1.2em] leading-[1.2em]">web applications</span>
-          <span className="h-[1.2em] leading-[1.2em]">clean architecture</span>
-          <span className="h-[1.2em] leading-[1.2em]">secure APIs</span>
-          <span className="h-[1.2em] leading-[1.2em]">modern UI</span>
-          <span className="h-[1.2em] leading-[1.2em]">scalable</span>
-          <span className="h-[1.2em] leading-[1.2em]">real-time</span>
-          <span className="h-[1.2em] leading-[1.2em]">web applications</span>
-          <span className="h-[1.2em] leading-[1.2em]">clean architecture</span>
-          <span className="h-[1.2em] leading-[1.2em]">secure APIs</span>
-          <span className="h-[1.2em] leading-[1.2em]">modern UI</span>
-          <span className="h-[1.2em] leading-[1.2em]">scalable</span>
-          <span className="h-[1.2em] leading-[1.2em]">real-time</span>
-          <span className="h-[1.2em] leading-[1.2em]">web applications</span>
-          <span className="h-[1.2em] leading-[1.2em]">clean architecture</span>
-          <span className="h-[1.2em] leading-[1.2em]">secure APIs</span>
-          <span className="h-[1.2em] leading-[1.2em]">modern UI</span>
-          <span className="h-[1.2em] leading-[1.2em]">scalable</span>
-          <span className="h-[1.2em] leading-[1.2em]">real-time</span>
-          <span className="h-[1.2em] leading-[1.2em]">web applications</span>
-          <span className="h-[1.2em] leading-[1.2em]">clean architecture</span>
-          <span className="h-[1.2em] leading-[1.2em]">secure APIs</span>
-          <span className="h-[1.2em] leading-[1.2em]">modern UI</span>
+          {stackWords.map((word, i) => (
+            <span key={i} className="h-[1.2em] leading-[1.2em]">
+              {word}
+            </span>
+          ))}
         </motion.div>
       </div>
     </div>

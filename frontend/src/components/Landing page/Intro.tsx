@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useState, useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
+import useIsDesktop from "../../hooks/useIsDesktop";
 import IntroContent from "./intro/IntroContent";
 import Loader from "../Loader";
 
@@ -7,11 +8,7 @@ const SplineScene = lazy(() => import("./intro/SplineScene"));
 
 export default function Intro() {
   const sectionRef = useRef(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    setIsDesktop(window.innerWidth >= 1024);
-  }, []);
+  const isDesktop = useIsDesktop();
 
   return (
     <section

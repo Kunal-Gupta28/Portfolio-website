@@ -7,6 +7,8 @@ import {
 import HeroAnimatedSubheading from "./HeroAnimatedSubheading";
 
 export default function HeroLeft() {
+  const titles = ["SOFTWARE", "ENGINEER"];
+
   return (
     <motion.div variants={heroContainer} initial="hidden" animate="show">
       {/* Hi, I'm */}
@@ -19,12 +21,8 @@ export default function HeroLeft() {
       {/* Name */}
       <div className="mb-6 flex gap-2 text-4xl overflow-hidden">
         <motion.div variants={verticalReveal}>
-          <span className="inline-block me-2">
-            <b>Kunal </b>
-          </span>
-          <span className="inline-block opacity-50">
-            <b> Gupta</b>
-          </span>
+          <span className="inline-block me-2 font-bold">Kunal</span>
+          <span className="inline-block opacity-50 font-bold">Gupta</span>
           <span className="inline-block ml-2 text-sm font-bold opacity-50">
             (DTU)
           </span>
@@ -32,23 +30,16 @@ export default function HeroLeft() {
       </div>
 
       {/* TITLE */}
-      <div className="overflow-hidden">
-        <motion.h1
-          variants={verticalReveal}
-          className="font-black leading-[0.9] tracking-[-0.04em] text-[clamp(2.8rem,8.5vw,15rem)]"
-        >
-          SOFTWARE
-        </motion.h1>
-      </div>
-
-      <div className="overflow-hidden">
-        <motion.h1
-          variants={verticalReveal}
-          className="font-black leading-[0.9] tracking-[-0.04em] text-[clamp(2.8rem,8.5vw,15rem)]"
-        >
-          ENGINEER
-        </motion.h1>
-      </div>
+      {titles.map((title) => (
+        <div key={title} className="overflow-hidden">
+          <motion.h1
+            variants={verticalReveal}
+            className="font-black leading-[0.9] tracking-[-0.04em] text-[clamp(2.8rem,8.5vw,15rem)]"
+          >
+            {title}
+          </motion.h1>
+        </div>
+      ))}
 
       <HeroAnimatedSubheading />
 

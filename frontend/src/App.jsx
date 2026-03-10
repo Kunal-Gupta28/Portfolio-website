@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Loader from "./components/Loader";
 import useIsDesktop from "./hooks/useIsDesktop";
+import Footer from "./components/Footer/Footer";
 
 /* Lazy-loaded pages */
 const Landing = lazy(() => import("./pages/Landing"));
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <Footer/>
     </>
   );
 

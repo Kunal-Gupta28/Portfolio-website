@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import FooterLink from "./FooterLink";
 
 const container = {
   hidden: { opacity: 0 },
@@ -13,14 +14,37 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-const Footer = () => {
+// social links
+const socialLinks = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/kunal-gupta-b7bb7a216/",
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/Kunal-Gupta28",
+  },
+];
 
+// contact links
+const contactLinks = [
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/919818479466",
+  },
+  {
+    name: "Email",
+    href: "mailto:kunal.gupta.91165@gmail.com",
+  },
+];
+
+const Footer = () => {
   return (
     <footer className="relative h-[90svh] lg:h-[120svh] w-full pt-[20vh] md:pt-0 overflow-hidden bg-white">
       {/* Background image */}
       <img
         src="/images/Footer.avif"
-        alt=""
+        alt="background"
         className="absolute inset-0 w-full object-cover pointer-events-none"
       />
 
@@ -37,52 +61,32 @@ const Footer = () => {
         {/* Middle content */}
         <div className="grid grid-cols-2 gap-[clamp(1rem,6vw,5rem)] mt-[13vh] text-black">
           {/* Left */}
-          <motion.div variants={item} className="space-y-6 lg:space-y-24 text-xs lg:text-sm font-light">
+          <motion.div
+            variants={item}
+            className="space-y-6 lg:space-y-24 text-xs lg:text-sm font-light"
+          >
             <div>
               <p>Find me online</p>
 
-              <motion.a
-                href="https://www.linkedin.com/in/kunal-gupta-b7bb7a216/"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 6 }}
-                className="inline-block cursor-pointer text-[#fa5a29]"
-              >
-                LinkedIn
-              </motion.a>
-              <br />
-              <motion.a
-                href="https://github.com/Kunal-Gupta28"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 6 }}
-                className="inline-block cursor-pointer text-[#fa5a29]"
-              >
-                GitHub
-              </motion.a>
+              <div className="flex flex-col gap-1">
+                {socialLinks.map((link) => (
+                  <FooterLink key={link.name} href={link.href}>
+                    {link.name}
+                  </FooterLink>
+                ))}
+              </div>
             </div>
 
             <div>
               <p>Get in touch</p>
-              <motion.a
-                href="mailto:kunal.gupta.91165@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 6 }}
-                className="inline-block cursor-pointer text-[#fa5a29]"
-              >
-                Email
-              </motion.a>
-              <br />
-              <motion.a
-                href="https://wa.me/919818479466"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 6 }}
-                className="inline-block cursor-pointer text-[#fa5a29]"
-              >
-                What's app
-              </motion.a>
+              {/* what's app */}
+              <div className="flex flex-col gap-1">
+                {contactLinks.map((link) => (
+                  <FooterLink key={link.name} href={link.href}>
+                    {link.name}
+                  </FooterLink>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -106,7 +110,9 @@ const Footer = () => {
 
         {/* Bottom CTA */}
         <motion.div variants={item}>
-          <p className="text-black/60 text-xs lg:text-sm">Have an idea or opportunity?</p>
+          <p className="text-black/60 text-xs lg:text-sm">
+            Have an idea or opportunity?
+          </p>
           <h2 className="text-[clamp(1.4rem,2.5vw,3.5rem)] leading-[1.1] text-black">
             Let’s build something <br /> meaningful together
           </h2>
@@ -125,9 +131,11 @@ const Footer = () => {
             ease: "linear",
           }}
         >
-            <p className="text-black ">
-              kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com 
-            </p>
+          <p className="text-black ">
+            kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com
+            kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com
+            kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com
+          </p>
         </motion.div>
       </div>
     </footer>

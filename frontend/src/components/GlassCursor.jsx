@@ -53,9 +53,7 @@ const GlassCursor = () => {
 
   if (!enabled) return null;
 
-  const isSafari =
-    typeof window !== 'undefined' &&
-    /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isSafari = typeof window !== 'undefined' && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   return (
     <div
@@ -75,12 +73,7 @@ const GlassCursor = () => {
 
         /* depth */
         border: '1px solid rgba(255, 255, 255, 0.35)',
-        boxShadow: isSafari
-          ? '0 2px 6px rgba(255,255,255,0.2)'
-          : `
-            0 4px 10px rgba(255,255,255,0.25),
-            inset 0 0 5px rgba(255,255,255,0.5)
-          `,
+        boxShadow: isSafari ? '0 2px 6px rgba(255,255,255,0.2)': `0 4px 10px rgba(255,255,255,0.25),inset 0 0 5px rgba(255,255,255,0.5)`,
 
         /* performance */
         willChange: 'transform',

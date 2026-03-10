@@ -1,6 +1,7 @@
 import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import { navItems } from "../../../data/navData";
 import NavItem from "./NavItem";
 

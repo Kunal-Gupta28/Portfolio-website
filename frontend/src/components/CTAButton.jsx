@@ -49,13 +49,13 @@ export default function CTA({
           flex mx-auto lg:mx-0
           items-center
           gap-[clamp(1rem,2vw,1.25rem)]
-          px-[clamp(1.7rem,2.5vw,5rem)]
-          py-[clamp(0.5rem,1.2vw,1.5rem)]
-          text-[clamp(1rem,1.2vw,2rem)]
+          px-[clamp(1.7rem,2.3vw,5rem)]
+          py-[clamp(0.5rem,1vw,1.5rem)]
+          text-[clamp(1rem,1.1vw,2rem)]
         "
       >
         See What I’ve Built
-        <span className="text-[clamp(1.5rem,3vw,1.25rem)] font-bold">↗</span>
+        <span className="text-[clamp(1.1rem,1vw,1.25rem)] font-bold">↗</span>
       </motion.button>
     </section>
   );
