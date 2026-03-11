@@ -1,20 +1,37 @@
+import { useRef, useCallback } from "react";
 import { skillCategories, skillIconMap } from "../../data/aboutdata/skillsData";
 
 export default function Skills({ setValue }) {
+
+  const timeoutRef = useRef(null);
+
   // handle mouse enter
-  const handleEnter = (key) => {
+  const handleEnter = useCallback((key) => {
     setValue((prev) => (prev === key ? prev : key));
-    setTimeout(()=>{setValue((prev) => (prev === "Image" ? prev : "Image"))},8000);
-  };
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setValue("Image");
+    }, 8000);
+
+  }, [setValue]);
 
   // handle mouse leave
-  const handleLeave = () => {
-    setValue((prev) => (prev === "Image" ? prev : "Image"));
-  };
+  const handleLeave = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    setValue("Image");
+
+  }, [setValue]);
 
   return (
     <section className="h-svh px-6 md:px-20 pb-24 relative">
-      <div className={`text-right`}>
+      <div className="text-right">
 
         {/* heading */}
         <h2
@@ -34,7 +51,7 @@ export default function Skills({ setValue }) {
         </p>
 
         {/* show on desktop */}
-        <p className="text-[clamp(1rem,1vw,1.5rem)] text-gray-400 d-none hidden lg:block">
+        <p className="text-[clamp(1rem,1vw,1.5rem)] text-gray-400 hidden lg:block">
           ( Hover for 2s to reveal technologies )
         </p>
 
@@ -64,9 +81,10 @@ export default function Skills({ setValue }) {
 
                   {/* icon */}
                   <div className="h-11 w-11 flex items-center justify-center rounded-xl bg-[#fa5a29]/10">
-                    <Icon className="text-[#fa5a29]" />
+                    <Icon aria-hidden="true" className="text-[#fa5a29]" />
                   </div>
                 </div>
+
               </div>
             );
           })}

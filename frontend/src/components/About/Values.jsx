@@ -1,6 +1,7 @@
+import React from "react";
 import { valuesData } from "../../data/aboutdata/aboutData";
 
-export default function Values() {
+const Values = React.memo(function Values() {
   return (
     <section
       className="
@@ -44,8 +45,8 @@ export default function Values() {
               text-[clamp(0.9rem,2.2vw,1rem)]
             "
           >
-            {valuesData.coreFocus.map((item, i) => (
-              <li key={i}>• {item}</li>
+            {valuesData.coreFocus.map((item) => (
+              <li key={item}>• {item}</li>
             ))}
           </ul>
         </div>
@@ -69,12 +70,14 @@ export default function Values() {
               text-[clamp(0.9rem,2.2vw,1rem)]
             "
           >
-            {valuesData.exploring.map((item, i) => (
-              <li key={i}>• {item}</li>
+            {valuesData.exploring.map((item) => (
+              <li key={item}>• {item}</li>
             ))}
           </ul>
         </div>
       </div>
     </section>
   );
-}
+});
+
+export default Values;

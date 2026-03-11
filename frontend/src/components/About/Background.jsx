@@ -1,14 +1,18 @@
+import React, { useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { skillCategories } from "../../data/aboutdata/skillsData";
 import CommonBackground from "./Background/CommonBackground";
 import Image from "./Background/Image";
 
-export default function Background({ value }) {
-  const category = skillCategories.find((c) => c.valueKey === value);
-  const skills = category?.skills || [];
+const Background = React.memo(function Background({ value }) {
+
+  const skills = useMemo(() => {
+    const category = skillCategories.find((c) => c.valueKey === value);
+    return category?.skills ?? [];
+  }, [value]);
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={value}
         className="absolute inset-0"
@@ -20,11 +24,11 @@ export default function Background({ value }) {
         {value === "Image" ? (
           <Image />
         ) : (
-          <CommonBackground
-            skills={skills}
-          />
+          <CommonBackground skills={skills} />
         )}
       </motion.div>
     </AnimatePresence>
   );
-}
+});
+
+export default Background;

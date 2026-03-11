@@ -1,4 +1,4 @@
-import { Fade } from "@mui/material";
+import Fade from "@mui/material/Fade";
 
 export default function HeroBackground() {
   return (

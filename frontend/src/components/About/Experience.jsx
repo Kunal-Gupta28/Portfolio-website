@@ -1,7 +1,7 @@
-// components/About/Experience.jsx
+import React from "react";
 import { experienceData } from "../../data/aboutdata/experienceData";
 
-export default function Experience() {
+const Experience = React.memo(function Experience() {
   return (
     <section
       className="
@@ -27,9 +27,9 @@ export default function Experience() {
 
       {/* Experience Cards */}
       <div className="space-y-[clamp(2rem,5vw,2.5rem)]">
-        {experienceData.items.map((exp, i) => (
+        {experienceData.items.map(({position, company, duration, description, responsibilities,technologies}, i) => (
           <div
-            key={i}
+            key={company}
             className="
               rounded-2xl
               border border-white/10
@@ -45,7 +45,7 @@ export default function Experience() {
                 text-[clamp(1.2rem,2.5vw,1.5rem)]
               "
             >
-              {exp.position}
+              {position}
             </h3>
 
             {/* Company & Duration */}
@@ -56,7 +56,7 @@ export default function Experience() {
                 text-[clamp(0.8rem,1vw,0.9rem)]
               "
             >
-              {exp.company} • {exp.duration}
+              {company} • {duration}
             </p>
 
             {/* Description */}
@@ -68,7 +68,7 @@ export default function Experience() {
                 text-[clamp(0.9rem,2vw,1.3rem)]
               "
             >
-              {exp.description}
+              {description}
             </p>
 
             {/* Responsibilities */}
@@ -80,16 +80,16 @@ export default function Experience() {
                 text-[clamp(0.85rem,1vw,1rem)]
               "
             >
-              {exp.responsibilities.map((item, idx) => (
-                <li key={idx}>• {item}</li>
+              {responsibilities.map((item) => (
+                <li key={item}>• {item}</li>
               ))}
             </ul>
 
             {/* Tech Stack */}
             <div className="flex flex-wrap gap-[clamp(0.4rem,1vw,0.5rem)] mt-5">
-              {exp.technologies.map((tech, idx) => (
+              {technologies.map((tech) => (
                 <span
-                  key={idx}
+                  key={tech}
                   className="
                     rounded-full
                     bg-[#fa5a29]/10
@@ -108,4 +108,6 @@ export default function Experience() {
       </div>
     </section>
   );
-}
+});
+
+export default Experience;

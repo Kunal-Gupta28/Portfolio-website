@@ -1,6 +1,7 @@
+import React from "react";
 import { education } from "../../data/aboutdata/qualificationsData";
 
-export default function Qualifications() {
+const Qualifications = React.memo(function Qualifications() {
   return (
     <section
       className="
@@ -26,9 +27,9 @@ export default function Qualifications() {
 
       {/* Cards */}
       <div className="space-y-[clamp(1.5rem,3vw,2rem)] text-white/70">
-        {education.map((edu, index) => (
+        {education.map(({ degree, institution, duration, description }) => (
           <div
-            key={index}
+            key={degree}
             className="
               rounded-2xl
               border border-white/10
@@ -44,7 +45,7 @@ export default function Qualifications() {
                 text-[clamp(1.15rem,1.5vw,1.7rem)]
               "
             >
-              {edu.degree}
+              {degree}
             </h3>
 
             {/* Institution & Duration */}
@@ -55,7 +56,7 @@ export default function Qualifications() {
                 text-[clamp(0.75rem,1.1vw,1.3rem)]
               "
             >
-              {edu.institution} • {edu.duration}
+              {institution} • {duration}
             </p>
 
             {/* Description */}
@@ -66,11 +67,13 @@ export default function Qualifications() {
                 text-[clamp(0.9rem,1.2vw,1.4rem)]
               "
             >
-              {edu.description}
+              {description}
             </p>
           </div>
         ))}
       </div>
     </section>
   );
-}
+});
+
+export default Qualifications;
