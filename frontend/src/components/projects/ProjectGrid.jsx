@@ -1,9 +1,10 @@
-import { Grid } from "@mui/material";
+import { memo } from "react";
+import Grid from "@mui/material/Grid";
 
 // importing component
 import ProjectCard from "./ProjectCard";
 
-export default function ProjectGrid({ projects, onViewProject }) {
+function ProjectGrid({ projects, onViewProject }) {
   return (
     // show 1,2,3 coloums on small, medium and larger device
     <Grid container spacing={4}>
@@ -20,3 +21,5 @@ export default function ProjectGrid({ projects, onViewProject }) {
     </Grid>
   );
 }
+
+export default memo(ProjectGrid);

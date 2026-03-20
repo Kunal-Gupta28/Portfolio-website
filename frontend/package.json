@@ -13,11 +13,11 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^5.15.13",
-    "@mui/lab": "^5.0.0-alpha.165",
-    "@mui/material": "^5.15.13",
+    "@mui/material": "^5.18.0",
+    "@mui/system": "^5.18.0",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.12.27",
     "@studio-freight/lenis": "^1.0.42",

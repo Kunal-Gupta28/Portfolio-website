@@ -1,29 +1,30 @@
 import { lazy, Suspense, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import useIsDesktop from "../../hooks/useIsDesktop";
 import Loader from "../Loader";
 
-export default function Navbar() {
-  //  hooks
-  const isDesktop = useIsDesktop();
+// Lazy load (outside component)
+const DesktopNavbar = lazy(() => import("./desktopView/DesktopNavbar"));
+const MobileNavbar = lazy(() => import("./mobileView/MobileNavbar"));
 
-  // finding current route
+export default function Navbar() {
+  const isDesktop = useIsDesktop();
+  const location = useLocation();
+
+  // Active route checker
   const isActive = useCallback(
     (path) =>
       location.pathname === path ||
       (path !== "/" && location.pathname.startsWith(path)),
-    [location.pathname],
+    [location.pathname]
   );
 
-  // lazy load based on condition
-  const NavbarComponent = lazy(() =>
-    isDesktop ? import("./desktopView/DesktopNavbar") : import("./mobileView/MobileNavbar"),
-  );
+  // Select component
+  const Component = isDesktop ? DesktopNavbar : MobileNavbar;
 
   return (
     <Suspense fallback={<Loader />}>
-      <NavbarComponent
-        isActive={isActive}
-      />
+      <Component isActive={isActive} />
     </Suspense>
   );
 }

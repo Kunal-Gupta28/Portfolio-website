@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { navItems } from "../../../data/navData";
-import NavItem from "./NavItem";
+import NavItem from "../desktopView/NavItem";
 
 const NavCenter = memo(({ showExpanded, isActive }) => {
   const navigate = useNavigate();

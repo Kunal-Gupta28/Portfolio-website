@@ -1,27 +1,33 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
-// Components
 import Navbar from "./components/Navbar/Navbar";
 import Loader from "./components/Loader";
 import useIsDesktop from "./hooks/useIsDesktop";
 import Footer from "./components/Footer/Footer";
 
-/* Lazy-loaded pages */
 const Landing = lazy(() => import("./pages/Landing"));
 const About = lazy(() => import("./pages/About"));
 const Projects = lazy(() => import("./pages/Projects"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-/* Lazy-loaded desktop-only effects */
 const GlassCursor = lazy(() => import("./components/GlassCursor"));
 const SmoothScroll = lazy(() => import("./components/SmoothScroll"));
 
-const App = () => {
+/* ✅ Move logic here */
+function AppContent() {
   const isDesktop = useIsDesktop();
+  const location = useLocation();
 
-  const AppContent = (
+  const isContactPage = location.pathname === "/contact";
+
+  const content = (
     <>
       {isDesktop && (
         <Suspense fallback={null}>
@@ -40,10 +46,22 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      <Footer/>
+
+      {!isContactPage && <Footer />}
     </>
   );
 
+  return isDesktop ? (
+    <Suspense fallback={null}>
+      <SmoothScroll>{content}</SmoothScroll>
+    </Suspense>
+  ) : (
+    content
+  );
+}
+
+/* Root */
+const App = () => {
   return (
     <Router
       future={{
@@ -51,13 +69,7 @@ const App = () => {
         v7_relativeSplatPath: true,
       }}
     >
-      {isDesktop ? (
-        <Suspense fallback={null}>
-          <SmoothScroll>{AppContent}</SmoothScroll>
-        </Suspense>
-      ) : (
-        AppContent
-      )}
+      <AppContent />
     </Router>
   );
 };

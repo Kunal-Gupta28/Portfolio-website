@@ -1,25 +1,63 @@
-import { Box, Typography, Paper, Chip, IconButton, Tooltip } from "@mui/material";
+import { memo, useMemo } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
 import { motion } from "framer-motion";
+
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LaunchIcon from "@mui/icons-material/Launch";
 import InfoIcon from "@mui/icons-material/Info";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 
+import ActionIcon from "./ActionIcon";
+
 const MotionPaper = motion(Paper);
-const MotionIcon = motion(IconButton);
 
-const ACCENT = "#fa5a29";
+const ProjectCard = ({ project, onView }) => {
+  const { title, description, technologies, github, live, videoDemo } = project;
 
-export default function ProjectCard({ project, onView }) {
+  const techChips = useMemo(
+    () =>
+      technologies.map((tech) => (
+        <Chip
+          key={tech}
+          label={tech}
+          size="small"
+          sx={{
+            fontSize: ".75rem",
+            background: "rgba(255,255,255,.1)",
+            color: "rgba(255,255,255,.8)",
+            "&:hover": {
+              background: "rgba(250,90,41,.18)",
+              color: "#fff",
+            },
+          }}
+        />
+      )),
+    [technologies]
+  );
+
+  const actions = [
+    github && { title: "GitHub", icon: <GitHubIcon />, href: github },
+    live && { title: "Live Demo", icon: <LaunchIcon />, href: live },
+    { title: "Details", icon: <InfoIcon />, onClick: onView, accent: true },
+    videoDemo && {
+      title: "Video Demo",
+      icon: <VideoLibraryIcon />,
+      href: videoDemo,
+    },
+  ].filter(Boolean);
+
   return (
     <MotionPaper
       whileHover={{ y: -6, boxShadow: "0 30px 70px rgba(0,0,0,.75)" }}
       transition={{ duration: 0.3 }}
       sx={{
-        py: {xs:2,md:3},
-        px: {xs:1,md:3},
+        py: { xs: 2, md: 3 },
+        px: { xs: 1, md: 3 },
         height: "100%",
-        minHeight: {xs:300, md:380},
+        minHeight: { xs: 300, md: 380 },
         borderRadius: 3,
         display: "flex",
         flexDirection: "column",
@@ -47,7 +85,7 @@ export default function ProjectCard({ project, onView }) {
         variant="h6"
         sx={{ textAlign: "center", fontWeight: 700, color: "#fff" }}
       >
-        {project.title}
+        {title}
       </Typography>
 
       {/* Description */}
@@ -60,7 +98,7 @@ export default function ProjectCard({ project, onView }) {
           color: "rgba(255,255,255,.7)",
         }}
       >
-        {project.description}
+        {description}
       </Typography>
 
       {/* Tech stack */}
@@ -73,34 +111,13 @@ export default function ProjectCard({ project, onView }) {
           mb: 2,
         }}
       >
-        {project.technologies.map((t) => (
-          <Chip
-            key={t}
-            label={t}
-            size="small"
-            sx={{
-              fontSize: ".75rem",
-              background: "rgba(255,255,255,.1)",
-              color: "rgba(255,255,255,.8)",
-              "&:hover": {
-                background: "rgba(250,90,41,.18)",
-                color: "#fff",
-              },
-            }}
-          />
-        ))}
+        {techChips}
       </Box>
 
       {/* Divider */}
-      <Box
-        sx={{
-          height: 1,
-          width: "100%",
-          mb: 2,
-        }}
-      />
+      <Box sx={{ height: 1, width: "100%", mb: 2 }} />
 
-      {/* Actions: github , project links with project info and video link*/}
+      {/* Actions */}
       <Box
         sx={{
           mt: "auto",
@@ -109,63 +126,12 @@ export default function ProjectCard({ project, onView }) {
           gap: 1.4,
         }}
       >
-
-        {/* github icon : project repo */}
-        {project.github && (
-          <Tooltip title="GitHub">
-            <MotionIcon
-              whileHover={{ scale: 1.15 }}
-              component="a"
-              href={project.github}
-              target="_blank"
-              sx={{ color: "rgba(255,255,255,.85)", "&:hover": { color: ACCENT } }}
-            >
-              <GitHubIcon />
-            </MotionIcon>
-          </Tooltip>
-        )}
-
-        {/* project link */}
-        {project.live && (
-          <Tooltip title="Live Demo">
-            <MotionIcon
-              whileHover={{ scale: 1.15 }}
-              component="a"
-              href={project.live}
-              target="_blank"
-              sx={{ color: "rgba(255,255,255,.85)", "&:hover": { color: ACCENT } }}
-            >
-              <LaunchIcon />
-            </MotionIcon>
-          </Tooltip>
-        )}
-
-        {/* project info */}
-        <Tooltip title="Details">
-          <MotionIcon
-            whileHover={{ scale: 1.15 }}
-            onClick={onView}
-            sx={{ color: ACCENT }}
-          >
-            <InfoIcon />
-          </MotionIcon>
-        </Tooltip>
-
-        {/* video Demo link */}
-        {project.videoDemo && (
-          <Tooltip title="Video Demo">
-            <MotionIcon
-              whileHover={{ scale: 1.15 }}
-              component="a"
-              href={project.videoDemo}
-              target="_blank"
-              sx={{ color: "rgba(255,255,255,.85)", "&:hover": { color: ACCENT } }}
-            >
-              <VideoLibraryIcon />
-            </MotionIcon>
-          </Tooltip>
-        )}
+        {actions.map((action, i) => (
+          <ActionIcon key={i} {...action} />
+        ))}
       </Box>
     </MotionPaper>
   );
-}
+};
+
+export default memo(ProjectCard);

@@ -1,37 +1,46 @@
-import { useState, useMemo, lazy, Suspense } from "react";
-import { Box, Container } from "@mui/material";
+import { useState, useMemo, lazy, Suspense, useCallback } from "react";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
 
-// importing components
+// components
 import CategoryFilter from "../components/projects/CategoryFilter";
 import ProjectGrid from "../components/projects/ProjectGrid";
 import { projects } from "../data/projectsData";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
-// lazy loading
-const ComingSoonCard = lazy(() =>
-  import("../components/projects/ComingSoonCard")
-);
-
-const ProjectDialog = lazy(() =>
-  import("../components/projects/ProjectDialog")
-);
+// lazy components
+const ComingSoonCard = lazy(() =>import("../components/projects/ComingSoonCard"));
+const ProjectDialog = lazy(() =>import("../components/projects/ProjectDialog"));
 
 export default function Projects() {
-  // state variables
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // page title
   useDocumentTitle("Projects | Kunal Gupta");
 
-  // memorize the filter value
+  const handleCloseDialog = useCallback(() => {
+    setSelectedProject(null);
+  }, []);
+
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "All") return projects;
+
+    const category = selectedCategory.toLowerCase();
+
     return projects.filter(
-      (project) =>
-        project.category.toLowerCase() === selectedCategory.toLowerCase()
+      (project) => project.category.toLowerCase() === category
     );
   }, [selectedCategory]);
+
+   const loader = useMemo(
+    () => (
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <CircularProgress />
+      </Box>
+    ),
+    []
+  );
 
   return (
     <Box
@@ -52,24 +61,24 @@ export default function Projects() {
           onViewProject={setSelectedProject}
         />
 
-        {/* shows when their is no proejct  */}
+        {/* No projects state */}
         {filteredProjects.length === 0 && (
-          <Suspense fallback={<div style={{ color: "#fff" }}>Loading...</div>}>
+          <Suspense fallback={loader}>
             <Box sx={{ mt: 6 }}>
               <ComingSoonCard title={`${selectedCategory} Projects`} />
             </Box>
           </Suspense>
         )}
 
-        {/* info about project */}
-        <Suspense fallback={null}>
-          {selectedProject && (
+        {/* Project details dialog */}
+        {selectedProject && (
+          <Suspense fallback={null}>
             <ProjectDialog
               project={selectedProject}
-              onClose={() => setSelectedProject(null)}
+              onClose={handleCloseDialog}
             />
-          )}
-        </Suspense>
+          </Suspense>
+        )}
       </Container>
     </Box>
   );

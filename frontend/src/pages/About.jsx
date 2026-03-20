@@ -4,7 +4,7 @@ import useDocumentTitle from "../hooks/useDocumentTitle";
 import Background from "../components/About/Background";
 import Hero from "../components/About/Hero";
 import Story from "../components/About/Story";
-import PinSection from "../components/About/PinSection";
+import PinSection from "../components/PinSection";
 import CTAButton from "../components/CTAButton";
 import Skills from "../components/About/Skills";
 import Qualifications from "../components/About/Qualifications";

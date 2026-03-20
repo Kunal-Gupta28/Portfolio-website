@@ -27,8 +27,8 @@ export default function AnimatedWords({ text }) {
           stagger: 0.08,
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top top",
-            end: "top -40%",
+            start: "top 35%",
+            end: "top -20%",
             scrub: true,
           },
         }
