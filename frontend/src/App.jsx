@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
-import Loader from "./components/Loader";
+import Loader from "./components/PageLoader";
 import useIsDesktop from "./hooks/useIsDesktop";
 import Footer from "./components/Footer/Footer";
 

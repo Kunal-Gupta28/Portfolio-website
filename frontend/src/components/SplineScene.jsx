@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Loader from "../components/ComponentLoader"
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -43,12 +44,7 @@ export default function SplineScene() {
     >
       {shouldRender && (
         <Suspense
-          fallback={
-            <div className="flex h-full w-full items-center justify-center text-white">
-              Loading 3D...
-            </div>
-          }
-        >
+          fallback={<Loader note="Please wait 3D model is loading" />}>
           <Spline
             scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
             className="absolute inset-0 scale-[1.3] will-change-transform"

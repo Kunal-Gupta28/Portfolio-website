@@ -1,5 +1,6 @@
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useEffect, useState } from "react";
+import SkillImage from "./SkillImage";
 
 /* Responsive layout */
 const LAYOUT = {
@@ -25,7 +26,7 @@ function useBreakpoint() {
     let timeout;
     const resize = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(update, 150); // debounce
+      timeout = setTimeout(update, 150);
     };
 
     window.addEventListener("resize", resize);
@@ -100,16 +101,11 @@ export default function CommonBackground({ skills = [] }) {
                 ease: "easeInOut",
               }}
             >
-              <img
+              <SkillImage
                 src={skill.image}
                 alt={skill.name}
-                loading="lazy"
-                className="h-6 sm:h-8 lg:h-12 mb-2 object-contain"
+                name={skill.name}
               />
-
-              <span className="text-xs sm:text-sm lg:text-base text-center">
-                {skill.name}
-              </span>
             </m.div>
           );
         })}

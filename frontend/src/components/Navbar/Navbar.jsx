@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import useIsDesktop from "../../hooks/useIsDesktop";
-import Loader from "../Loader";
+import Loader from "../PageLoader";
 
 // Lazy load (outside component)
 const DesktopNavbar = lazy(() => import("./desktopView/DesktopNavbar"));

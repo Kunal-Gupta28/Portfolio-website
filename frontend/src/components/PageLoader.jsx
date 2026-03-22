@@ -1,4 +1,4 @@
-const Loader = () => {
+const PageLoader = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black">
       <div className="flex flex-col items-center gap-10">
@@ -33,4 +33,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default PageLoader;
