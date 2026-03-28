@@ -13,11 +13,11 @@ const NavCenter = memo(({ showExpanded, pathname }) => {
   // handle nav link click
   const handleNavClick = useCallback(
     (item) => {
-      setLoading(true);
-
+      
       if (item.external) {
         window.open(item.url, "_blank", "noopener,noreferrer");
       } else {
+        setLoading(true);
         navigate(item.path);
       }
     },
