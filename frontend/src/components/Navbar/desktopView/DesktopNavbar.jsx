@@ -5,9 +5,12 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 
-// importing component
+// components
 import Greeting from "./Greeting";
 import NavCenter from "./NavCenter";
+
+// loader context
+import { useLoader } from "../../../context/LoaderContext";
 
 const MotionBox = motion.create(Box);
 
@@ -27,17 +30,23 @@ const contactButtonStyles = (active) => ({
   },
 });
 
-export default function DesktopNavbar({pathname}) {
-  // state variable
+export default function DesktopNavbar({ pathname }) {
   const [expanded, setExpanded] = useState(false);
   const [showExpanded, setShowExpanded] = useState(false);
 
-  // react router dom
   const navigate = useNavigate();
+  const { setLoading } = useLoader();
 
-   useEffect(() => {
+  useEffect(() => {
     setShowExpanded(expanded);
   }, [expanded]);
+
+  // navigation handler with loader
+  const handleContactClick = () => {
+    if (pathname === "/contact") return;
+    setLoading(true);
+    navigate("/contact");
+  };
 
   return (
     <MotionBox
@@ -73,23 +82,25 @@ export default function DesktopNavbar({pathname}) {
             color: "#fff",
           }}
         >
-
-          {/* greeting  */}
+          {/* Greeting */}
           <Typography variant="body2" sx={{ opacity: 0.75 }}>
-            <Greeting/>
+            <Greeting />
           </Typography>
 
-          {/* icons and links */}
+          {/* Nav center */}
           <Box onMouseEnter={() => setExpanded(true)}>
             <NavCenter showExpanded={showExpanded} pathname={pathname} />
           </Box>
 
-          {/* contact route */}
+          {/* Contact Button */}
           <Typography
             variant="body2"
             role="button"
-            onClick={() => navigate("/contact")}
-            onKeyDown={(e) => e.key === "Enter" && navigate("/contact")}
+            tabIndex={0}
+            onClick={handleContactClick}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleContactClick();
+            }}
             sx={contactButtonStyles(pathname === "/contact")}
           >
             Let’s Talk
