@@ -23,7 +23,7 @@ export default function About() {
 
   return (
     <main className="relative min-h-screen overflow-x-hidden text-white">
-      {/* FIXED BACKGROUND (optimized) */}
+      {/* FIXED BACKGROUND */}
       <section className="fixed inset-0 -z-10 min-h-svh w-screen">
         <Background value={backgroundValue} />
       </section>
@@ -31,7 +31,7 @@ export default function About() {
       {/* hero section */}
       <Hero />
 
-      {/* STORY (first pinned section → keep normal) */}
+      {/* STORY */}
       <PinSection start="25% 15%" end="+=60%">
         <Story />
       </PinSection>

@@ -4,9 +4,9 @@ import SkillImage from "./SkillImage";
 
 /* Responsive layout */
 const LAYOUT = {
-  mobile: { COLS: 3, BOX_W: 110, BOX_H: 90, GAP_X: 20, GAP_Y: 30 },
-  tablet: { COLS: 3, BOX_W: 160, BOX_H: 110, GAP_X: 30, GAP_Y: 30 },
-  desktop: { COLS: 4, BOX_W: 180, BOX_H: 120, GAP_X: 40, GAP_Y: 40 },
+  mobile: { COLS: 3, BOX_W: 90, BOX_H: 70, GAP_X: 20, GAP_Y: 30 },
+  tablet: { COLS: 3, BOX_W: 120, BOX_H: 90, GAP_X: 30, GAP_Y: 30 },
+  desktop: { COLS: 4, BOX_W: 120, BOX_H: 100, GAP_X: 40, GAP_Y: 40 },
 };
 
 /* Breakpoint Hook */
@@ -48,7 +48,7 @@ export default function CommonBackground({ skills = [] }) {
     <LazyMotion features={domAnimation}>
       <div className="absolute inset-0 overflow-hidden">
         {/* Base */}
-        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0" />
 
         {/* Streams */}
         {Array.from({ length: streamCount }).map((_, i) => (

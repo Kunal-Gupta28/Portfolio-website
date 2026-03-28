@@ -19,7 +19,7 @@ export default function SkillImage({ src, alt, name }) {
           onLoad={() => setLoaded(true)}
           onError={() => setLoaded(true)}
           className={`
-            h-6 sm:h-8 lg:h-12 object-contain transition-opacity duration-300
+            h-6 sm:h-8 lg:h-8 object-contain transition-opacity duration-300
             ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}
           `}
         />
