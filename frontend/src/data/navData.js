@@ -14,7 +14,7 @@ export const navItems = [
     key: "resume",
     label: "Resume",
     external: true,
-    url: "https://drive.google.com/file/d/1ODGAaXqDFcsrd54DUlKb0rPeLdm7toPb/view",
+    url: import.meta.env.VITE_RESUME,
     icon: DescriptionOutlined,
   },
   {
