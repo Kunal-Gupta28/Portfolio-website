@@ -8,7 +8,7 @@ export default function Intro() {
 
   return (
     <PinSection end="+=100%">
-      <div className="relative min-h-screen overflow-hidden text-white bg-black">
+      <div className="relative min-h-screen overflow-hidden text-white">
         <div className="mx-auto w-[90%]">
           <div className="grid min-h-screen gap-16 lg:grid-cols-2 lg:gap-24">
 

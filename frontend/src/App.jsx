@@ -32,7 +32,7 @@ function AppContent() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 350); // smooth timing
+    }, 350);
 
     return () => clearTimeout(timeout);
   }, [location.pathname, setLoading]);

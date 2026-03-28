@@ -11,7 +11,7 @@ export default function HeroAnimatedSubheading() {
     "modern UI",
   ];
   return (
-    <div className="mt-6 text-[clamp(2.4rem,4vw,6rem)] leading-[0.95] tracking-[-0.04em] opacity-80">
+    <div className="mt-6 text-[clamp(2.3rem,4vw,6rem)] leading-[0.95] tracking-[-0.04em] opacity-80">
       {/* MAIN SUBHEADING */}
       <div className="overflow-hidden">
         <motion.span variants={verticalReveal} className="block text-white">

@@ -1,16 +1,22 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import useIsDesktop from "../../../hooks/useIsDesktop";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AnimatedWords({ text }) {
   const containerRef = useRef(null);
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const words = containerRef.current.querySelectorAll(".word");
+
+    // device-based config
+    const start = isDesktop ? "top 35%" : "top 85%";
+    const end = isDesktop ? "top -20%" : "top 20%";
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -24,19 +30,19 @@ export default function AnimatedWords({ text }) {
           marginTop: 6,
           opacity: 1,
           ease: "none",
-          stagger: 0.08,
+          stagger: isDesktop ? 0.08 : 0.05,
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 35%",
-            end: "top -20%",
+            start,
+            end,
             scrub: true,
           },
-        }
+        },
       );
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isDesktop]);
 
   return (
     <span ref={containerRef} className="block">
