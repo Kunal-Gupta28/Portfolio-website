@@ -14,7 +14,7 @@ import Interests from "../components/About/Interests";
 
 export default function About() {
   const [value, setValue] = useState("Image");
-
+  
   // page title
   useDocumentTitle("About | Kunal Gupta");
 

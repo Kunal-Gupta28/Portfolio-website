@@ -1,7 +1,6 @@
 import { memo } from "react";
 import Box from "@mui/material/Box";
 
-// styles/navItemStyles.js
 const navItemStyles = (active) => ({
   fontSize: "small",
   cursor: "pointer",
@@ -12,9 +11,9 @@ const navItemStyles = (active) => ({
   "&:hover": { opacity: 1 },
 });
 
-const NavItem = memo(({ item, index, active, showExpanded, onClick }) => {
+const NavItem = memo(({ item, active, showExpanded, onClick }) => {
   return (
-    <Box data-index={index} onClick={onClick} sx={navItemStyles(active)}>
+    <Box onClick={onClick} sx={navItemStyles(active)}>
       {showExpanded ? item.label : <item.icon sx={{ fontSize: 18 }} />}
     </Box>
   );

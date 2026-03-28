@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -11,24 +11,40 @@ import NavCenter from "./NavCenter";
 
 const MotionBox = motion.create(Box);
 
-export default function DesktopNavbar({isActive}) {
+const contactButtonStyles = (active) => ({
+  px: "18px",
+  py: "8px",
+  borderRadius: "999px",
+  cursor: "pointer",
+  color: active ? "#fa5a29" : "#fff",
+  background: active
+    ? "rgba(250,90,41,.08)"
+    : "rgba(255,255,255,.16)",
+  transition: "all .25s ease",
+  "&:hover": {
+    transform: "translateY(-2px)",
+    background: "rgba(255,255,255,.22)",
+  },
+});
+
+export default function DesktopNavbar({pathname}) {
   // state variable
   const [expanded, setExpanded] = useState(false);
   const [showExpanded, setShowExpanded] = useState(false);
 
   // react router dom
   const navigate = useNavigate();
-  const location = useLocation();
+
+   useEffect(() => {
+    setShowExpanded(expanded);
+  }, [expanded]);
 
   return (
     <MotionBox
       initial={{ opacity: 0, y: -24, width: "500px" }}
       animate={{ width: expanded ? "90%" : "500px", opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.11, 0.5, 0.18, 0.5] }}
-      onMouseLeave={() => {
-        setExpanded(false);
-        setShowExpanded(false);
-      }}
+      onMouseLeave={() => setExpanded(false)}
       onAnimationComplete={() => expanded && setShowExpanded(true)}
       sx={{
         position: "fixed",
@@ -63,18 +79,9 @@ export default function DesktopNavbar({isActive}) {
             <Greeting/>
           </Typography>
 
-          <Box
-            onMouseEnter={() => {
-              setExpanded(true);
-              setShowExpanded(true);
-            }}
-          >
-
-            {/* icons and links */}
-            <NavCenter
-              showExpanded={showExpanded}
-              isActive={isActive}
-            />
+          {/* icons and links */}
+          <Box onMouseEnter={() => setExpanded(true)}>
+            <NavCenter showExpanded={showExpanded} pathname={pathname} />
           </Box>
 
           {/* contact route */}
@@ -82,22 +89,8 @@ export default function DesktopNavbar({isActive}) {
             variant="body2"
             role="button"
             onClick={() => navigate("/contact")}
-            sx={{
-              px: "18px",
-              py: "8px",
-              borderRadius: "999px",
-              cursor: "pointer",
-              color: location.pathname === "/contact" ? "#fa5a29" : "#fff",
-              background:
-                location.pathname === "/contact"
-                  ? "rgba(250,90,41,.08)"
-                  : "rgba(255,255,255,.16)",
-              transition: "all .25s ease",
-              "&:hover": {
-                transform: "translateY(-2px)",
-                background: "rgba(255,255,255,.22)",
-              },
-            }}
+            onKeyDown={(e) => e.key === "Enter" && navigate("/contact")}
+            sx={contactButtonStyles(pathname === "/contact")}
           >
             Let’s Talk
           </Typography>

@@ -27,13 +27,13 @@ const Experience = React.memo(function Experience() {
 
       {/* Experience Cards */}
       <div className="space-y-[clamp(2rem,5vw,2.5rem)]">
-        {experienceData.items.map(({position, company, duration, description, responsibilities,technologies}, i) => (
+        {experienceData.items.map(({position, company, duration, description, responsibilities,technologies}) => (
           <div
             key={company}
             className="
               rounded-2xl
               border border-white/10
-              bg-gradient-to-br from-white/5 to-transparent
+              bg-linear-to-br from-white/5 to-transparent
               p-[clamp(1.25rem,2vw,1.75rem)]
             "
           >

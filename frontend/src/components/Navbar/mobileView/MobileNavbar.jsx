@@ -1,78 +1,62 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import ChatBubbleOutline from "@mui/icons-material/ChatBubbleOutline";
 import { motion } from "framer-motion";
 import { navItems } from "../../../data/navData";
+import { useLoader } from "../../../context/LoaderContext";
 
 const MotionBox = motion.create(Box);
 
-const containerVariants = {
-  collapsed: {
-    width: 48,
-    transition: { type: "spring", stiffness: 150, damping: 20 },
-  },
-  expanded: {
-    width: "92vw",
-    maxWidth: 580,
-    transition: { type: "spring", stiffness: 180, damping: 20 },
-  },
-};
-
-export default function MobileNavbar({ isActive }) {
+export default function MobileNavbar({ pathname }) {
+  const { setLoading } = useLoader();
   const [expanded, setExpanded] = useState(false);
-  const containerRef = useRef(null);
+  const ref = useRef(null);
   const navigate = useNavigate();
 
-  const mobileNavItems = useMemo(
-    () => [
-      ...navItems,
-      {
-        key: "contact",
-        label: "Talk",
-        path: "/contact",
-        icon: ChatBubbleOutline,
-      },
-    ],
-    [],
-  );
+  // Active item (safe for external links)
+  const activeItem = useMemo(() => {
+    return (
+      navItems.find((item) => item.path && pathname === item.path) ||
+      navItems[0]
+    );
+  }, [pathname]);
 
-  const currentItem = useMemo(
-    () =>
-      mobileNavItems.find((item) => !item.external && isActive(item.path)) ??
-      mobileNavItems[0],
-    [mobileNavItems, isActive],
-  );
-
-  const handleItemClick = useCallback(
-    (item) => {
-      if (item.external) window.open(item.url, "_blank", "noopener,noreferrer");
-      else navigate(item.path);
-      setExpanded(false);
-    },
-    [navigate],
-  );
-
-  // close when clicking outside
+  // Close on outside click
   useEffect(() => {
     if (!expanded) return;
-    const handler = (e) =>
-      !containerRef.current?.contains(e.target) && setExpanded(false);
+
+    const handler = (e) => {
+      if (!ref.current?.contains(e.target)) {
+        setExpanded(false);
+      }
+    };
+
     document.addEventListener("pointerdown", handler);
     return () => document.removeEventListener("pointerdown", handler);
   }, [expanded]);
 
+  // Navigation handler
+  const handleClick = (item) => {
+    if (item.external) {
+      window.open(item.url, "_blank", "noopener,noreferrer");
+    } else {
+      setLoading(true);
+      navigate(item.path);
+    }
+
+    setExpanded(false);
+  };
+
   return (
     <MotionBox
-      ref={containerRef}
-      variants={containerVariants}
-      animate={expanded ? "expanded" : "collapsed"}
-      initial={false}
-      role="navigation"
-      aria-expanded={expanded}
-      onClick={() => !expanded && setExpanded(true)}
+      ref={ref}
+      animate={{ width: expanded ? "92vw" : 48 }}
+      transition={{ type: "spring", stiffness: 180, damping: 20 }}
+      onClick={() => {
+        if (!expanded) setExpanded(true);
+      }}
       sx={{
         position: "fixed",
         top: 14,
@@ -80,53 +64,54 @@ export default function MobileNavbar({ isActive }) {
         transform: "translateX(-50%)",
         height: 48,
         zIndex: 1300,
-        overflow: "hidden",
         borderRadius: "999px",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: expanded ? "space-evenly" : "center",
         background:
           "linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06))",
         backdropFilter: "blur(18px)",
         border: "1px solid rgba(255,255,255,.22)",
         boxShadow: "0 8px 24px rgba(0,0,0,.45)",
+        overflow: "hidden",
         cursor: expanded ? "default" : "pointer",
       }}
     >
       <Stack
         direction="row"
-        sx={{
-          width: "100%",
-          alignItems: "center",
-          justifyContent: expanded ? "space-evenly" : "center",
-        }}
+        sx={{ width: "100%", justifyContent: "space-evenly" }}
       >
-        {mobileNavItems.map((item) => {
+        {navItems.map((item) => {
           const Icon = item.icon;
-          const isCurrent = item.key === currentItem.key;
-          const visible = expanded || isCurrent;
+          const isActive = item.key === activeItem.key;
+          const visible = expanded || isActive;
+
+          if (!visible) return null;
 
           return (
             <Box
               key={item.key}
-              component={motion.div}
-              animate={{
-                opacity: visible ? 1 : 0,
-                scale: visible ? 1 : 0.6,
+              onClick={(e) => {
+                e.stopPropagation();
+
+                // ✅ First tap = expand only
+                if (!expanded) {
+                  setExpanded(true);
+                  return;
+                }
+
+                // ✅ Second tap = navigate
+                handleClick(item);
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={expanded ? () => handleItemClick(item) : undefined}
               sx={{
                 width: 44,
-                display: visible ? "flex" : "none",
+                display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
                 alignItems: "center",
-                pointerEvents: expanded ? "auto" : "none",
+                cursor: expanded ? "pointer" : "default",
               }}
             >
-              {/* ICON */}
+              {/* Icon */}
               <Box
                 sx={{
                   height: 24,
@@ -135,22 +120,24 @@ export default function MobileNavbar({ isActive }) {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: "50%",
-                  color: isCurrent ? "#fa5a29" : "#fff",
-                  opacity: isCurrent ? 1 : 0.6,
-                  transform: isCurrent ? "scale(1.08)" : "scale(1)",
+                  color: isActive ? "#fa5a29" : "#fff",
+                  opacity: isActive ? 1 : 0.6,
+                  transform: isActive ? "scale(1.08)" : "scale(1)",
                   transition: "all .25s",
                 }}
               >
-                <Icon sx={{fontSize: 18}} />
+                <Icon sx={{ fontSize: 18 }} />
               </Box>
 
-              {/* LABEL */}
+              {/* Label */}
               {expanded && (
                 <Typography
-                  component={motion.span}
-                  animate={{ opacity: expanded ? 0.75 : 0 }}
-                  transition={{ duration: 0.15 }}
-                  sx={{ fontSize: "0.55rem", lineHeight: 1, color: "#fff" }}
+                  sx={{
+                    fontSize: "0.55rem",
+                    color: "#fff",
+                    opacity: 0.75,
+                    mt: 0.3,
+                  }}
                 >
                   {item.label}
                 </Typography>

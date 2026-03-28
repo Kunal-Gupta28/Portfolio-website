@@ -9,12 +9,16 @@ export default function HeroBackground() {
             {/* Mobile */}
             <source
               media="(max-width: 640px)"
+              alt="Kunal Gupta – Software Engineer"
+              loading="eager"
               srcSet="/images/about-mobile.webp"
             />
 
             {/* Tablet */}
             <source
               media="(max-width: 1024px)"
+              alt="Kunal Gupta – Software Engineer"
+              loading="eager"
               srcSet="/images/about-tablet.webp"
             />
 
@@ -28,8 +32,8 @@ export default function HeroBackground() {
           </picture>
 
           {/* Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-l from-black via-black/5 via-50% to-black" />
-          <div className="absolute inset-0 bg-gradient-to-l from-black via-black/5 via-85% to-black" />
+          <div className="absolute inset-0 bg-linear-to-l from-black via-black/5 via-80% to-black" />
+          <div className="absolute inset-0 bg-linear-to-l from-black via-black/5 via-85% to-black" />
         </div>
       </Fade>
     </section>

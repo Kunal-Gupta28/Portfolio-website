@@ -4,6 +4,7 @@ import WorkOutline from "@mui/icons-material/WorkOutline";
 import DescriptionOutlined from "@mui/icons-material/DescriptionOutlined";
 import LinkedIn from "@mui/icons-material/LinkedIn";
 import GitHub from "@mui/icons-material/GitHub";
+import ChatBubbleOutline from "@mui/icons-material/ChatBubbleOutline";
 
 export const navItems = [
   { key: "home", label: "Index", path: "/", icon: HomeOutlined },
@@ -29,5 +30,11 @@ export const navItems = [
     external: true,
     url: "https://github.com/Kunal-Gupta28",
     icon: GitHub,
+  },
+  {
+    key: "contact",
+    label: "Let's Talk",
+    path: "/contact",
+    icon: ChatBubbleOutline,
   },
 ];

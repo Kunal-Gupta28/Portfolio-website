@@ -32,7 +32,7 @@ const Interests = React.memo(function Interests() {
             key={title}
             className="
                  w-[80vw] md:w-[35vw] xl:w-[30vw] rounded-2xl border border-white/10 cursor-pointer
-                  bg-gradient-to-br from-white/5 to-transparent 
+                  bg-linear-to-br from-white/5 to-transparent 
                   p-[clamp(0.8rem,1vw,2rem)] transition-all duration-300 ml-auto
                   hover:border-white/20 
               "
