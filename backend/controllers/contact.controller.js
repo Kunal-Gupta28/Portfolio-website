@@ -22,26 +22,16 @@ const createContact = async (req, res) => {
     subject = sanitize(subject);
     message = sanitize(message);
 
+    // Save to DB
     await Contact.create({ name, email, subject, message });
 
-    // Send email (non-blocking safety)
+    // Send email
     sendEmail({
-      subject: `📩 New Contact from Portfolio: ${subject}`,
-      text: `
-Name: ${name}
-Email: ${email}
-Subject: ${subject}
-Message: ${message}
-      `,
-      html: `
-        <h3>New Contact Message</h3>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Subject:</b> ${subject}</p>
-        <p><b>Message:</b></p>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
-      `,
-    }).catch(err => {
+      name,
+      email,
+      subject,
+      message,
+    }).catch((err) => {
       console.error("Email failed:", err.message);
     });
 
@@ -49,9 +39,8 @@ Message: ${message}
       success: true,
       message: "Message received successfully",
     });
-
   } catch (err) {
-    console.error("error" + err);
+    console.error("Error:", err);
     return res.status(500).json({
       success: false,
       message: "Something went wrong",

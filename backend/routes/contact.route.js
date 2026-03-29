@@ -8,16 +8,9 @@ const contactLimiter = require("../middlewares/contactLimiter");
 router.post(
   "/contact",
   contactLimiter,
-  body("name")
-    .trim()
-    .isString()
-    .notEmpty()
-    .withMessage("Name is required"),
+  body("name").trim().isString().notEmpty().withMessage("Name is required"),
 
-  body("email")
-    .trim()
-    .isEmail()
-    .withMessage("Valid email is required"),
+  body("email").trim().isEmail().withMessage("Valid email is required"),
 
   body("subject")
     .trim()
@@ -31,7 +24,7 @@ router.post(
     .notEmpty()
     .withMessage("Message is required"),
 
-  createContact
+  createContact,
 );
 
 module.exports = router;

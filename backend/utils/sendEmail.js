@@ -12,23 +12,52 @@ const getTransporter = () => {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-      tls: {
-        rejectUnauthorized: true,
-      },
     });
   }
   return transporter;
 };
 
-const sendEmail = async ({ subject, text, html }) => {
+const sendEmail = async ({ name, email, subject, message }) => {
   const mailer = getTransporter();
 
   return mailer.sendMail({
-    from: `"Contact Form" <${process.env.MAIL_FROM}>`,
+    from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
     to: process.env.ADMIN_EMAIL,
-    subject,
-    text,
-    html,
+    replyTo: email,
+
+    subject: `📩 ${subject} | From ${name}`,
+
+    text: `
+New Contact Form Submission
+
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+
+Time: ${new Date().toLocaleString()}
+    `,
+
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin:auto; line-height:1.6;">
+        <h2 style="color:#222;">📩 New Contact Message</h2>
+
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+
+        <p><strong>Message:</strong></p>
+        <div style="background:#f4f4f4;padding:12px;border-radius:6px;">
+          ${message.replace(/\n/g, "<br/>")}
+        </div>
+        <hr />
+        <p style="font-size:12px;color:#777;">
+          Sent from your portfolio contact form
+        </p>
+      </div>
+    `,
   });
 };
 

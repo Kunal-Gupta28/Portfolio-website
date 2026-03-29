@@ -11,9 +11,9 @@ import Fade from "@mui/material/Fade";
 import useContactForm from "../../hooks/useContactForm";
 
 const fieldConfig = [
-  { name: "name", label: "Name" },
-  { name: "email", label: "Email" },
-  { name: "subject", label: "Subject" },
+  { name: "name", label: "Who’s reaching out?" },
+  { name: "email", label: "Drop your email" },
+  { name: "subject", label: "What brings you here?" },
 ];
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -70,7 +70,7 @@ function ContactForm() {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              label="Message"
+              label="Let’s build something amazing…"
               name="message"
               multiline
               rows={4}
@@ -102,7 +102,7 @@ function ContactForm() {
               {loading ? (
                 <CircularProgress size={22} sx={{ color: "#fff" }} />
               ) : (
-                "Send Message"
+                "Let’s Talk"
               )}
             </Button>
           </Grid>
