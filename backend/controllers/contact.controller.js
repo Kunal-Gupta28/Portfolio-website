@@ -1,6 +1,6 @@
 const Contact = require("../models/contact.model");
 const { validationResult } = require("express-validator");
-const sendEmail = require("../utils/SendEmail");
+const sendEmail = require("../utils/sendEmail");
 const sanitize = require("../utils/sanitize");
 
 const createContact = async (req, res) => {
