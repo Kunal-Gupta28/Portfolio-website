@@ -21,7 +21,7 @@ export const navItems = [
     key: "linkedin",
     label: "LinkedIn",
     external: true,
-    url: "https://www.linkedin.com/in/kunal-gupta-b7bb7a216/",
+    url: "https://www.linkedin.com/in/kunalgupta-dev/",
     icon: LinkedIn,
   },
   {
