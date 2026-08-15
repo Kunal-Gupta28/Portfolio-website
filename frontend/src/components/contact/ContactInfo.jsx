@@ -1,101 +1,77 @@
 import React, { memo } from "react";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-
 import { contactInfo, socialLinks } from "../../data/contactData";
-
-const ACCENT = "#fa5a29";
-
-// 🔹 Styles (stable references)
-
-const paperStyle = {
-  p: { xs: 2, md: 4 },
-  height: "100%",
-  borderRadius: "20px",
-  background:
-    "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-  backdropFilter: "blur(14px)",
-  border: "1px solid rgba(255,255,255,0.12)",
-};
-
-const headingStyle = {
-  mb: { xs: 1, md: 2 },
-  fontWeight: 600,
-  color: "#fff",
-};
-
-const paragraphStyle = {
-  mb: 4,
-  color: "rgba(255,255,255,0.65)",
-  fontSize: { xs: 14, md: 19 },
-};
-
-const rowStyle = {
-  display: "flex",
-  alignItems: "center",
-  gap: { xs: 1, md: 2 },
-  mb: 2,
-};
-
-const textStyle = {
-  color: "rgba(255,255,255,0.7)",
-  fontSize: { xs: 14, md: 19 },
-};
-
-const socialContainer = {
-  display: "flex",
-  gap: 2,
-  mt: 3,
-};
-
-const iconButtonStyle = {
-  color: "rgba(255,255,255,0.6)",
-  transition: "all 0.2s ease",
-  "&:hover": {
-    color: ACCENT,
-    transform: "translateY(-2px)",
-  },
-};
 
 function ContactInfo() {
   return (
-    <Paper sx={paperStyle}>
+    <div className="
+      h-full
+      rounded-2xl
+      border
+      border-white/12
+      bg-gradient-to-b
+      from-white/6
+      to-white/2
+      p-5
+      md:p-8
+      backdrop-blur-md
+    ">
       {/* Heading */}
-      <Typography variant="h5" sx={headingStyle}>
+      <h3 className="mb-2 text-xl md:text-2xl font-semibold text-white">
         Get in Touch
-      </Typography>
+      </h3>
 
       {/* Description */}
-      <Typography sx={paragraphStyle}>
+      <p className="mb-6 text-sm md:text-lg text-white/65 leading-relaxed">
         Feel free to reach out for opportunities, collaborations, or just a
         friendly hello.
-      </Typography>
+      </p>
 
       {/* Contact Info */}
-      {contactInfo.map(({ label, value, icon: Icon }) => (
-        <Box key={label} sx={rowStyle}>
-          <Icon sx={{ color: ACCENT }} />
-          <Typography sx={textStyle}>{value}</Typography>
-        </Box>
-      ))}
+      <div className="space-y-3">
+        {contactInfo.map(({ label, value, icon: Icon }) => (
+          <div key={label} className="flex items-center gap-3 text-white/70 text-sm md:text-base">
+            <span className="text-[#fa5a29] flex-shrink-0">
+              <Icon />
+            </span>
+            <span>{value}</span>
+          </div>
+        ))}
+      </div>
 
       {/* Social Links */}
-      <Box sx={socialContainer}>
+      <div className="mt-6 flex items-center gap-4">
         {socialLinks.map(({ label, href, icon: Icon }) => (
-          <IconButton
+          <a
             key={label}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            sx={iconButtonStyle}
+            title={label}
+            aria-label={label}
+            className="
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/10
+              bg-white/5
+              text-white/60
+              transition-all
+              duration-200
+              hover:-translate-y-0.5
+              hover:border-[#fa5a29]/40
+              hover:bg-[#fa5a29]/10
+              hover:text-[#fa5a29]
+            "
           >
             <Icon />
-          </IconButton>
+          </a>
         ))}
-      </Box>
-    </Paper>
+      </div>
+    </div>
   );
 }
 

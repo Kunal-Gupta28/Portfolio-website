@@ -26,7 +26,7 @@ export default function HeroBackground() {
       </picture>
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-linear-to-r from-black via-black/1 via-70% to-black" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/20 via-70% to-black" />
     </div>
   );
 }

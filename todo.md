@@ -29,10 +29,12 @@
 
 ## 🟢 Low Priority (Visual Polish & Enhancements)
 
-- [ ] **Project Showcase Content Polish**:
-  - [ ] Add live preview GIFs or fallback badges for projects with empty live links (`live: ""`).
+- [x] **Project Showcase Content Polish**:
+  - [x] Refactor all project card summaries to be rich, informative, and detailed across all 10 projects.
+  - [x] Fix background scroll locking (`Lenis data-lenis-prevent` + non-passive window event intercept).
+  - [x] Add backdrop outside click handler to close `ProjectDialog` modal.
   - [x] Increase text contrast for muted secondary text (`opacity-50` -> `opacity-75`) for WCAG AA accessibility compliance.
 
 ---
 
-*TODO list generated for Kunal Gupta's Portfolio Website.*
+*TODO list updated for Kunal Gupta's Portfolio Website.*

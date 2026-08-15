@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 
 // components
@@ -11,24 +8,6 @@ import NavCenter from "./NavCenter";
 
 // loader context
 import { useLoader } from "../../../context/LoaderContext";
-
-const MotionBox = motion.create(Box);
-
-const contactButtonStyles = (active) => ({
-  px: "18px",
-  py: "8px",
-  borderRadius: "999px",
-  cursor: "pointer",
-  color: active ? "#fa5a29" : "#fff",
-  background: active
-    ? "rgba(250,90,41,.08)"
-    : "rgba(255,255,255,.16)",
-  transition: "all .25s ease",
-  "&:hover": {
-    transform: "translateY(-2px)",
-    background: "rgba(255,255,255,.22)",
-  },
-});
 
 export default function DesktopNavbar({ pathname }) {
   const [expanded, setExpanded] = useState(false);
@@ -48,65 +27,69 @@ export default function DesktopNavbar({ pathname }) {
     navigate("/contact");
   };
 
+  const isContactActive = pathname === "/contact";
+
   return (
-    <MotionBox
+    <motion.div
       initial={{ opacity: 0, y: -24, width: "500px" }}
       animate={{ width: expanded ? "90%" : "500px", opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.11, 0.5, 0.18, 0.5] }}
       onMouseLeave={() => setExpanded(false)}
       onAnimationComplete={() => expanded && setShowExpanded(true)}
-      sx={{
-        position: "fixed",
-        top: 24,
-        left: 0,
-        right: 0,
-        mx: "auto",
-        maxWidth: "1280px",
-        zIndex: 1200,
-        borderRadius: "999px",
-        background:
-          "linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06))",
-        backdropFilter: "blur(28px) saturate(180%)",
-        border: "1px solid rgba(255,255,255,.22)",
-        boxShadow:
-          "0 40px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.35)",
-      }}
+      className="
+        fixed
+        top-6
+        left-0
+        right-0
+        z-50
+        mx-auto
+        max-w-7xl
+        rounded-full
+        border
+        border-white/20
+        bg-gradient-to-b
+        from-white/16
+        to-white/6
+        px-6
+        backdrop-blur-2xl
+        shadow-[0_40px_80px_rgba(0,0,0,0.6)]
+      "
     >
-      <Container maxWidth={false} sx={{ px: { xs: 3, md: 5 } }}>
-        <Box
-          sx={{
-            height: 68,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            color: "#fff",
-          }}
+      <div className="flex h-16 items-center justify-between text-white">
+        {/* Greeting */}
+        <div className="text-xs text-white/75 font-medium">
+          <Greeting />
+        </div>
+
+        {/* Nav center */}
+        <div onMouseEnter={() => setExpanded(true)}>
+          <NavCenter showExpanded={showExpanded} pathname={pathname} />
+        </div>
+
+        {/* Contact Button */}
+        <button
+          type="button"
+          onClick={handleContactClick}
+          className={`
+            rounded-full
+            px-4
+            py-2
+            text-xs
+            font-medium
+            transition-all
+            duration-200
+            cursor-pointer
+            hover:-translate-y-0.5
+            ${
+              isContactActive
+                ? "bg-[#fa5a29]/15 text-[#fa5a29] border border-[#fa5a29]/40"
+                : "bg-white/15 text-white hover:bg-white/25"
+            }
+          `}
         >
-          {/* Greeting */}
-          <Typography variant="body2" sx={{ opacity: 0.75 }}>
-            <Greeting />
-          </Typography>
-
-          {/* Nav center */}
-          <Box onMouseEnter={() => setExpanded(true)}>
-            <NavCenter showExpanded={showExpanded} pathname={pathname} />
-          </Box>
-
-          {/* Contact Button */}
-          <Typography
-            variant="body2"
-            role="button"
-            tabIndex={0}
-            onClick={handleContactClick}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleContactClick();
-            }}
-            sx={contactButtonStyles(pathname === "/contact")}
-          >
-            Let’s Talk
-          </Typography>
-        </Box>
-      </Container>
-    </MotionBox>
+          Let’s Talk
+        </button>
+      </div>
+    </motion.div>
   );
 }

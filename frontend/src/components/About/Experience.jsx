@@ -33,7 +33,7 @@ const Experience = React.memo(function Experience() {
             className="
               rounded-2xl
               border border-white/10
-              bg-linear-to-br from-white/5 to-transparent
+              bg-gradient-to-br from-white/5 to-transparent
               p-[clamp(1.25rem,2vw,1.75rem)]
             "
           >

@@ -1,8 +1,44 @@
-import CodeIcon from "@mui/icons-material/Code";
-import StorageIcon from "@mui/icons-material/Storage";
-import DevicesIcon from "@mui/icons-material/Devices";
-import SecurityIcon from "@mui/icons-material/Security";
-import SpeedIcon from "@mui/icons-material/Speed";
+const CodeIcon = (props) => (
+  <svg className="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
+  </svg>
+);
+
+const StorageIcon = (props) => (
+  <svg className="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+  </svg>
+);
+
+const DevicesIcon = (props) => (
+  <svg className="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="4" y="4" width="16" height="12" rx="2" ry="2"></rect>
+    <line x1="12" y1="16" x2="12" y2="20"></line>
+    <line x1="8" y1="20" x2="16" y2="20"></line>
+  </svg>
+);
+
+const SecurityIcon = (props) => (
+  <svg className="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+);
+
+const SpeedIcon = (props) => (
+  <svg className="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="M4.93 4.93l1.41 1.41"></path>
+    <path d="M17.66 17.66l1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="M6.34 17.66l-1.41 1.41"></path>
+    <path d="M19.07 4.93l-1.41 1.41"></path>
+  </svg>
+);
 
 export const skillIconMap = {
   frontend: CodeIcon,

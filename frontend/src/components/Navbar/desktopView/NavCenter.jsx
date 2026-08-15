@@ -1,7 +1,5 @@
 import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import { navItems } from "../../../data/navData";
 import NavItem from "./NavItem";
 import { useLoader } from "../../../context/LoaderContext";
@@ -13,7 +11,6 @@ const NavCenter = memo(({ showExpanded, pathname }) => {
   // handle nav link click
   const handleNavClick = useCallback(
     (item) => {
-      
       if (item.external) {
         window.open(item.url, "_blank", "noopener,noreferrer");
       } else {
@@ -25,8 +22,8 @@ const NavCenter = memo(({ showExpanded, pathname }) => {
   );
 
   return (
-    <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
-      <Stack direction="row" spacing={2}>
+    <div className="flex flex-1 justify-center">
+      <div className="flex items-center gap-2">
         {navItems.filter((item) => item.key !== "contact").map((item) => {
           const active =
             pathname === item.path ||
@@ -42,8 +39,8 @@ const NavCenter = memo(({ showExpanded, pathname }) => {
             />
           );
         })}
-      </Stack>
-    </Box>
+      </div>
+    </div>
   );
 });
 

@@ -11,15 +11,14 @@ export default defineConfig({
   build: {
     minify: true,
     cssMinify: true,
-    sourcemap: true
-  },
-
-  resolve: {
-    dedupe: [
-      "@mui/material",
-      "@mui/system",
-      "@emotion/react",
-      "@emotion/styled",
-    ],
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "animation-vendor": ["framer-motion", "gsap", "lenis"],
+        },
+      },
+    },
   },
 });

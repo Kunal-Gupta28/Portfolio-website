@@ -67,7 +67,7 @@ export default function Skills({ setValue }) {
                 onClick={() => handleClick(category.valueKey)}
                 className={`w-[65vw] md:w-[35vw] lg:w-[30vw] xl:w-[20vw]
                   rounded-2xl border border-white/10 cursor-pointer
-                  bg-linear-to-br from-white/5 to-transparent 
+                  bg-gradient-to-br from-white/5 to-transparent 
                   p-[clamp(0.3rem,1vw,2rem)]
                   transition-all duration-300 ml-auto
                   hover:border-white/20

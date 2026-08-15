@@ -1,21 +1,32 @@
 import { memo } from "react";
-import Box from "@mui/material/Box";
-
-const navItemStyles = (active) => ({
-  fontSize: "small",
-  cursor: "pointer",
-  color: active ? "#fa5a29" : "#fff",
-  opacity: active ? 1 : 0.6,
-  transform: active ? "scale(1.08)" : "scale(1)",
-  transition: "all 0.25s ease",
-  "&:hover": { opacity: 1 },
-});
 
 const NavItem = memo(({ item, active, showExpanded, onClick }) => {
+  const Icon = item.icon;
+
   return (
-    <Box onClick={onClick} sx={navItemStyles(active)}>
-      {showExpanded ? item.label : <item.icon sx={{ fontSize: 18 }} />}
-    </Box>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`
+        text-xs
+        font-medium
+        transition-all
+        duration-200
+        cursor-pointer
+        px-2
+        py-1
+        flex
+        items-center
+        justify-center
+        ${
+          active
+            ? "text-[#fa5a29] opacity-100 scale-105 font-semibold"
+            : "text-white opacity-60 hover:opacity-100 hover:scale-105"
+        }
+      `}
+    >
+      {showExpanded ? item.label : <Icon />}
+    </button>
   );
 });
 
