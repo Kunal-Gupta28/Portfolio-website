@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
 import Background from "../components/About/Background";
@@ -18,14 +18,11 @@ export default function About() {
   // page title
   useDocumentTitle("About | Kunal Gupta");
 
-  /* Prevent unnecessary rerenders */
-  const backgroundValue = useMemo(() => value, [value]);
-
   return (
     <main className="relative min-h-screen overflow-x-hidden text-white">
       {/* FIXED BACKGROUND */}
       <section className="fixed inset-0 -z-10 min-h-svh w-screen">
-        <Background value={backgroundValue} />
+        <Background value={value} />
       </section>
 
       {/* hero section */}

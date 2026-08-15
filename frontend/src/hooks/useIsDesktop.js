@@ -10,15 +10,15 @@ const useIsDesktop = () => {
   });
 
   useEffect(() => {
-    const checkDevice = () => {
-      const isLargeScreen = window.innerWidth >= 1024;
-      const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
-      setIsDesktop(isLargeScreen && hasFinePointer);
-    };
+    if (typeof window === "undefined") return;
 
-    window.addEventListener("resize", checkDevice);
+    const mediaQuery = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const handler = (e) => setIsDesktop(e.matches);
 
-    return () => window.removeEventListener("resize", checkDevice);
+    setIsDesktop(mediaQuery.matches);
+
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
   return isDesktop;

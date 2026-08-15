@@ -1,55 +1,38 @@
 import { memo } from "react";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { motion } from "framer-motion";
-
-const MotionPaper = motion(Paper);
-
-const animation = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4 },
-};
-
-const paperStyle = {
-  p: 4,
-  minHeight: 320,
-  borderRadius: 3,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  textAlign: "center",
-  background:
-    "linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03))",
-  border: "1px dashed rgba(255,255,255,.25)",
-};
-
-const titleStyle = {
-  fontWeight: 700,
-  color: "#fff",
-  mb: 1,
-};
-
-const textStyle = {
-  color: "rgba(255,255,255,.6)",
-};
 
 function ComingSoonCard({ title }) {
   return (
-    <MotionPaper {...animation} sx={paperStyle}>
-      <Box>
-        {/* title  */}
-        <Typography variant="h5" sx={titleStyle}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="
+        flex
+        min-h-[320px]
+        items-center
+        justify-center
+        rounded-2xl
+        border
+        border-dashed
+        border-white/25
+        bg-gradient-to-b
+        from-white/10
+        to-white/5
+        p-8
+        text-center
+        backdrop-blur-md
+      "
+    >
+      <div>
+        <h3 className="mb-2 text-2xl font-bold text-white">
           {title}
-        </Typography>
-
-        {/* text */}
-        <Typography sx={textStyle}>
+        </h3>
+        <p className="text-sm text-white/60">
           Projects coming soon 🚀
-        </Typography>
-      </Box>
-    </MotionPaper>
+        </p>
+      </div>
+    </motion.div>
   );
 }
 

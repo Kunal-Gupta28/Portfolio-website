@@ -1,19 +1,10 @@
 import { useEffect, useRef, memo } from "react";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import Fade from "@mui/material/Fade";
-
-// custom hook
 import useContactForm from "../../hooks/useContactForm";
 
 const fieldConfig = [
-  { name: "name", label: "Who’s reaching out?" },
-  { name: "email", label: "Drop your email" },
-  { name: "subject", label: "What brings you here?" },
+  { name: "name", label: "Who’s reaching out?", placeholder: "John Doe" },
+  { name: "email", label: "Drop your email", placeholder: "john@example.com" },
+  { name: "subject", label: "What brings you here?", placeholder: "Project Inquiry / Collaboration" },
 ];
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -43,168 +34,151 @@ function ContactForm() {
     !formData.message;
 
   return (
-    <Paper sx={paperStyles}>
+    <div className="
+      rounded-3xl
+      border
+      border-white/15
+      bg-gradient-to-br
+      from-white/10
+      to-white/5
+      p-6
+      md:p-10
+      shadow-[0_10px_40px_rgba(0,0,0,0.35)]
+      backdrop-blur-xl
+    ">
       {/* Heading */}
-      <Typography sx={headingStyles}>Get in Touch</Typography>
+      <h3 className="mb-6 text-center text-2xl md:text-3xl font-bold text-[#fa5a29]">
+        Get in Touch
+      </h3>
 
-      <form onSubmit={handleSubmit} noValidate>
-        <Grid container spacing={2.5}>
-          {fieldConfig.map((field, index) => (
-            <Grid item xs={12} key={field.name}>
-              <TextField
-                fullWidth
-                inputRef={index === 0 ? firstInputRef : null}
-                label={field.label}
-                name={field.name}
-                value={formData[field.name]}
-                onChange={handleChange}
-                error={Boolean(errors[field.name])}
-                helperText={errors[field.name]}
-                autoComplete={field.name}
-                InputLabelProps={labelProps}
-                sx={inputStyles}
-              />
-            </Grid>
-          ))}
-
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Let’s build something amazing…"
-              name="message"
-              multiline
-              rows={4}
-              value={formData.message}
+      <form onSubmit={handleSubmit} noValidate className="space-y-5">
+        {fieldConfig.map((field, index) => (
+          <div key={field.name} className="space-y-1.5">
+            <label htmlFor={field.name} className="block text-xs font-medium text-white/70">
+              {field.label}
+            </label>
+            <input
+              id={field.name}
+              ref={index === 0 ? firstInputRef : null}
+              type={field.name === "email" ? "email" : "text"}
+              name={field.name}
+              placeholder={field.placeholder}
+              value={formData[field.name]}
               onChange={handleChange}
-              error={Boolean(errors.message)}
-              helperText={errors.message}
-              InputLabelProps={labelProps}
-              sx={inputStyles}
+              autoComplete={field.name}
+              className={`
+                w-full
+                rounded-xl
+                border
+                bg-black/40
+                px-4
+                py-3
+                text-sm
+                text-white
+                placeholder-white/30
+                outline-none
+                transition-all
+                duration-200
+                focus:border-[#fa5a29]
+                focus:ring-2
+                focus:ring-[#fa5a29]/25
+                ${errors[field.name] ? "border-red-500" : "border-white/20 hover:border-[#fa5a29]/50"}
+              `}
             />
-          </Grid>
+            {errors[field.name] && (
+              <p className="text-xs text-red-400 mt-1">{errors[field.name]}</p>
+            )}
+          </div>
+        ))}
 
-          <Grid item xs={12}>
-            <Fade in={Boolean(success || error)}>
-              <Typography sx={success ? successText : errorText}>
-                {success || error}
-              </Typography>
-            </Fade>
-          </Grid>
+        <div className="space-y-1.5">
+          <label htmlFor="message" className="block text-xs font-medium text-white/70">
+            Let’s build something amazing…
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={4}
+            placeholder="Tell me about your project or idea..."
+            value={formData.message}
+            onChange={handleChange}
+            className={`
+              w-full
+              rounded-xl
+              border
+              bg-black/40
+              px-4
+              py-3
+              text-sm
+              text-white
+              placeholder-white/30
+              outline-none
+              transition-all
+              duration-200
+              resize-none
+              focus:border-[#fa5a29]
+              focus:ring-2
+              focus:ring-[#fa5a29]/25
+              ${errors.message ? "border-red-500" : "border-white/20 hover:border-[#fa5a29]/50"}
+            `}
+          />
+          {errors.message && (
+            <p className="text-xs text-red-400 mt-1">{errors.message}</p>
+          )}
+        </div>
 
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              fullWidth
-              disabled={isDisabled}
-              sx={submitBtn}
-              aria-busy={loading}
-            >
-              {loading ? (
-                <CircularProgress size={22} sx={{ color: "#fff" }} />
-              ) : (
-                "Let’s Talk"
-              )}
-            </Button>
-          </Grid>
-        </Grid>
+        {/* Success / Error Messages */}
+        {(success || error) && (
+          <div className={`mt-2 text-center text-sm font-medium ${success ? "text-emerald-400" : "text-rose-400"}`}>
+            {success || error}
+          </div>
+        )}
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={isDisabled}
+          className={`
+            mt-4
+            flex
+            w-full
+            items-center
+            justify-center
+            rounded-full
+            bg-gradient-to-r
+            from-[#fa5a29]
+            to-[#ff7a50]
+            py-3.5
+            px-6
+            text-sm
+            font-bold
+            tracking-wide
+            text-white
+            shadow-[0_6px_20px_rgba(250,90,41,0.35)]
+            transition-all
+            duration-200
+            cursor-pointer
+            hover:-translate-y-0.5
+            hover:shadow-[0_10px_30px_rgba(250,90,41,0.5)]
+            active:scale-[0.98]
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+            disabled:hover:translate-y-0
+            disabled:hover:shadow-none
+          `}
+        >
+          {loading ? (
+            <svg className="h-5 w-5 animate-spin text-white" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          ) : (
+            "Let’s Talk"
+          )}
+        </button>
       </form>
-    </Paper>
+    </div>
   );
 }
 
 export default memo(ContactForm);
-
-// ---------------- STYLES ----------------
-
-const labelProps = {
-  style: {
-    color: "#bbb",
-    fontSize: "14px",
-  },
-};
-
-const paperStyles = {
-  p: { xs: 2.5, md: 4 },
-  borderRadius: "24px",
-  background:
-    "linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))",
-  backdropFilter: "blur(18px)",
-  border: "1px solid rgba(255,255,255,0.15)",
-  boxShadow: "0 10px 40px rgba(0,0,0,0.35)",
-};
-
-const headingStyles = {
-  mb: 3,
-  fontSize: { xs: 22, md: 28 },
-  fontWeight: 600,
-  color: "#fa5a29",
-  textAlign: "center",
-};
-
-const inputStyles = {
-  input: { color: "#fff" },
-  textarea: { color: "#fff" },
-
-  "& .MuiOutlinedInput-root": {
-    borderRadius: "12px",
-    transition: "all 0.25s ease",
-
-    "& fieldset": {
-      borderColor: "rgba(255,255,255,0.2)",
-    },
-
-    "&:hover fieldset": {
-      borderColor: "#fa5a29",
-    },
-
-    "&.Mui-focused": {
-      boxShadow: "0 0 0 2px rgba(250,90,41,0.25)",
-    },
-
-    "&.Mui-focused fieldset": {
-      borderColor: "#fa5a29",
-    },
-  },
-};
-
-const submitBtn = {
-  mt: 2,
-  py: 1.5,
-  borderRadius: "999px",
-  background: "linear-gradient(135deg, #fa5a29, #ff7a50)",
-  color: "#fff",
-  fontWeight: 600,
-  letterSpacing: "0.5px",
-  transition: "all 0.25s ease",
-  boxShadow: "0 6px 20px rgba(250,90,41,0.35)",
-
-  "&:hover": {
-    transform: "translateY(-2px)",
-    boxShadow: "0 10px 30px rgba(250,90,41,0.5)",
-    background: "linear-gradient(135deg, #ff7a50, #fa5a29)",
-  },
-
-  "&:active": {
-    transform: "scale(0.98)",
-  },
-
-  "&.Mui-disabled": {
-    background: "rgba(255,255,255,0.1)",
-    color: "rgba(255,255,255,0.4)",
-    boxShadow: "none",
-  },
-};
-
-const successText = {
-  color: "#4caf50",
-  fontSize: 14,
-  textAlign: "center",
-  mt: 1,
-};
-
-const errorText = {
-  color: "#f44336",
-  fontSize: 14,
-  textAlign: "center",
-  mt: 1,
-};

@@ -1,8 +1,4 @@
 import { useState, useEffect, lazy, Suspense, useCallback } from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import useIsDesktop from "../hooks/useIsDesktop";
 import ContactActions from "../components/contact/ContactActions";
@@ -25,40 +21,38 @@ export default function Contact() {
   }, [showForm]);
 
   return (
-    <Box
-      sx={{
-        minHeight: "100svh",
-        display: "flex",
-        alignItems: "center",
-        background: `
-          radial-gradient(circle at 20% 20%, rgba(255,106,0,0.08), transparent 40%),
-          radial-gradient(circle at 80% 80%, rgba(255,255,255,0.04), transparent 40%),
-          #000
-        `,
-      }}
+    <main
+      className="
+        flex
+        min-h-svh
+        w-full
+        items-center
+        bg-black
+        bg-[radial-gradient(circle_at_20%_20%,rgba(255,106,0,0.08),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.04),transparent_40%)]
+        py-12
+      "
     >
-      <Container maxWidth="xl">
-        <Grid container spacing={{ xs: 3, md: 6 }} alignItems="center">
-          
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
           {/* LEFT: Spline */}
           {isDesktop && (
-            <Grid item md={6}>
-              <Suspense fallback={<div />}>
+            <div className="w-full">
+              <Suspense fallback={<div className="aspect-square w-full" />}>
                 <SplineScene />
               </Suspense>
-            </Grid>
+            </div>
           )}
 
           {/* RIGHT: Contact */}
-          <Grid item xs={12} md={isDesktop ? 6 : 12}>
+          <div className="w-full">
             <ContactActions
               showForm={showForm}
               onShowForm={handleShowForm}
               onHideForm={handleHideForm}
             />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }

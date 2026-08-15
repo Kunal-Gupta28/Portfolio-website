@@ -1,7 +1,4 @@
 import { useState, useMemo, lazy, Suspense, useCallback } from "react";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import CircularProgress from "@mui/material/CircularProgress";
 
 // components
 import CategoryFilter from "../components/projects/CategoryFilter";
@@ -10,8 +7,8 @@ import { projects } from "../data/projectsData";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 
 // lazy components
-const ComingSoonCard = lazy(() =>import("../components/projects/ComingSoonCard"));
-const ProjectDialog = lazy(() =>import("../components/projects/ProjectDialog"));
+const ComingSoonCard = lazy(() => import("../components/projects/ComingSoonCard"));
+const ProjectDialog = lazy(() => import("../components/projects/ProjectDialog"));
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -33,24 +30,15 @@ export default function Projects() {
     );
   }, [selectedCategory]);
 
-   const loader = useMemo(
-    () => (
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-        <CircularProgress />
-      </Box>
-    ),
-    []
+  const loader = (
+    <div className="mt-8 flex justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#fa5a29] border-t-transparent" />
+    </div>
   );
 
   return (
-    <Box
-      sx={{
-        minHeight: "100dvh",
-        pt: { xs: 12, md: 16 },
-        backgroundColor: "#000",
-      }}
-    >
-      <Container maxWidth="xl">
+    <main className="min-h-svh bg-black pt-28 md:pt-36 pb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <CategoryFilter
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
@@ -64,9 +52,9 @@ export default function Projects() {
         {/* No projects state */}
         {filteredProjects.length === 0 && (
           <Suspense fallback={loader}>
-            <Box sx={{ mt: 6 }}>
+            <div className="mt-12">
               <ComingSoonCard title={`${selectedCategory} Projects`} />
-            </Box>
+            </div>
           </Suspense>
         )}
 
@@ -79,7 +67,7 @@ export default function Projects() {
             />
           </Suspense>
         )}
-      </Container>
-    </Box>
+      </div>
+    </main>
   );
 }

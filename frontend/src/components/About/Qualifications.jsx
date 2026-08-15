@@ -1,30 +1,10 @@
 import React from "react";
 import { education } from "../../data/aboutdata/qualificationsData";
+import AboutSection from "./AboutSection";
 
 const Qualifications = React.memo(function Qualifications() {
   return (
-    <section
-      className="
-        min-h-screen
-        px-[clamp(1.25rem,5vw,5rem)]
-        pb-[clamp(2rem,10vw,6rem)]
-        w-[90%] md:w-[70vw] lg:w-[50vw] xl:max-w-5xl
-        ml-auto
-        relative
-      "
-    >
-      {/* Heading */}
-      <h2
-        className="
-          font-bold
-          text-[#fa5a29]
-          mb-[clamp(1rem,2vw,3rem)]
-          text-[clamp(2rem,3vw,6rem)]
-        "
-      >
-        Qualifications
-      </h2>
-
+    <AboutSection title="Qualifications">
       {/* Cards */}
       <div className="space-y-[clamp(1.5rem,3vw,2rem)] text-white/70">
         {education.map(({ degree, institution, duration, description }) => (
@@ -72,7 +52,7 @@ const Qualifications = React.memo(function Qualifications() {
           </div>
         ))}
       </div>
-    </section>
+    </AboutSection>
   );
 });
 

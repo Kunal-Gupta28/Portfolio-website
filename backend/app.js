@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+const compression = require("compression");
 const contactRoute = require("./routes/contact.route.js");
 
 const app = express();
@@ -8,6 +10,10 @@ const allowedOrigins = [
   "https://portfolio-website-chi-gilt.vercel.app",
   "http://localhost:5173"
 ];
+
+// Security & Gzip Compression
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(compression());
 
 app.use(
   cors({
@@ -25,7 +31,7 @@ app.use(
   })
 );
 
-app.use(express.json());
+app.use(express.json({ limit: "10kb" }));
 
 app.use("/api", contactRoute);
 

@@ -1,24 +1,17 @@
 import { memo } from "react";
-import Grid from "@mui/material/Grid";
-
-// importing component
 import ProjectCard from "./ProjectCard";
 
 function ProjectGrid({ projects, onViewProject }) {
   return (
-    // show 1,2,3 coloums on small, medium and larger device
-    <Grid container spacing={4}>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {projects.map((project) => (
-        <Grid item xs={12} md={6} lg={4} key={project.id}>
-
-          {/* project card */}
-          <ProjectCard
-            project={project}
-            onView={() => onViewProject(project)}
-          />
-        </Grid>
+        <ProjectCard
+          key={project.id}
+          project={project}
+          onView={onViewProject}
+        />
       ))}
-    </Grid>
+    </div>
   );
 }
 

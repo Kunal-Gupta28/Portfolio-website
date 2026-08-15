@@ -159,7 +159,7 @@ This project highlights frontend API integration and modern UI development.`,
     github: "https://github.com/Kunal-Gupta28/Image-enhancer",
     live: "https://image-enhancer-azure.vercel.app",
     videoDemo: "",
-    category: "Web App",
+    category: "ML/AI",
     hasApiDependency: true,
   },
 
@@ -273,4 +273,4 @@ Key Highlights:
   },
 ];
 
-export const categories = ["All", "Web App", "Mobile App", "ML/AI"];
+export const categories = ["All", "Web App", "ML/AI"];
