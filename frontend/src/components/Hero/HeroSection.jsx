@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { bioData } from "../../data/portfolioData";
@@ -25,6 +25,26 @@ export default function HeroSection() {
 
   // View Mode: 'spline' (default 3D model) vs 'portrait'
   const [viewMode, setViewMode] = useState("spline");
+
+  // 3D Mouse Physics Tilt & Spotlight State for Portrait Mode
+  const [portraitTilt, setPortraitTilt] = useState({ x: 0, y: 0 });
+  const [portraitMousePos, setPortraitMousePos] = useState({ x: 0, y: 0 });
+
+  const handlePortraitMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+    setPortraitTilt({ x: rotateX, y: rotateY });
+    setPortraitMousePos({ x, y });
+  };
+
+  const handlePortraitMouseLeave = () => {
+    setPortraitTilt({ x: 0, y: 0 });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -65,17 +85,26 @@ export default function HeroSection() {
     >
       {/* 1. Background Backdrop (Portrait or 3D Lighting) */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {viewMode === "portrait" && (
-          <div className="absolute top-0 right-0 w-full lg:w-[65vw] h-full overflow-hidden">
-            <img
-              ref={portraitBgRef}
-              src="/images/hero.webp"
-              alt="Kunal Gupta Portrait"
-              className="w-full h-full object-cover object-[78%_20%] scale-135 md:scale-150 opacity-90 md:opacity-95 transition-transform duration-700 ease-out"
-              loading="eager"
-            />
-          </div>
-        )}
+        <AnimatePresence>
+          {viewMode === "portrait" && (
+            <motion.div
+              key="hero-bg-portrait"
+              initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)", opacity: 0 }}
+              animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", opacity: 0.92 }}
+              exit={{ clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)", opacity: 0 }}
+              transition={{ duration: 0.75, ease: [0.77, 0, 0.175, 1] }}
+              className="absolute top-0 right-0 w-full lg:w-[65vw] h-full overflow-hidden pointer-events-none"
+            >
+              <img
+                ref={portraitBgRef}
+                src="/images/hero.webp"
+                alt="Kunal Gupta Portrait"
+                className="w-full h-full object-cover object-[78%_20%]"
+                loading="eager"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Soft Left Side Linear Fade Gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent lg:via-[#050505]/65" />
@@ -122,23 +151,29 @@ export default function HeroSection() {
             <div className="inline-flex items-center p-1 rounded-full bg-[#0b0b0b] border border-white/10 text-xs font-mono">
               <button
                 onClick={() => setViewMode("spline")}
-                className={`px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                   viewMode === "spline"
                     ? "bg-[#ff5e24] text-white font-bold shadow-[0_0_10px_rgba(255,94,36,0.5)]"
                     : "text-[#a3a3a8] hover:text-white"
                 }`}
               >
-                🔮 3D Spline
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                <span>3D Spline</span>
               </button>
               <button
                 onClick={() => setViewMode("portrait")}
-                className={`px-3 py-1 rounded-full transition-all duration-200 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                   viewMode === "portrait"
                     ? "bg-[#ff5e24] text-white font-bold shadow-[0_0_10px_rgba(255,94,36,0.5)]"
                     : "text-[#a3a3a8] hover:text-white"
                 }`}
               >
-                📸 Portrait
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>Portrait</span>
               </button>
             </div>
           </div>
@@ -244,25 +279,88 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Right Column: 3D Spline Interactive Model Showcase */}
+        {/* Right Column: 3D Spline Interactive Model Showcase vs Cinematic Dual-Curtain Split Portrait */}
         <div className="lg:col-span-5 relative w-full h-full flex items-center justify-center">
-          {viewMode === "spline" ? (
-            <div className="relative w-full h-[450px] md:h-[550px] rounded-3xl border border-white/15 bg-[#0b0b0b] shadow-2xl overflow-hidden group">
-              <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-[#050505]/80 border border-white/10 text-[10px] font-mono text-[#ff824d] flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-[#ff5e24] animate-ping" />
-                <span>INTERACTIVE 3D SPLINE SCENE</span>
-              </div>
-              <SplineScene className="w-full h-full" />
-            </div>
-          ) : (
-            <div className="w-full h-[450px] md:h-[550px] rounded-3xl border border-white/15 bg-[#0b0b0b] overflow-hidden relative shadow-2xl">
-              <img
-                src="/images/hero.webp"
-                alt="Kunal Gupta Portrait"
-                className="w-full h-full object-cover object-[78%_20%]"
-              />
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            {viewMode === "spline" ? (
+              <motion.div
+                key="spline"
+                initial={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
+                animate={{ clipPath: "inset(0 0% 0 0%)", opacity: 1 }}
+                exit={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
+                transition={{ duration: 0.55, ease: [0.77, 0, 0.175, 1] }}
+                className="relative w-full h-[450px] md:h-[550px] rounded-3xl border border-white/15 bg-[#0b0b0b] shadow-2xl overflow-hidden group"
+              >
+                <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-[#050505]/80 border border-white/10 text-[10px] font-mono text-[#ff824d] flex items-center gap-1.5 backdrop-blur-md">
+                  <span className="h-2 w-2 rounded-full bg-[#ff5e24] animate-ping" />
+                  <span>INTERACTIVE 3D SPLINE SCENE</span>
+                </div>
+                <SplineScene className="w-full h-full" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="portrait"
+                initial={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
+                animate={{ clipPath: "inset(0 0% 0 0%)", opacity: 1 }}
+                exit={{ clipPath: "inset(0 50% 0 50%)", opacity: 0 }}
+                transition={{ duration: 0.6, ease: [0.77, 0, 0.175, 1] }}
+                onMouseMove={handlePortraitMouseMove}
+                onMouseLeave={handlePortraitMouseLeave}
+                className="relative w-full h-[450px] md:h-[550px] rounded-3xl"
+              >
+                <motion.div
+                  animate={{ rotateX: portraitTilt.x, rotateY: portraitTilt.y }}
+                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                  className="w-full h-full rounded-3xl border border-white/15 bg-[#0b0b0b] overflow-hidden shadow-2xl relative group hover:border-[#ff5e24]/50 transition-colors duration-300"
+                >
+                  {/* Subtle Cursor Spotlight Follow */}
+                  <div
+                    className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl z-20"
+                    style={{
+                      background: `radial-gradient(450px circle at ${portraitMousePos.x}px ${portraitMousePos.y}px, rgba(255, 94, 36, 0.18), transparent 50%)`,
+                    }}
+                  />
+
+                  {/* Top Left Clean Pill Badge */}
+                  <div className="absolute top-4 left-4 z-30 px-3.5 py-1.5 rounded-full bg-[#050505]/85 border border-white/10 text-[10px] font-mono text-[#ff824d] flex items-center gap-2 backdrop-blur-md shadow-lg">
+                    <span className="h-2 w-2 rounded-full bg-[#ff5e24] animate-pulse" />
+                    <span className="font-semibold tracking-wider uppercase">PORTRAIT • DTU ALUMNUS</span>
+                  </div>
+
+                  {/* Image Container with Subtle Hover Zoom */}
+                  <div className="w-full h-full overflow-hidden relative">
+                    <img
+                      src="/images/hero.webp"
+                      alt="Kunal Gupta Portrait"
+                      className="w-full h-full object-cover object-[78%_20%] group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+
+                    {/* Gradient Soft Vignette */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/30 opacity-90 pointer-events-none z-10" />
+
+                    {/* Floating Bottom Info Card */}
+                    <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-[#0b0b0b]/90 border border-white/10 backdrop-blur-2xl z-30 transition-all duration-300 group-hover:border-[#ff5e24]/30 flex items-center justify-between gap-3 shadow-2xl">
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-[10px] font-mono text-[#ff5e24] font-bold uppercase tracking-wider">
+                          KUNAL GUPTA
+                        </span>
+                        <span className="text-sm font-bold text-[#f5f3ef]">
+                          Software Engineer
+                        </span>
+                        <span className="text-[11px] text-[#a1a1aa] font-mono">
+                          Full-Stack MERN • DTU ECE Graduate
+                        </span>
+                      </div>
+
+                      <div className="shrink-0 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 font-mono text-[10px] text-[#ff824d]">
+                        <span>✦ DTU</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
       </div>

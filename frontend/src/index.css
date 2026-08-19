@@ -158,3 +158,22 @@ html.lenis, html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* Hide Spline 3D Watermark Logos & Badges */
+spline-viewer #logo,
+spline-viewer #watermark,
+spline-viewer a,
+a[href*="spline.design"],
+a[href*="spline"],
+#spline-watermark,
+.spline-watermark,
+div[class*="spline-watermark"],
+div[class*="watermark"],
+canvas + a,
+canvas + div,
+[data-spline-watermark] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}

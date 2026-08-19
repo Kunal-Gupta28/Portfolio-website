@@ -307,9 +307,6 @@ function InteractiveQuoteCard({ item, index, shiftStyle }) {
             <span className="text-xs font-mono text-[#ff824d] font-semibold truncate">
               {item.principle}
             </span>
-            <span className="text-xs font-mono text-[#73737c] group-hover:text-[#ff5e24] group-hover:translate-x-1 transform transition-all">
-              EXPLORE →
-            </span>
           </div>
         </motion.div>
       </ScrollReveal>
