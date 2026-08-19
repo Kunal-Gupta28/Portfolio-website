@@ -1,0 +1,64 @@
+import nodemailer from "nodemailer";
+
+let transporter;
+
+const getTransporter = () => {
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === "true",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+  }
+  return transporter;
+};
+
+export async function sendEmail({ name, email, subject, message }) {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.warn("SMTP credentials not set. Skipping email send.");
+    return;
+  }
+
+  const mailer = getTransporter();
+
+  return mailer.sendMail({
+    from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
+    to: process.env.ADMIN_EMAIL || process.env.SMTP_USER,
+    replyTo: email,
+    subject: `📩 ${subject} | From ${name}`,
+    text: `
+New Contact Form Submission
+
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+
+Time: ${new Date().toLocaleString()}
+    `,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin:auto; line-height:1.6;">
+        <h2 style="color:#222;">📩 New Contact Message</h2>
+
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+
+        <p><strong>Message:</strong></p>
+        <div style="background:#f4f4f4;padding:12px;border-radius:6px;">
+          ${message.replace(/\n/g, "<br/>")}
+        </div>
+        <hr />
+        <p style="font-size:12px;color:#777;">
+          Sent from your portfolio contact form
+        </p>
+      </div>
+    `,
+  });
+}
