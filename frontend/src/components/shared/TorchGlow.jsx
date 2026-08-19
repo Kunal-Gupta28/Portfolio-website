@@ -27,7 +27,7 @@ export default function TorchGlow() {
     <div
       className="fixed inset-0 pointer-events-none z-[2] transition-opacity duration-500"
       style={{
-        background: `radial-gradient(550px circle at ${pos.x}px ${pos.y}px, rgba(255, 90, 31, 0.28), rgba(255, 122, 61, 0.08) 50%, transparent 80%)`,
+        background: `radial-gradient(160px circle at ${pos.x}px ${pos.y}px, rgba(255, 90, 31, 0.22), rgba(255, 122, 61, 0.05) 50%, transparent 80%)`,
       }}
     />
   );

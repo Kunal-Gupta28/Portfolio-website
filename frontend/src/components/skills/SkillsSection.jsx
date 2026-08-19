@@ -33,7 +33,7 @@ function AnimatedSkillCard({ skill, index }) {
       <div
         className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
         style={{
-          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 94, 36, 0.15), transparent 45%)`,
+          background: `radial-gradient(120px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 94, 36, 0.2), transparent 55%)`,
         }}
       />
 

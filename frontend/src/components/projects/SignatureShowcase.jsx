@@ -7,7 +7,7 @@ import MagneticButton from "../shared/MagneticButton";
 gsap.registerPlugin(ScrollTrigger);
 
 const featuredProjects = projects.filter((p) =>
-  ["chatcraft", "kubik-ride", "wanderlust", "works-studio"].includes(p.id)
+  ["chatcraft", "kubik-ride"].includes(p.id)
 );
 
 export default function SignatureShowcase({ onSelectProject }) {
@@ -136,7 +136,13 @@ export default function SignatureShowcase({ onSelectProject }) {
           {featuredProjects.map((p, idx) => (
             <img
               key={p.id}
-              src={p.id === "kubik-ride" ? "/images/kubik.webp" : "/images/hero.webp"}
+              src={
+                p.id === "chatcraft"
+                  ? "/images/chatcraft.webp"
+                  : p.id === "kubik-ride"
+                  ? "/images/kubik.webp"
+                  : "/images/hero.webp"
+              }
               alt={p.title}
               className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ease-out ${
                 idx === activeIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
