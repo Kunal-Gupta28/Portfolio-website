@@ -1,17 +1,15 @@
-import { useRef, useEffect, useState, lazy, Suspense } from "react";
+import React, { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Loader from "../components/ComponentLoader"
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SplineScene() {
+export default function SplineScene({ className = "" }) {
   const containerRef = useRef(null);
   const [shouldRender, setShouldRender] = useState(false);
 
-  // Intersection + Idle load
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -19,18 +17,11 @@ export default function SplineScene() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const load = () => setShouldRender(true);
-
-          if ("requestIdleCallback" in window) {
-            requestIdleCallback(load);
-          } else {
-            setTimeout(load, 200);
-          }
-
+          setShouldRender(true);
           observer.disconnect();
         }
       },
-      { rootMargin: "300px" }
+      { rootMargin: "200px" }
     );
 
     observer.observe(el);
@@ -40,16 +31,28 @@ export default function SplineScene() {
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto w-full aspect-square overflow-hidden"
+      className={`relative w-full h-full min-h-[350px] md:min-h-[500px] overflow-hidden rounded-3xl ${className}`}
     >
-      {shouldRender && (
+      {shouldRender ? (
         <Suspense
-          fallback={<Loader note="Please wait 3D model is loading" />}>
+          fallback={
+            <div className="w-full h-full min-h-[350px] flex items-center justify-center bg-[#0b0b0b]/60 border border-white/10 rounded-3xl text-[#ff5e24] text-xs font-mono">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-[#ff5e24] animate-ping" />
+                <span>Loading 3D Spline Scene...</span>
+              </div>
+            </div>
+          }
+        >
           <Spline
             scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
-            className="absolute inset-0 scale-[1.3] will-change-transform"
+            className="w-full h-full will-change-transform pointer-events-auto"
           />
         </Suspense>
+      ) : (
+        <div className="w-full h-full min-h-[350px] flex items-center justify-center bg-[#0b0b0b]/40 rounded-3xl text-xs font-mono text-[#73737c]">
+          <span>Preparing 3D Canvas...</span>
+        </div>
       )}
     </div>
   );

@@ -1,145 +1,75 @@
-import { motion } from "framer-motion";
-import FooterLink from "./FooterLink";
+import React from "react";
+import { bioData, socialLinks } from "../../data/portfolioData";
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
+export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-const item = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0 },
-};
-
-// social links
-const socialLinks = [
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/kunal-gupta-b7bb7a216/",
-  },
-  {
-    name: "GitHub",
-    href: "https://github.com/Kunal-Gupta28",
-  },
-];
-
-// contact links
-const contactLinks = [
-  {
-    name: "WhatsApp",
-    href: "https://wa.me/919818479466",
-  },
-  {
-    name: "Email",
-    href: "mailto:kunal.gupta.91165@gmail.com",
-  },
-];
-
-const Footer = () => {
   return (
-    <footer className="relative h-[90svh] lg:h-[120svh] w-full pt-[20vh] md:pt-0 overflow-hidden bg-white">
-      {/* Background image */}
-      <img
-        src="/images/Footer.avif"
-        alt="background"
-        className="absolute inset-0 w-full object-cover pointer-events-none"
-      />
+    <footer className="relative w-full max-w-none bg-[#050505] text-[#f5f3ef] pt-24 pb-12 px-[clamp(1.25rem,5vw,6rem)] overflow-hidden border-t border-white/[0.06]">
+      {/* Warm Bottom Glow Accent */}
+      <div className="absolute bottom-0 inset-x-0 h-[400px] bg-gradient-to-t from-[#ff5a1f]/20 via-[#ff6a00]/05 to-transparent pointer-events-none z-0" />
 
-      {/* Content */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 flex h-[80%] lg:h-full w-full flex-col justify-between
-                   px-[clamp(0.5rem,3vw,6rem)] lg:px-[clamp(1.5rem,7vw,6rem)]
-                   pt-[clamp(2rem,2vh,20rem)] lg:pt-[clamp(6rem,30vh,35rem)]
-                   pb-[clamp(0.2rem,2vh,20rem)] lg:pb-[clamp(12rem,25vh,30rem)]"
-      >
-        {/* Middle content */}
-        <div className="grid grid-cols-2 gap-[clamp(1rem,6vw,5rem)] mt-[13vh] text-black">
-          {/* Left */}
-          <motion.div
-            variants={item}
-            className="space-y-6 lg:space-y-24 text-xs lg:text-sm font-light"
-          >
-            <div>
-              <p>Find me online</p>
+      <div className="relative z-10 w-full max-w-none mx-auto flex flex-col justify-between min-h-[400px]">
+        {/* Upper CTA Header */}
+        <div className="flex flex-col gap-6 mb-16">
+          <div className="flex items-center gap-3">
+            <span className="h-2 w-2 rounded-full bg-[#ff5a1f] animate-pulse" />
+            <span className="text-xs font-mono text-[#ff5a1f] uppercase tracking-widest font-bold">
+              WORK TOGETHER
+            </span>
+          </div>
 
-              <div className="flex flex-col gap-1">
-                {socialLinks.map((link) => (
-                  <FooterLink key={link.name} href={link.href}>
-                    {link.name}
-                  </FooterLink>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p>Get in touch</p>
-              {/* what's app */}
-              <div className="flex flex-col gap-1">
-                {contactLinks.map((link) => (
-                  <FooterLink key={link.name} href={link.href}>
-                    {link.name}
-                  </FooterLink>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right */}
-          <motion.div
-            variants={item}
-            className="max-w-[clamp(22rem,40vw,32rem)]
-                       text-[clamp(1rem,3.4vw,2rem)]
-                       leading-[1.2] lg:leading-[1.6] justify-self-end"
-          >
-            <p className="mb-3 lg:mb-6">
-              I enjoy building clean, responsive interfaces and turning ideas
-              into real products on the web.
-            </p>
-            <p className="text-black/70">
-              My focus is on writing simple, maintainable code and creating
-              experiences that feel smooth, intuitive, and purposeful.
-            </p>
-          </motion.div>
+          <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-[#f5f3ef] max-w-6xl leading-[1.05]">
+            Let's build something <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5f3ef] via-[#ff7a3d] to-[#ff5a1f]">
+              meaningful together.
+            </span>
+          </h2>
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div variants={item}>
-          <p className="text-black/60 text-xs lg:text-sm">
-            Have an idea or opportunity?
-          </p>
-          <h2 className="text-[clamp(1.4rem,2.5vw,3.5rem)] leading-[1.1] text-black">
-            Let’s build something <br /> meaningful together
-          </h2>
-        </motion.div>
-      </motion.div>
+        {/* Oversized Responsive Email Link */}
+        <div className="my-8 overflow-hidden">
+          <a
+            href={`mailto:${bioData.email}`}
+            className="fluid-email text-[#f5f3ef] hover:text-[#ff5a1f] transition-colors duration-300 block tracking-tighter hover:translate-x-2 transform transition-transform"
+          >
+            {bioData.email}
+          </a>
+        </div>
 
-      {/* Marquee */}
-      <div className="absolute bottom-0 w-full overflow-hidden">
-        <motion.div
-          className="flex whitespace-nowrap text-[clamp(2.5rem,6vw,9rem)] gap-4 lg:gap-8"
-          animate={{ x: ["0%", "-79%"] }}
-          transition={{
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 18,
-            ease: "linear",
-          }}
-        >
-          <p className="text-black ">
-            kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com
-            kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com
-            kunal.gupta.91165<span className="text-[#fa5a29]">@</span>gmail.com
-          </p>
-        </motion.div>
+        {/* Lower Bar: Copyright, Socials, Back to Top */}
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3 text-xs font-mono text-[#8b8b8b]">
+            <span>© {new Date().getFullYear()} KUNAL GUPTA</span>
+            <span>•</span>
+            <span>DELHI TECHNOLOGICAL UNIVERSITY</span>
+          </div>
+
+          <div className="flex items-center gap-6 text-xs font-mono text-[#a1a1aa]">
+            {socialLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#ff5a1f] transition-colors active:scale-95 inline-block"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+
+          <button
+            onClick={scrollToTop}
+            className="text-xs font-mono text-[#f5f3ef] hover:text-[#ff5a1f] transition-colors flex items-center gap-2 group cursor-pointer active:scale-95"
+          >
+            <span>BACK TO TOP</span>
+            <span className="group-hover:-translate-y-1 transform transition-transform">↑</span>
+          </button>
+        </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

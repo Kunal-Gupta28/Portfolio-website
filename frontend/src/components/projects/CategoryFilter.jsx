@@ -20,10 +20,9 @@ function CategoryFilter({ selectedCategory, setSelectedCategory }) {
               transition-all
               duration-250
               cursor-pointer
-              ${
-                isSelected
-                  ? "border border-[#fa5a29]/60 bg-[#fa5a29]/15 text-[#fa5a29] shadow-[0_0_15px_rgba(250,90,41,0.25)]"
-                  : "border border-white/15 bg-white/5 text-white/70 hover:-translate-y-0.5 hover:border-[#fa5a29] hover:text-[#fa5a29]"
+              ${isSelected
+                ? "border border-[#fa5a29]/60 bg-[#fa5a29]/15 text-[#fa5a29] shadow-[0_0_15px_rgba(250,90,41,0.25)]"
+                : "border border-white/15 bg-white/5 text-white/70 hover:-translate-y-0.5 hover:border-[#fa5a29] hover:text-[#fa5a29]"
               }
             `}
           >
