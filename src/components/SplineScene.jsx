@@ -1,34 +1,48 @@
-import React, { useRef, useEffect, useState, lazy, Suspense } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+"use client";
 
-const Spline = lazy(() => import("@splinetool/react-spline"));
+import React, { useRef, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 
-gsap.registerPlugin(ScrollTrigger);
+// Dynamic import with SSR disabled for optimal Next.js bundle performance
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+  loading: () => <SplineLoadingSkeleton />,
+});
+
+// Sleek glassmorphic animated loading skeleton shown while Spline loads
+function SplineLoadingSkeleton() {
+  return (
+    <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-[#0b0b0b] rounded-3xl z-10">
+      <div className="relative flex items-center justify-center mb-4">
+        {/* Rotating Neon Ring Loader */}
+        <div className="w-16 h-16 rounded-full border-2 border-white/10 border-t-[#ff5e24] animate-spin" />
+        <div className="absolute w-10 h-10 rounded-full border-2 border-white/10 border-b-[#ff824d] animate-spin [animation-duration:1.5s] [animation-direction:reverse]" />
+        <span className="absolute h-3 w-3 rounded-full bg-[#ff5e24] animate-pulse" />
+      </div>
+
+      <div className="flex flex-col items-center gap-1">
+        <span className="text-xs font-mono text-[#f6f5f2] font-semibold tracking-wider uppercase flex items-center gap-2">
+          <span>INITIALIZING 3D CANVAS</span>
+        </span>
+        <span className="text-[10px] font-mono text-[#73737c]">
+          Fetching 3D Mesh & Shader Shards...
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function SplineScene({ className = "" }) {
   const containerRef = useRef(null);
   const [shouldRender, setShouldRender] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldRender(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px" }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
+    // Render immediately on mount for zero-delay download start
+    setShouldRender(true);
   }, []);
 
-  // Continuous DOM & Shadow DOM Purger for Spline Watermark
+  // Watermark remover
   useEffect(() => {
     if (!shouldRender) return;
 
@@ -36,51 +50,28 @@ export default function SplineScene({ className = "" }) {
       const container = containerRef.current;
       if (!container) return;
 
-      // 1. Regular DOM Purge
       const elements = container.querySelectorAll("a, div, span, img, iframe, spline-viewer");
       elements.forEach((el) => {
         const text = (el.textContent || "").toLowerCase();
         const href = (el.getAttribute("href") || "").toLowerCase();
         const id = (el.id || "").toLowerCase();
-        const className = (el.className || "").toString().toLowerCase();
 
         if (
           href.includes("spline") ||
           text.includes("built with spline") ||
           id.includes("watermark") ||
-          id.includes("logo") ||
-          className.includes("watermark") ||
-          className.includes("logo")
+          id.includes("logo")
         ) {
           el.style.display = "none";
           el.style.opacity = "0";
           el.style.pointerEvents = "none";
-          el.style.visibility = "hidden";
           try { el.remove(); } catch (e) {}
-        }
-      });
-
-      // 2. Shadow DOM Purge (for <spline-viewer>)
-      const splineViewers = container.querySelectorAll("spline-viewer");
-      splineViewers.forEach((viewer) => {
-        if (viewer.shadowRoot) {
-          const shadowElements = viewer.shadowRoot.querySelectorAll("a, #logo, #watermark, .watermark, div");
-          shadowElements.forEach((el) => {
-            const text = (el.textContent || "").toLowerCase();
-            const href = (el.getAttribute("href") || "").toLowerCase();
-            if (href.includes("spline") || text.includes("built with spline") || el.id === "logo" || el.id === "watermark") {
-              el.style.display = "none";
-              el.style.opacity = "0";
-              el.style.pointerEvents = "none";
-              try { el.remove(); } catch (e) {}
-            }
-          });
         }
       });
     };
 
-    const interval = setInterval(purgeWatermark, 80);
-    const timeout = setTimeout(() => clearInterval(interval), 8000);
+    const interval = setInterval(purgeWatermark, 60);
+    const timeout = setTimeout(() => clearInterval(interval), 6000);
 
     return () => {
       clearInterval(interval);
@@ -91,31 +82,19 @@ export default function SplineScene({ className = "" }) {
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full min-h-[350px] md:min-h-[500px] overflow-hidden rounded-3xl ${className}`}
+      className={`relative w-full h-full min-h-[350px] md:min-h-[500px] overflow-hidden rounded-3xl bg-[#0b0b0b] ${className}`}
     >
-      {shouldRender ? (
-        <Suspense
-          fallback={
-            <div className="w-full h-full min-h-[350px] flex items-center justify-center bg-[#0b0b0b]/60 border border-white/10 rounded-3xl text-[#ff5e24] text-xs font-mono">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#ff5e24] animate-ping" />
-                <span>Loading 3D Spline Scene...</span>
-              </div>
-            </div>
-          }
-        >
-          <div className="w-full h-full relative overflow-hidden rounded-3xl bg-[#0b0b0b]">
-            <Spline
-              scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
-              className="w-full h-full scale-[1.08] origin-center will-change-transform pointer-events-auto"
-            />
-            {/* Solid Background Mask Overlay to permanently cover the bottom-right corner where "Built with Spline" badge resides */}
-            <div className="absolute bottom-0 right-0 w-44 h-12 bg-[#0b0b0b] pointer-events-none z-50 rounded-br-3xl" />
-          </div>
-        </Suspense>
-      ) : (
-        <div className="w-full h-full min-h-[350px] flex items-center justify-center bg-[#0b0b0b]/40 rounded-3xl text-xs font-mono text-[#73737c]">
-          <span>Preparing 3D Canvas...</span>
+      {!loaded && <SplineLoadingSkeleton />}
+
+      {shouldRender && (
+        <div className="w-full h-full relative overflow-hidden rounded-3xl bg-[#0b0b0b]">
+          <Spline
+            scene="https://prod.spline.design/aUdDgmTe8yU833No/scene.splinecode"
+            onLoad={() => setLoaded(true)}
+            className="w-full h-full scale-[1.08] origin-center will-change-transform pointer-events-auto"
+          />
+          {/* Solid Background Mask Overlay to permanently cover the bottom-right corner where "Built with Spline" badge resides */}
+          <div className="absolute bottom-0 right-0 w-44 h-12 bg-[#0b0b0b] pointer-events-none z-50 rounded-br-3xl" />
         </div>
       )}
     </div>

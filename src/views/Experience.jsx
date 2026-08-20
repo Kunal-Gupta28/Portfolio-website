@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ExperienceSection from "../components/experience/ExperienceSection";
+import ExperienceSection from "../components/Experience/ExperienceSection";
 
 export default function Experience() {
   return (

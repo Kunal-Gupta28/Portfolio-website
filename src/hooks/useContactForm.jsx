@@ -1,5 +1,4 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import axiosInstance from "../config/axios";
 
 // client data
 const initialState = {

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import HeroSection from "../components/hero/HeroSection";
+import HeroSection from "../components/Hero/HeroSection";
 import SectionHeading from "../components/shared/SectionHeading";
 import GlassCard from "../components/shared/GlassCard";
 import TechPill from "../components/shared/TechPill";
