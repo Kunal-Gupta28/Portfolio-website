@@ -1,23 +1,24 @@
 import nodemailer from "nodemailer";
 
-let transporter;
 
-const getTransporter = () => {
-  if (!transporter) {
-    const host = process.env.SMTP_HOST || "smtp.gmail.com";
-    const port = Number(process.env.SMTP_PORT || 465);
-    const secure = process.env.SMTP_SECURE !== "false";
-    transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-  }
-  return transporter;
+const createFreshTransporter = () => {
+  // Port 587 + STARTTLS is significantly faster than port 465 SSL for Gmail
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+  const port = Number(process.env.SMTP_PORT || 587);
+  const secure = port === 465; // only true for port 465
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 8000,
+    socketTimeout: 10000,
+    pool: false, // serverless: no persistent pool
+  });
 };
 
 export async function sendEmail({ name, email, subject, message }) {
@@ -26,7 +27,7 @@ export async function sendEmail({ name, email, subject, message }) {
     return false;
   }
 
-  const mailer = getTransporter();
+  const mailer = createFreshTransporter();
   const formattedDate = new Date().toLocaleString("en-US", {
     timeZone: "Asia/Kolkata",
     dateStyle: "full",
