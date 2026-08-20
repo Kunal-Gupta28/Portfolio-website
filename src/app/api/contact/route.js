@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/db";
-import Contact from "@/lib/models/contact.model";
 import { sendEmail } from "@/lib/sendEmail";
 
 export async function POST(req) {
@@ -8,46 +6,44 @@ export async function POST(req) {
     const body = await req.json();
     let { name, email, subject, message } = body || {};
 
-    if (!name || !email || !subject || !message) {
+    // Validate required fields
+    if (!name || !name.trim() || !email || !email.trim() || !message || !message.trim()) {
       return NextResponse.json(
-        { success: false, message: "All fields are required" },
+        { success: false, message: "Name, email, and message are required fields." },
         { status: 400 }
       );
     }
 
-    // Basic email validation
+    // Default optional subject
+    if (!subject || !subject.trim()) {
+      subject = "General Inquiry / Collaboration";
+    }
+
+    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(email.trim())) {
       return NextResponse.json(
-        { success: false, message: "Valid email is required" },
+        { success: false, message: "Please provide a valid email address." },
         { status: 400 }
       );
     }
 
-    // Connect to MongoDB
-    if (process.env.MONGODB_URI) {
-      await connectDB();
-      await Contact.create({
-        name: name.trim(),
-        email: email.trim(),
-        subject: subject.trim(),
-        message: message.trim(),
-      });
-    }
-
-    // Send email alert in background
-    sendEmail({ name, email, subject, message }).catch((err) => {
-      console.error("Email send failed:", err);
+    // Send direct email notification
+    await sendEmail({
+      name: name.trim(),
+      email: email.trim(),
+      subject: subject.trim(),
+      message: message.trim(),
     });
 
     return NextResponse.json({
       success: true,
-      message: "Message received successfully",
+      message: "Message sent successfully!",
     });
   } catch (err) {
     console.error("Contact API error:", err);
     return NextResponse.json(
-      { success: false, message: "Something went wrong" },
+      { success: false, message: "Failed to dispatch email. Please try again later." },
       { status: 500 }
     );
   }
