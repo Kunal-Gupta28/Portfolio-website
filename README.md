@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>🌐 Kunal Gupta – Developer Portfolio</h1>
+  <h1> Kunal Gupta – Developer Portfolio</h1>
   <p><b>Production-Grade Interactive 3D Portfolio & Engineering Showcase</b></p>
 
   <p>
@@ -16,13 +16,13 @@
 
 ---
 
-## 📌 Overview
+##  Overview
 
 A modern, high-performance personal engineering portfolio engineered with **Next.js 16 App Router**, **React 18**, **Tailwind CSS v4**, **GSAP ScrollTrigger**, and **Framer Motion**. Features interactive **3D Spline WebGL canvas rendering**, 60FPS inertia motion physics, dynamic project modals, and a serverless contact dispatch system powered by Nodemailer.
 
 ---
 
-## ✨ Key Highlights & Technical Specs
+##  Key Highlights & Technical Specs
 
 | Category | Technologies & Tools |
 | :--- | :--- |
@@ -35,7 +35,7 @@ A modern, high-performance personal engineering portfolio engineered with **Next
 
 ---
 
-## 🏗️ Architectural Highlights
+##  Architectural Highlights
 
 - **Unified Next.js 16 App Router**: Standardized single-repository architecture replacing separate SPA frontend and Express backend servers.
 - **Serverless Direct Contact System**: Asynchronous contact dispatch via Nodemailer using Gmail SMTP integration.
@@ -46,7 +46,7 @@ A modern, high-performance personal engineering portfolio engineered with **Next
 
 ---
 
-## 📂 Repository Structure
+##  Repository Structure
 
 ```text
 Portfolio-website/
@@ -74,7 +74,7 @@ Portfolio-website/
 
 ---
 
-## 🚀 Local Development Setup
+##  Local Development Setup
 
 ### 1. Prerequisites
 - **Node.js**: `v18.17.0` or higher
@@ -110,13 +110,13 @@ Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 ---
 
-## 🌐 Live Deployment
+##  Live Deployment
 
 * **Live Demo**: [https://portfolio-website-chi-gilt.vercel.app](https://portfolio-website-chi-gilt.vercel.app)
 
 ---
 
-## 👤 Author & Contact
+##  Author & Contact
 
 **Kunal Gupta**  
 Software Engineer | Delhi Technological University (DTU)  
