@@ -4,7 +4,7 @@ export const bioData = {
   subRole: "Full-Stack MERN Developer & Systems Architect",
   status: "Available for opportunities",
   email: "kunal.gupta.91165@gmail.com",
-  resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL || "/resume.pdf",
+  resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL,
   location: "Delhi, India",
   headline: "I design and build scalable web experiences where engineering precision meets thoughtful interaction.",
   storyOverview:
