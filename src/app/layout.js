@@ -41,6 +41,11 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="module"
+          src="https://unpkg.com/@splinetool/viewer@2.0.41/build/spline-viewer.js"
+          async
+        ></script>
       </head>
       <body className="bg-[#050505] text-[#f5f3ef] antialiased selection:bg-[#ff5a1f] selection:text-white font-sans overflow-x-hidden" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
