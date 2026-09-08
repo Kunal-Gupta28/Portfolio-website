@@ -28,3 +28,5 @@ yarn-debug.log*
 # Package locks
 package-lock.json
 todo.md
+AGENTS.md
+CLAUDE.md
