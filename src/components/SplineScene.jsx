@@ -44,7 +44,7 @@ function SplineFallback() {
         Interactive 3D Engineering Model
       </h4>
       <p className="text-xs text-[#a1a1aa] font-mono max-w-xs">
-        Crafted with Spline, Next.js & WebGL Shaders
+        Crafted with Spline, Next.js &amp; WebGL Shaders
       </p>
     </div>
   );
@@ -66,78 +66,113 @@ export default function SplineScene({ className = "" }) {
     const viewer = viewerRef.current;
     if (!viewer) return;
 
-    const purgeLogo = () => {
+    // ── Aggressively nuke every Spline branding element from shadow DOM ──
+    const nukeBranding = () => {
       try {
-        if (viewer && viewer.shadowRoot) {
-          const logo = viewer.shadowRoot.querySelector("#logo");
-          if (logo) {
-            logo.style.setProperty("display", "none", "important");
-            logo.style.setProperty("visibility", "hidden", "important");
-            logo.style.setProperty("opacity", "0", "important");
-            logo.style.setProperty("pointer-events", "none", "important");
-            logo.style.setProperty("transform", "scale(0)", "important");
-            logo.style.setProperty("width", "0px", "important");
-            logo.style.setProperty("height", "0px", "important");
-            logo.style.setProperty("position", "absolute", "important");
-            logo.style.setProperty("top", "-9999px", "important");
-          }
+        const root = viewer.shadowRoot;
+        if (!root) return;
 
-          if (!viewer.shadowRoot.querySelector("#spline-hide-style")) {
-            const style = document.createElement("style");
-            style.id = "spline-hide-style";
-            style.textContent = `
-              #logo, #logo *, a[href*="spline.design"], #hint-drag {
-                display: none !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
-                pointer-events: none !important;
-                transform: scale(0) !important;
-                width: 0px !important;
-                height: 0px !important;
-                position: absolute !important;
-                top: -9999px !important;
-                left: -9999px !important;
-              }
-            `;
-            viewer.shadowRoot.appendChild(style);
-          }
+        // 1. Inject a <style> that kills everything brand-related
+        if (!root.querySelector("#_spline_kill_style")) {
+          const style = document.createElement("style");
+          style.id = "_spline_kill_style";
+          style.textContent = `
+            #logo, #logo *,
+            a, a *,
+            [id*="logo"], [id*="watermark"], [id*="hint"], [id*="badge"],
+            [class*="logo"], [class*="watermark"], [class*="badge"],
+            #hint-drag, #hint-drag * {
+              display: none !important;
+              visibility: hidden !important;
+              opacity: 0 !important;
+              pointer-events: none !important;
+              width: 0 !important;
+              height: 0 !important;
+              max-width: 0 !important;
+              max-height: 0 !important;
+              overflow: hidden !important;
+              position: absolute !important;
+              top: -999999px !important;
+              left: -999999px !important;
+              z-index: -9999 !important;
+              transform: scale(0) !important;
+            }
+          `;
+          root.appendChild(style);
         }
-      } catch (e) {}
+
+        // 2. Directly remove any <a> tags (the Spline logo IS an anchor)
+        root.querySelectorAll("a").forEach((el) => {
+          try { el.remove(); } catch (_) {}
+        });
+
+        // 3. Kill by ID patterns
+        ["#logo", "#watermark", "#hint-drag", "#badge"].forEach((sel) => {
+          root.querySelectorAll(sel).forEach((el) => {
+            try { el.remove(); } catch (_) {}
+          });
+        });
+
+        // 4. Kill anything whose id/class contains brand keywords
+        root.querySelectorAll("*").forEach((el) => {
+          const id = (el.id || "").toLowerCase();
+          const cls = (el.className || "").toLowerCase();
+          if (
+            id.includes("logo") || id.includes("watermark") ||
+            id.includes("badge") || id.includes("hint") ||
+            cls.includes("logo") || cls.includes("watermark") ||
+            cls.includes("badge")
+          ) {
+            try { el.remove(); } catch (_) {}
+          }
+        });
+      } catch (_) {}
     };
 
+    // Run aggressively for the first 10 seconds, then cool down
+    const interval = setInterval(nukeBranding, 30);
+    const slowInterval = setTimeout(() => {
+      clearInterval(interval);
+      setInterval(nukeBranding, 500);
+    }, 10000);
+
+    // MutationObserver — re-run whenever shadow DOM mutates
     let observer = null;
     try {
-      if (viewer.shadowRoot) {
-        observer = new MutationObserver(() => {
-          purgeLogo();
-        });
-        observer.observe(viewer.shadowRoot, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-        });
-      }
-    } catch (e) {}
+      const waitForShadow = setInterval(() => {
+        if (viewer.shadowRoot) {
+          clearInterval(waitForShadow);
+          observer = new MutationObserver(nukeBranding);
+          observer.observe(viewer.shadowRoot, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            characterData: false,
+          });
+          nukeBranding();
+        }
+      }, 50);
+    } catch (_) {}
 
     const handleLoad = () => {
       setLoaded(true);
-      purgeLogo();
+      nukeBranding();
     };
 
     viewer.addEventListener("load-complete", handleLoad);
     viewer.addEventListener("load", handleLoad);
     viewer.addEventListener("error", () => setHasError(true));
 
-    purgeLogo();
-    const interval = setInterval(purgeLogo, 50);
+    nukeBranding();
 
     const fallbackTimer = setTimeout(() => {
       setLoaded(true);
-      purgeLogo();
+      nukeBranding();
     }, 1800);
 
     return () => {
       clearInterval(interval);
+      clearTimeout(slowInterval);
       clearTimeout(fallbackTimer);
       if (observer) observer.disconnect();
       viewer.removeEventListener("load-complete", handleLoad);
@@ -167,8 +202,24 @@ export default function SplineScene({ className = "" }) {
             }}
           />
 
-          {/* Solid Background Mask Overlay permanently covering the entire bottom-right watermark area */}
-          <div className="absolute bottom-0 right-0 w-60 h-20 bg-[#0b0b0b] pointer-events-none z-40 rounded-br-3xl" />
+          {/* ── Solid paint-over mask — covers the FULL bottom strip ──
+              The Spline "Built with Spline" logo sits at bottom-center.
+              We paint over it with the exact same bg color as the card. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "72px",
+              background: "#0b0b0b",
+              zIndex: 60,
+              pointerEvents: "none",
+              borderBottomLeftRadius: "1.5rem",
+              borderBottomRightRadius: "1.5rem",
+            }}
+          />
         </div>
       )}
     </div>
