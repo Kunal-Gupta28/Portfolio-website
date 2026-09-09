@@ -31,23 +31,46 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="dark scroll-smooth"
+      suppressHydrationWarning
+    >
       <head>
-        <link rel="preconnect" href="https://prod.spline.design" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://prod.spline.design" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Spline connection optimization */}
+        <link
+          rel="preconnect"
+          href="https://prod.spline.design"
+          crossOrigin="anonymous"
+        />
+
+        <link
+          rel="dns-prefetch"
+          href="https://prod.spline.design"
+        />
+
+        {/* Google Fonts */}
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
+
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <script
-          type="module"
-          src="https://unpkg.com/@splinetool/viewer@2.0.41/build/spline-viewer.js"
-          async
-        ></script>
       </head>
-      <body className="bg-[#050505] text-[#f5f3ef] antialiased selection:bg-[#ff5a1f] selection:text-white font-sans overflow-x-hidden" suppressHydrationWarning>
+
+      <body
+        className="bg-[#050505] text-[#f5f3ef] antialiased selection:bg-[#ff5a1f] selection:text-white font-sans overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
