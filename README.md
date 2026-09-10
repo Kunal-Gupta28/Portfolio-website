@@ -94,9 +94,9 @@ Create a `.env.local` file in the root directory:
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
 SMTP_SECURE=true
-SMTP_USER=kunal.gupta.91165@gmail.com
+SMTP_USER=your_email@gmail.com
 SMTP_PASS=your_google_app_password
-ADMIN_EMAIL=kunal.gupta.91165@gmail.com
+ADMIN_EMAIL=your_email@gmail.com
 
 # Public Resume Document Path
 NEXT_PUBLIC_RESUME_URL=/resume.pdf
