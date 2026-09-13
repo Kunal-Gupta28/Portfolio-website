@@ -149,7 +149,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative w-full max-w-none py-[clamp(4rem,8vh,10vh)] px-[clamp(1.25rem,5vw,6rem)] bg-[#050505] bg-ambient-contact border-t border-white/[0.06]">
+    <section id="contact" className="relative w-full max-w-none py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] bg-[#050505] bg-ambient-contact border-t border-white/[0.06]">
       <div className="w-full max-w-none mx-auto">
         <ScrollReveal>
           <SectionHeading

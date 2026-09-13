@@ -57,7 +57,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[100vh] min-h-[100svh] min-h-[100dvh] w-full max-w-none bg-[#050505] flex flex-col justify-between pt-24 pb-12 px-[clamp(1.25rem,5vw,6rem)] overflow-hidden"
+      className="relative min-h-[100vh] min-h-[100svh] min-h-[100dvh] w-full max-w-none bg-[#050505] flex flex-col justify-between pt-24 pb-12 px-[clamp(1.25rem,5dvw,6rem)] overflow-hidden"
     >
       {/* Background Cinematic Curtain Split Reveal Image */}
       <div

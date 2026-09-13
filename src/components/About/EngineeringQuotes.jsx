@@ -115,7 +115,7 @@ export default function EngineeringQuotes() {
       : engineeringQuotes.filter((q) => q.tag === selectedTag);
 
   return (
-    <section ref={containerRef} className="relative w-full max-w-none py-[clamp(4rem,8vh,10vh)] px-[clamp(1.25rem,5vw,6rem)] bg-[#050505] border-t border-white/[0.06] overflow-hidden">
+    <section ref={containerRef} className="relative w-full max-w-none py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] bg-[#050505] border-t border-white/[0.06] overflow-hidden">
       {/* Background Subtle Accent Glow */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[#ff5e24]/5 rounded-full blur-3xl pointer-events-none" />
 

@@ -7,7 +7,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full max-w-none bg-[#050505] text-[#f5f3ef] pt-24 pb-12 px-[clamp(1.25rem,5vw,6rem)] overflow-hidden border-t border-white/[0.06]">
+    <footer className="relative w-full max-w-none bg-[#050505] text-[#f5f3ef] pt-24 pb-12 px-[clamp(1.25rem,5dvw,6rem)] overflow-hidden border-t border-white/[0.06]">
       {/* Warm Bottom Glow Accent */}
       <div className="absolute bottom-0 inset-x-0 h-[400px] bg-gradient-to-t from-[#ff5a1f]/20 via-[#ff6a00]/05 to-transparent pointer-events-none z-0" />
 

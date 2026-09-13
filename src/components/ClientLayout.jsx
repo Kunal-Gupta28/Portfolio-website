@@ -20,7 +20,7 @@ export default function ClientLayout({ children }) {
   }, []);
 
   const content = (
-    <div className="relative min-h-screen bg-[#050505] text-[#f5f3ef] selection:bg-[#ff5a1f] selection:text-white">
+    <div className="relative min-h-dvh bg-[#050505] text-[#f5f3ef] selection:bg-[#ff5a1f] selection:text-white">
       {mounted && isDesktop && <GlassCursor />}
       {mounted && isDesktop && <TorchGlow />}
 

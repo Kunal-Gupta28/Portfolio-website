@@ -1,124 +1,129 @@
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
+import { motion } from "framer-motion";
 import { projects } from "../../data/projectsData";
 import MagneticButton from "../shared/MagneticButton";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const featuredProjects = projects.filter((p) =>
   ["chatcraft", "kubik-ride"].includes(p.id)
 );
 
-export default function SignatureShowcase({ onSelectProject }) {
-  const containerRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+const projectImages = {
+  chatcraft: "/images/chatcraft.webp",
+  "kubik-ride": "/images/kubik.webp",
+};
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!containerRef.current || window.innerWidth < 768) return;
-
-      const trigger = ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=250%",
-        pin: true,
-        scrub: 0.5,
-        onUpdate: (self) => {
-          setProgress(self.progress);
-          const index = Math.min(
-            featuredProjects.length - 1,
-            Math.floor(self.progress * featuredProjects.length)
-          );
-          setActiveIndex(index);
-        },
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const currentProject = featuredProjects[activeIndex] || featuredProjects[0];
+function ProjectCard({ project, index, onSelectProject }) {
+  const isEven = index % 2 === 0;
 
   return (
-    <div
-      ref={containerRef}
-      className="relative min-h-[100vh] min-h-[100svh] min-h-[100dvh] w-full max-w-none bg-[#050505] flex flex-col justify-center py-16 px-[clamp(1.25rem,5vw,6rem)] border-t border-white/[0.06] overflow-hidden"
+    <motion.div
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{
+        duration: 0.7,
+        delay: 0.1,
+        ease: [0.215, 0.61, 0.355, 1],
+      }}
+      className="group"
     >
-      {/* Title Header */}
-      <div className="w-full max-w-none mx-auto mb-8 flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-mono tracking-widest text-[#ff5a1f] uppercase font-bold px-2.5 py-0.5 rounded-full bg-[#ff5a1f]/10 border border-[#ff5a1f]/20">
-            03 — FEATURED SHOWCASE
-          </span>
-          <div className="h-[1px] w-12 bg-gradient-to-r from-[#ff5a1f]/40 to-transparent" />
-        </div>
-
-        {/* Clickable Index Buttons */}
-        <div className="flex items-center gap-2">
-          {featuredProjects.map((p, idx) => (
-            <button
-              key={p.id}
-              onClick={() => setActiveIndex(idx)}
-              className={`px-3 py-1 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer active:scale-95 ${
-                idx === activeIndex
-                  ? "bg-[#ff5a1f] text-white font-bold shadow-md shadow-[#ff5a1f]/30"
-                  : "bg-white/5 text-[#8b8b8b] hover:text-[#f5f3ef] hover:bg-white/10"
-              }`}
-            >
-              0{idx + 1}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Pinned Grid */}
-      <div className="w-full max-w-none mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left Side: Metadata & Story */}
-        <div className="lg:col-span-5 flex flex-col justify-between min-h-[380px]">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-4xl md:text-6xl font-extrabold font-mono text-[#ff5a1f]">
-                0{activeIndex + 1}
-              </span>
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-white/[0.04] text-[#a1a1aa] border border-white/10 font-medium">
-                {currentProject.category}
-              </span>
-            </div>
-
-            <h3 className="text-3xl md:text-6xl font-extrabold text-[#f5f3ef] mb-4 tracking-tight">
-              {currentProject.title}
-            </h3>
-
-            <p className="text-base md:text-xl text-[#a1a1aa] leading-relaxed mb-6 font-normal">
-              {currentProject.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-8">
-              {currentProject.technologies.slice(0, 5).map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 text-xs font-mono rounded-full bg-white/[0.03] text-[#f5f3ef] border border-white/10"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+      <div
+        className={`grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-[2rem] overflow-hidden border border-white/[0.06] bg-[#0a0a0a] hover:border-white/[0.12] transition-colors duration-500`}
+      >
+        {/* Image Side */}
+        <div
+          className={`relative aspect-[16/11] lg:aspect-auto lg:min-h-[480px] overflow-hidden ${
+            !isEven ? "lg:order-2" : ""
+          }`}
+        >
+          {/* Number Watermark */}
+          <div className="absolute top-6 left-6 z-20">
+            <span className="text-[8rem] md:text-[10rem] font-black font-mono leading-none text-white/[0.04] select-none pointer-events-none">
+              0{index + 1}
+            </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Image */}
+          <img
+            src={projectImages[project.id] || "/images/hero.webp"}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+
+          {/* Gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent z-10" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-r ${
+              isEven
+                ? "from-transparent to-[#0a0a0a]/60"
+                : "from-[#0a0a0a]/60 to-transparent"
+            } z-10 hidden lg:block`}
+          />
+
+          {/* Category badge on image */}
+          <div className="absolute top-6 right-6 z-20">
+            <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest bg-[#0a0a0a]/70 text-[#ff5a1f] border border-[#ff5a1f]/20 backdrop-blur-md">
+              {project.category}
+            </span>
+          </div>
+
+          {/* Bottom title on image (mobile) */}
+          <div className="absolute bottom-6 left-6 right-6 z-20 lg:hidden">
+            <h3 className="text-2xl font-bold text-[#f5f3ef] tracking-tight">
+              {project.title}
+            </h3>
+          </div>
+        </div>
+
+        {/* Content Side */}
+        <div
+          className={`flex flex-col justify-center px-8 py-10 md:px-12 md:py-14 ${
+            !isEven ? "lg:order-1" : ""
+          }`}
+        >
+          {/* Index + Category */}
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-5xl md:text-7xl font-black font-mono text-[#ff5a1f]/20">
+              0{index + 1}
+            </span>
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-[#ff5a1f]/30 to-transparent" />
+          </div>
+
+          {/* Title (desktop) */}
+          <h3 className="hidden lg:block text-3xl md:text-4xl xl:text-5xl font-extrabold text-[#f5f3ef] mb-5 tracking-tight leading-[1.1]">
+            {project.title}
+          </h3>
+
+          {/* Description */}
+          <p className="text-sm md:text-base text-[#8b8b8b] leading-relaxed mb-8 max-w-lg">
+            {project.description}
+          </p>
+
+          {/* Tech Stack */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {project.technologies.slice(0, 6).map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 text-[11px] font-mono rounded-lg bg-white/[0.03] text-[#a1a1aa] border border-white/[0.06] transition-colors duration-200 hover:border-[#ff5a1f]/30 hover:text-[#f5f3ef]"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center gap-3 flex-wrap">
             <MagneticButton
               variant="primary"
-              onClick={() => onSelectProject(currentProject)}
+              onClick={() => onSelectProject(project)}
             >
-              <span>Explore Case Study</span>
+              <span>View Case Study</span>
               <span>→</span>
             </MagneticButton>
-            {currentProject.live && (
+            {project.live && (
               <MagneticButton
                 variant="outline"
-                href={currentProject.live}
+                href={project.live}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -126,52 +131,60 @@ export default function SignatureShowcase({ onSelectProject }) {
                 <span>↗</span>
               </MagneticButton>
             )}
-          </div>
-        </div>
-
-        {/* Right Side: Visual Card */}
-        <div className="lg:col-span-7 relative aspect-[16/10] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0b0b] shadow-2xl group">
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
-          
-          {featuredProjects.map((p, idx) => (
-            <img
-              key={p.id}
-              src={
-                p.id === "chatcraft"
-                  ? "/images/chatcraft.webp"
-                  : p.id === "kubik-ride"
-                  ? "/images/kubik.webp"
-                  : "/images/hero.webp"
-              }
-              alt={p.title}
-              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 ease-out ${
-                idx === activeIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
-              }`}
-            />
-          ))}
-
-          <div className="absolute bottom-6 left-6 right-6 z-20 flex justify-between items-end">
-            <div className="p-4 rounded-2xl bg-[#0b0b0b]/85 border border-white/10 backdrop-blur-md shadow-xl">
-              <span className="text-[10px] font-mono text-[#ff5a1f] uppercase tracking-widest block mb-0.5 font-bold">
-                SYSTEM ARCHITECTURE
-              </span>
-              <span className="text-xs font-bold text-[#f5f3ef]">
-                {currentProject.title} Workspace
-              </span>
-            </div>
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-mono text-[#8b8b8b] hover:text-[#ff5a1f] transition-colors duration-200 underline underline-offset-4 decoration-white/10 hover:decoration-[#ff5a1f]/40"
+              >
+                Source Code ↗
+              </a>
+            )}
           </div>
         </div>
       </div>
+    </motion.div>
+  );
+}
 
-      {/* Progress Bar */}
-      <div className="w-full max-w-none mx-auto mt-12">
-        <div className="h-[3px] w-full bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-[#ff5a1f] to-[#ff7a3d] transition-all duration-150"
-            style={{ width: `${Math.max(5, progress * 100)}%` }}
+export default function SignatureShowcase({ onSelectProject }) {
+  return (
+    <section className="w-full max-w-none bg-[#050505] py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] border-t border-white/[0.06]">
+      {/* Section Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: [0.215, 0.61, 0.355, 1] }}
+        className="w-full max-w-none mx-auto mb-16"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-xs font-mono tracking-widest text-[#ff5a1f] uppercase font-bold px-2.5 py-0.5 rounded-full bg-[#ff5a1f]/10 border border-[#ff5a1f]/20">
+            FEATURED WORK
+          </span>
+          <div className="h-[1px] flex-1 max-w-[120px] bg-gradient-to-r from-[#ff5a1f]/40 to-transparent" />
+        </div>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#f5f3ef] tracking-tight">
+          Signature Projects
+        </h2>
+        <p className="text-sm md:text-base text-[#8b8b8b] mt-3 max-w-xl">
+          End-to-end systems built with real-time architecture, AI integration,
+          and production-grade performance.
+        </p>
+      </motion.div>
+
+      {/* Project Cards */}
+      <div className="w-full max-w-none mx-auto flex flex-col gap-12 md:gap-16">
+        {featuredProjects.map((project, idx) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={idx}
+            onSelectProject={onSelectProject}
           />
-        </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 }

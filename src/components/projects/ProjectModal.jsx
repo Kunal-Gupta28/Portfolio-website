@@ -59,7 +59,7 @@ export default function ProjectModal({ project, onClose }) {
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0b0b0b] border border-white/10 p-6 sm:p-8 md:p-10 shadow-2xl shadow-black/90 scrollbar-thin scrollbar-thumb-zinc-800 cursor-default"
+          className="relative w-full max-w-4xl max-h-[90dvh] overflow-y-auto rounded-3xl bg-[#0b0b0b] border border-white/10 p-6 sm:p-8 md:p-10 shadow-2xl shadow-black/90 scrollbar-thin scrollbar-thumb-zinc-800 cursor-default"
         >
           {/* Close Button */}
           <button

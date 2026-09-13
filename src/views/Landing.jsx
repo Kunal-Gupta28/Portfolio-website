@@ -23,7 +23,7 @@ export default function Landing() {
       <HeroSection />
 
       {/* 2. About Overview Snippet */}
-      <section className="py-[clamp(4rem,8vh,10vh)] px-[clamp(1.25rem,5vw,6rem)] border-t border-white/[0.06] bg-[#0b0b0b] w-full max-w-none">
+      <section className="py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] border-t border-white/[0.06] bg-[#0b0b0b] w-full max-w-none">
         <div className="w-full max-w-none mx-auto">
           <ScrollReveal>
             <SectionHeading
@@ -85,7 +85,7 @@ export default function Landing() {
       </div>
 
       {/* 4. Skills Capability Teaser */}
-      <section className="py-[clamp(4rem,8vh,10vh)] px-[clamp(1.25rem,5vw,6rem)] bg-[#0b0b0b] w-full max-w-none">
+      <section className="py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] bg-[#0b0b0b] w-full max-w-none">
         <div className="w-full max-w-none mx-auto">
           <ScrollReveal>
             <SectionHeading
@@ -130,7 +130,7 @@ export default function Landing() {
       </section>
 
       {/* 5. Contact Call-To-Action Banner */}
-      <section className="py-[clamp(4rem,8vh,10vh)] px-[clamp(1.25rem,5vw,6rem)] bg-[#050505] bg-ambient-contact text-center border-t border-white/[0.06] w-full max-w-none">
+      <section className="py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] bg-[#050505] bg-ambient-contact text-center border-t border-white/[0.06] w-full max-w-none">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
           <span className="text-xs font-mono text-[#ff5a1f] uppercase tracking-widest font-semibold">
             GET IN TOUCH

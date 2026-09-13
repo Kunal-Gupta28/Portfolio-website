@@ -5,7 +5,7 @@ import SkillsSection from "../components/skills/SkillsSection";
 
 export default function Skills() {
   return (
-    <main className="w-full bg-[#050505] pt-16 min-h-screen">
+    <main className="w-full bg-[#050505] pt-16 min-h-dvh">
       <SkillsSection />
     </main>
   );

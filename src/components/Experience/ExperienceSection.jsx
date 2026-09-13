@@ -7,7 +7,7 @@ import { experienceData, educationData } from "../../data/portfolioData";
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="relative w-full max-w-none py-[clamp(4rem,8vh,10vh)] px-[clamp(1.25rem,5vw,6rem)] bg-[#0b0b0b] border-t border-white/[0.06]">
+    <section id="experience" className="relative w-full max-w-none py-[clamp(4rem,8dvh,10dvh)] px-[clamp(1.25rem,5dvw,6rem)] bg-[#0b0b0b] border-t border-white/[0.06]">
       <div className="w-full max-w-none mx-auto">
         <ScrollReveal>
           <SectionHeading
