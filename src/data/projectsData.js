@@ -71,7 +71,7 @@ This project highlights real-time WebSocket communication, payment gateway integ
     id: "london-cert",
     title: "London Cert (londoner.co.uk) — Dynamic Full-Stack Platform",
     description: "Full-stack CMS-driven production platform (londoner.co.uk) built with Next.js, Payload CMS, and PostgreSQL. Features dynamic Country → State → City location hierarchy and hosting on Render + HostingRaja Windows VPS via Plesk Panel.",
-    longDescription: `London Cert (londoner.co.uk) is a full-stack, CMS-driven production platform built for Quality Control Certification to automate SEO-focused certification page creation across global standards, industries, and locations.
+    longDescription: `London Cert (londoner.co.uk) is a full-stack, CMS-driven production platform built for B4Q Management Ltd. to automate SEO-focused certification page creation across global standards, industries, and locations.
 
 Key Highlights & Architecture:
 • Rebuilt legacy website into a modern full-stack Next.js application integrated with Payload CMS
@@ -93,7 +93,7 @@ Key Highlights & Architecture:
     github: null,
     live: null,
     isProprietary: true,
-    company: "Quality Control Certification",
+    company: "B4Q Management Ltd.",
     videoDemo: "",
     category: "Production",
     hasApiDependency: true,
@@ -124,7 +124,7 @@ Key Highlights & Architecture:
     github: null,
     live: null,
     isProprietary: true,
-    company: "Quality Control Certification",
+    company: "B4Q Management Ltd.",
     videoDemo: "",
     category: "Production",
     hasApiDependency: true,
@@ -133,8 +133,8 @@ Key Highlights & Architecture:
   {
     id: "qccertification",
     title: "QCCertification Portal",
-    description: "Core production web portal for Quality Control Certification built with Next.js component architecture, reusable templates, responsive layouts, and Core Web Vitals SEO optimization.",
-    longDescription: `QCCertification is the primary production web portal engineered for Quality Control Certification to support ISO standards and compliance workflows.
+    description: "Core production web portal for B4Q Management Ltd. built with Next.js component architecture, reusable templates, responsive layouts, and Core Web Vitals SEO optimization.",
+    longDescription: `QCCertification is the primary production web portal engineered for B4Q Management Ltd. to support ISO standards and compliance workflows.
 
 Key Highlights & Architecture:
 • Engineered Next.js frontend application to support ISO certification workflows and compliance standards
@@ -151,7 +151,7 @@ Key Highlights & Architecture:
     github: null,
     live: null,
     isProprietary: true,
-    company: "Quality Control Certification",
+    company: "B4Q Management Ltd.",
     videoDemo: "",
     category: "Production",
     hasApiDependency: false,

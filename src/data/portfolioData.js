@@ -36,7 +36,7 @@ export const bioData = {
 export const experienceData = [
   {
     role: "Full Stack Developer",
-    company: "Quality Control Certification",
+    company: "B4Q Management Ltd.",
     period: "July 2026 – Present (Ongoing)",
     location: "Delhi, India",
     description:
